@@ -1,0 +1,64 @@
+---
+const navItems = [
+  { label: 'Inicio', href: '#' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Contacto', href: '#contacto' },
+];
+---
+
+<header class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      <img src="/logo.svg" alt="Nexus" width="120" height="40" />
+    </a>
+    <nav class="navbar-nav">
+      <ul>
+        {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-logo img {
+    height: 40px;
+    width: auto;
+  }
+
+  .navbar-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .navbar-nav a {
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-nav a:hover {
+    color: var(--accent-default);
+  }
+</style>
