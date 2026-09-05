@@ -1,0 +1,24 @@
+:root {
+  /* Backgrounds */
+  --bg-primary: #1E1E1E;
+  --bg-deep: #0A0A0A;
+  --bg-surface: #1A1A1A;
+
+  /* Borders */
+  --border-default: #2E2E2E;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0A0;
+  --text-muted: #6B6B6B;
+
+  /* Accent (gold) */
+  --accent-default: #F5C542;
+  --accent-hover: #FDE9B0;
+  --accent-pressed: #B8860B;
+
+  /* Functional states */
+  --state-success: #4ADE80;
+  --state-error: #F87171;
+  --state-info: #60A5FA;
+}
