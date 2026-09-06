@@ -1,0 +1,165 @@
+---
+const statusProyects = [
+  {
+    label: "En Investigación",
+    status: "pending",
+    items: [
+      { text: "Nexus-Finance — control de gastos personales sin fricción" }
+    ]
+  },
+  {
+    label: "En Desarrollo",
+    status: "active",
+    items: [
+      { text: "Nexus-Focus — Tareas conectadas al ecosistema" }
+    ]
+  },
+  {
+    label: "Lanzados",
+    status: "empty",
+    items: [
+      { text: "El primer lanzamiento está en camino" }
+    ]
+  }
+]
+---
+
+<section class="section-proyects">
+  <span class="section-text-top">02 - Proyectos</span>
+  <h2>El ecosistema en construcción</h2>
+  <p>Cada herramienta nace de un problema real. Así es como avanza cada una.</p>
+
+  <div class="section-proyects-table">
+    <div class="section-proyects-top-progress"></div>
+
+    <div class="proyects-table">
+      {statusProyects.map((column) => (
+        <div class={`proyect-table-grid proyect-table-grid--${column.status}`}>
+          <label class="proyect-table-top-text">{column.label}</label>
+          <div class="proyect-table-content-text_status">
+            {column.items.map((item) => (
+              <div class="proyect-item">
+                <span class={`proyect-indicator proyect-indicator--${column.status}`}></span>
+                <span class="proyect-description">{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-proyects {
+    padding: 6rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-text-top {
+    display: block;
+    font-family: "Roboto Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--accent-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-proyects h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .section-proyects p {
+    font-family: "Inter", sans-serif;
+    color: #a0a0a0;
+    max-width: 560px;
+    margin-bottom: 3rem;
+  }
+
+  .section-proyects-table {
+    background-color: var(--bg-surface);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .section-proyects-top-progress {
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--accent-default) 0%,
+      rgba(245, 197, 66, 0.2) 100%
+    );
+  }
+
+  .proyects-table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    padding: 2.5rem 2rem;
+  }
+
+  .proyect-table-top-text {
+    display: block;
+    font-family: "Roboto Mono", monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.25rem;
+  }
+
+  .proyect-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .proyect-indicator {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+
+  .proyect-indicator--pending {
+    background-color: #6b6b6b;
+  }
+
+  .proyect-indicator--active {
+    background-color: var(--accent-default);
+    box-shadow:
+      0 0 8px rgba(245, 197, 66, 0.8),
+      0 0 16px rgba(245, 197, 66, 0.4);
+  }
+
+  .proyect-indicator--empty {
+    display: none;
+  }
+
+  .proyect-description {
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #d0d0d0;
+  }
+
+  .proyect-table-grid--empty .proyect-description {
+    font-style: italic;
+    color: #6b6b6b;
+  }
+
+  @media (max-width: 768px) {
+    .proyects-table {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

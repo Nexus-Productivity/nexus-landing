@@ -1,0 +1,219 @@
+---
+---
+
+<section class="section-encuesta">
+  <div class="encuesta-divider" aria-hidden="true"></div>
+
+  <div class="encuesta-content">
+    <span class="section-encuesta-top-text">04 - Escuchamos</span>
+    <h2>¿Qué problema te quita tiempo todos los días?</h2>
+    <p>
+      No estamos vendiendo nada. Cada respuesta se convierte en un problema
+      real que investigamos antes de construir. Así nace cada herramienta de
+      Nexus.
+    </p>
+
+    <form class="encuesta-form">
+      <div class="form-group">
+        <label for="problema">Cuéntanos:</label>
+        <textarea
+          id="problema"
+          name="problema"
+          rows="5"
+          placeholder="Ej: pierdo 20 minutos al día organizando tareas entre apps distintas..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email (opcional)"
+          class="form-email"
+        />
+        <button type="submit" class="encuesta-button">
+          Enviar mi respuesta
+        </button>
+      </div>
+
+      <p class="encuesta-disclaimer">
+        Tus respuestas se usan solo para definir qué construir. Nunca se
+        comparten ni se venden.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .section-encuesta {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 0 2rem 6rem;
+  }
+
+  /* --- Barra divisoria dorada --- */
+  .encuesta-divider {
+    width: 100%;
+    height: 3px;
+    margin-bottom: 5rem;
+    background: linear-gradient(
+      90deg,
+      var(--accent-default) 0%,
+      rgba(245, 197, 66, 0.15) 100%
+    );
+  }
+
+  .encuesta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .section-encuesta-top-text {
+    display: block;
+    font-family: "Roboto Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--accent-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .encuesta-content h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .encuesta-content > p {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary, #a0a0a0);
+    margin-bottom: 3rem;
+  }
+
+  .encuesta-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+  }
+
+  .form-group label {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  textarea,
+  .form-email {
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    color: #ffffff;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.6;
+  }
+
+  textarea::placeholder,
+  .form-email::placeholder {
+    color: var(--text-muted, #6b6b6b);
+  }
+
+  textarea:focus,
+  .form-email:focus {
+    border-color: var(--accent-default);
+    box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.15);
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .form-email {
+    flex: 1;
+  }
+
+  .encuesta-button {
+    flex-shrink: 0;
+    padding: 14px 28px;
+    background-color: var(--accent-default);
+    color: #0a0a0a;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background-color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .encuesta-button:hover {
+    background-color: var(--accent-hover, #fde9b0);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(245, 197, 66, 0.35);
+  }
+
+  .encuesta-button:active {
+    background-color: var(--accent-pressed, #b8860b);
+    color: #ffffff;
+    transform: translateY(0);
+  }
+
+  .encuesta-disclaimer {
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-muted, #6b6b6b);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 640px) {
+    .section-encuesta {
+      padding: 0 1.5rem 4rem;
+    }
+
+    .encuesta-divider {
+      margin-bottom: 3rem;
+    }
+
+    .form-row {
+      flex-direction: column;
+    }
+
+    .encuesta-button {
+      width: 100%;
+    }
+  }
+</style>

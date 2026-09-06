@@ -1,0 +1,142 @@
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <span>Connected tools, each built to solve something we actually went through.</span>
+    </div>
+    <span class="hero-sub-text">What started as one person's workaround is now the organization behind it — Nexus.</span>
+    <button class="hero-button">Explorar Proyectos</button>
+  </div>
+  <div class="hero-grid-2">
+    <span>N</span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 1rem 2rem;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+    gap: 2rem;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-grid-2 {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    transform: rotate(10deg);
+  }
+
+  .hero-grid-2 span {
+    font-family: "Public Stunt", sans-serif;
+    font-size: clamp(8rem, 20vw, 25rem);
+    font-weight: 700;
+    color: #ffffff;
+    cursor: default;
+    line-height: 1;
+
+    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.5))
+            drop-shadow(0 0 80px rgba(255, 255, 255, 0.25));
+
+    transition: filter 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .hero-text {
+    max-width: 520px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.5rem, 3vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+
+  /* Efecto "focus opaco" — halo difuminado detrás del texto */
+  .hero-text span {
+    text-shadow:
+      0 0 30px rgba(255, 255, 255, 0.35),
+      0 0 60px rgba(255, 255, 255, 0.2),
+      0 0 100px rgba(255, 255, 255, 0.1);
+  }
+
+  .hero-sub-text {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    display: block;
+    max-width: 480px;
+    line-height: 1.6;
+    margin: 1.75rem 0 2.5rem;
+    color: var(--text-secondary, #a0a0a0);
+  }
+
+  .hero-button {
+    align-self: flex-start;
+    padding: 14px 28px;
+    background-color: var(--accent-default);
+    color: #0a0a0a;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    transition: background-color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .hero-button:hover {
+    background-color: var(--accent-hover, #fde9b0);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(245, 197, 66, 0.35);
+  }
+
+  .hero-button:active {
+    background-color: var(--accent-pressed, #b8860b);
+    color: #ffffff;
+    transform: translateY(0);
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: 6rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .hero-content {
+      align-items: center;
+      order: 2;
+    }
+
+    .hero-text {
+      max-width: 100%;
+    }
+
+    .hero-sub-text {
+      max-width: 100%;
+    }
+
+    .hero-button {
+      align-self: center;
+    }
+
+    .hero-grid-2 {
+      order: 1;
+      transform: rotate(10deg) scale(0.6);
+      margin-bottom: -3rem;
+    }
+  }
+</style>

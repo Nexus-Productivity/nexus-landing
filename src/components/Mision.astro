@@ -1,0 +1,202 @@
+---
+import { BookOpen, Sparkles, Network, Zap } from "@lucide/astro";
+
+const cardsMision = [
+  {
+    icon: BookOpen,
+    title: "Fundamentos",
+    text: "Observamos cada problema, separamos hechos de suposiciones y recién entonces diseñamos la solución. Razón antes que opinión.",
+  },
+  {
+    icon: Sparkles,
+    title: "Simplicidad",
+    text: "Reducimos cada solución a lo esencial. Si añade complejidad sin valor, no entra. Simplicidad antes que complejidad.",
+  },
+  {
+    icon: Network,
+    title: "Conexión",
+    text: "Nada vive aislado: cada herramienta se conecta con el ecosistema y se integra con las demás. Una constelación, no piezas sueltas.",
+  },
+  {
+    icon: Zap,
+    title: "Acción",
+    text: "No nos quedamos en la teoría: convertimos el razonamiento en herramientas que se usan el día a día. Acción después del análisis.",
+  },
+];
+---
+
+<section class="section-mision">
+  <span class="section-mision-top-text">01 - Misión</span>
+  <div class="section-mision-content">
+    <h2>¿Qué es NEXUS?</h2>
+    <p>
+      NEXUS resuelve los problemas simples del día a día con la seriedad de
+      una organización. <br /> No construimos software por construir: observamos
+      problemas reales, los conectamos con soluciones sencillas y las entregamos
+      listas para usar. Simple no es menos: es después de pensar. Cada solución
+      es un nodo; el ecosistema, la constelación que los une.
+    </p>
+    <p>
+      Nuestra misión se construye en tres actos: observar, conectar y resolver.
+      Primero, observamos para detectar los problemas reales que cada día nos
+      roban tiempo y generan fricción. Luego, conectamos cada problema con la
+      solución correcta, buscando siempre el camino más simple y eficiente.
+      Finalmente, resolvemos creando herramientas que funcionan, que eliminan
+      la fricción y que pueden entenderse desde el primer uso.
+    </p>
+  </div>
+  <div class="section-mision-cards">
+    {
+      cardsMision.map((card) => (
+        <div class="card-mision">
+          <card.icon size={48} class="mision-card-icon" />
+          <label>{card.title}</label>
+          <p>{card.text}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section-mision {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 6rem 2rem;
+  }
+
+  .section-mision-top-text {
+    display: block;
+    font-family: "Roboto Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--accent-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-mision-content h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-mision-content p {
+    font-family: "Inter", sans-serif;
+    line-height: 1.8;
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    color: var(--text-secondary, #a0a0a0);
+    max-width: 720px;
+  }
+
+  .section-mision-content p:first-of-type {
+    margin-top: 0;
+  }
+
+  .section-mision-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 5rem;
+    gap: 1.5rem;
+  }
+
+  .card-mision {
+    background-color: var(--bg-surface);
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 260px;
+    padding: 2rem 1.5rem;
+    border-radius: 10px;
+    font-family: "Roboto Mono", monospace;
+    border: 1px solid var(--border-default);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.35),
+      0 1px 3px rgba(0, 0, 0, 0.25);
+
+    transition:
+      border-color 500ms ease,
+      box-shadow 500ms ease,
+      transform 500ms ease;
+  }
+
+  .card-mision:hover {
+    border-color: var(--accent-default);
+    transform: translateY(-4px);
+
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.35),
+      0 0 20px rgba(245, 197, 66, 0.15),
+      0 0 50px rgba(245, 197, 66, 0.1),
+      0 0 90px rgba(245, 197, 66, 0.06);
+  }
+
+  .card-mision::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(245, 197, 66, 0.08),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 500ms ease;
+    pointer-events: none;
+  }
+
+  .card-mision:hover::before {
+    opacity: 1;
+  }
+
+  .card-mision label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .card-mision p {
+    max-width: 260px;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b6b6b);
+  }
+
+  .mision-card-icon {
+    color: #ffffff;
+    margin-bottom: 6px;
+    transition: color 500ms ease;
+  }
+
+  .card-mision:hover .mision-card-icon {
+    color: var(--accent-default);
+  }
+
+  @media (max-width: 1024px) {
+    .section-mision-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .section-mision-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .card-mision p {
+      max-width: 100%;
+    }
+  }
+</style>
