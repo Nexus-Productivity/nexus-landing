@@ -9,6 +9,8 @@ const navItems = [
 ];
 ---
 
+<div class="top-banner">Estamos construyendo NEXUS!</div>
+
 <header class="navbar">
   <div class="navbar-container">
     <a href="/" class="navbar-logo">
@@ -33,9 +35,30 @@ const navItems = [
 </header>
 
 <style>
-  .navbar {
+  .top-banner {
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-default);
+    color: #000;
+    font-family: "Inter", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 36px;
     left: 0;
     right: 0;
     z-index: 100;

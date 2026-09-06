@@ -37,14 +37,14 @@ body {
   line-height: 1.6;
 }
 
-/* Compensar la navbar fija al navegar con anclas */
+/* Compensar la navbar fija (+banner) al navegar con anclas */
 section[id] {
-  scroll-margin-top: 160px;
+  scroll-margin-top: 200px;
 }
 
 @media (max-width: 900px) {
   section[id] {
-    scroll-margin-top: 80px;
+    scroll-margin-top: 115px;
   }
 }
 
