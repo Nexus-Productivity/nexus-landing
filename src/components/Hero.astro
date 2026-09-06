@@ -20,6 +20,7 @@
     padding: 1rem 2rem;
     align-items: center;
     min-height: 100vh;
+    min-height: 100svh;
     background-color: var(--bg-primary);
     gap: 2rem;
   }
@@ -38,7 +39,7 @@
 
   .hero-grid-2 span {
     font-family: "Public Stunt", sans-serif;
-    font-size: clamp(8rem, 20vw, 25rem);
+    font-size: clamp(10rem, 24vw, 30rem);
     font-weight: 700;
     color: #ffffff;
     cursor: default;
@@ -111,7 +112,6 @@
   @media (max-width: 900px) {
     .hero {
       grid-template-columns: 1fr;
-      min-height: auto;
       padding: 6rem 1.5rem 3rem;
       text-align: center;
     }
@@ -135,8 +135,9 @@
 
     .hero-grid-2 {
       order: 1;
-      transform: rotate(10deg) scale(0.6);
-      margin-bottom: -3rem;
+      transform: rotate(10deg) scale(0.9);
+      margin-top: 6rem;
+      margin-bottom: -2rem;
     }
   }
 </style>
