@@ -5,7 +5,6 @@ const navItems = [
   { label: 'Proyectos', href: '#' },
   { label: 'Filosofia', href: '#servicios' },
   { label: 'Escuchanos', href: '#contacto' },
-  { label: 'Escuchanos', href: '#contacto' },
 ];
 ---
 
@@ -16,11 +15,17 @@ const navItems = [
       <span class="logo">NEXUS</span>
     </a>
     <nav class="navbar-nav">
-      <ul>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-hidden="true" />
+      <label for="menu-toggle" class="menu-icon" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <ul class="nav-menu">
         {navItems.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
-      <button class="button">Explorar Proyectos</button>
+        <li><button class="button">Explorar Proyectos</button></li>
       </ul>
     </nav>
   </div>
@@ -73,7 +78,12 @@ const navItems = [
     color: var(--text-primary);
   }
 
-  .navbar-nav ul {
+  .menu-toggle,
+  .menu-icon {
+    display: none;
+  }
+
+  .nav-menu {
     display: flex;
     gap: 2rem;
     list-style: none;
@@ -95,9 +105,78 @@ const navItems = [
     font-family: "Inter", sans-serif;
     font-weight: 500;
     background-color: var(--accent-default);
-    padding: 10px;
+    padding: 10px 18px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+  }
+
+  /* --- Responsive móvil: barra compacta + menú hamburguesa --- */
+  @media (max-width: 900px) {
+    .navbar-container {
+      height: 72px;
+      padding: 0.5rem 1.25rem;
+    }
+
+    .logo-star {
+      top: -22px;
+      right: 44px;
+      height: 72px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px 4px;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--text-primary);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+      background-color: var(--bg-primary);
+      border-bottom: 1px solid var(--border-default);
+      padding: 1.25rem 1.5rem 1.75rem;
+    }
+
+    .menu-toggle:checked ~ .nav-menu {
+      display: flex;
+    }
+
+    .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle:checked ~ .menu-icon span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle:checked ~ .menu-icon span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-menu .button {
+      align-self: flex-start;
+    }
   }
 </style>
