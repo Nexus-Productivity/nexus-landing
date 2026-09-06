@@ -1,21 +1,26 @@
 ---
+import starUrl from '../assets/star.svg?url';
+
 const navItems = [
-  { label: 'Inicio', href: '#' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Proyectos', href: '#' },
+  { label: 'Filosofia', href: '#servicios' },
+  { label: 'Escuchanos', href: '#contacto' },
+  { label: 'Escuchanos', href: '#contacto' },
 ];
 ---
 
 <header class="navbar">
   <div class="navbar-container">
     <a href="/" class="navbar-logo">
-      <img src="/Logo.png" alt="Nexus" width="400" height="100" />
+      <img class="logo-star" src={starUrl} alt="Estrella Nexus" />
+      <span class="logo">NEXUS</span>
     </a>
     <nav class="navbar-nav">
       <ul>
         {navItems.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
+      <button class="button">Explorar Proyectos</button>
       </ul>
     </nav>
   </div>
@@ -29,11 +34,11 @@ const navItems = [
     right: 0;
     z-index: 100;
     background-color: var(--bg-primary);
-    border-bottom: 1px solid var(--border-default);
   }
 
   .navbar-container {
-    max-width: 1200px;
+    height: 150px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 1rem 2rem;
     display: flex;
@@ -41,24 +46,55 @@ const navItems = [
     justify-content: space-between;
   }
 
-  .navbar-logo img {
-    height: 80px;
+  .navbar-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .logo-star {
+    position: absolute;
+    top: -76px;
+    right: 88px;
     width: auto;
+    scale: 1.5;
+    transform: rotate(-19deg);
+  }
+
+.logo {
+    font-family: 'Public Stunt', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
   }
 
   .navbar-nav ul {
     display: flex;
     gap: 2rem;
     list-style: none;
+    align-items: center;
   }
 
   .navbar-nav a {
     color: var(--text-secondary);
-    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
     transition: color 0.2s ease;
   }
 
   .navbar-nav a:hover {
     color: var(--accent-default);
+  }
+
+  .button {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    background-color: var(--accent-default);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
   }
 </style>
