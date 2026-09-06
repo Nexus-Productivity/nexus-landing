@@ -2,9 +2,10 @@
 import starUrl from '../assets/star.svg?url';
 
 const navItems = [
-  { label: 'Proyectos', href: '#' },
-  { label: 'Filosofia', href: '#servicios' },
-  { label: 'Escuchanos', href: '#contacto' },
+  { label: 'Proyectos', href: '#proyectos' },
+  { label: 'Filosofia', href: '#mision' },
+  { label: 'Metodo', href: '#metodo' },
+  { label: 'Escuchanos', href: '#escuchanos' },
 ];
 ---
 
@@ -180,3 +181,13 @@ const navItems = [
     }
   }
 </style>
+
+<script>
+  // En móvil: cerrar el menú hamburguesa al elegir una opción
+  const menuToggle = document.getElementById('menu-toggle');
+  document.querySelectorAll('.nav-menu a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (menuToggle) menuToggle.checked = false;
+    });
+  });
+</script>

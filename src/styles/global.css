@@ -29,11 +29,23 @@ html {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: var(--text-primary);
   background-color: var(--bg-primary);
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
   line-height: 1.6;
+}
+
+/* Compensar la navbar fija al navegar con anclas */
+section[id] {
+  scroll-margin-top: 160px;
+}
+
+@media (max-width: 900px) {
+  section[id] {
+    scroll-margin-top: 80px;
+  }
 }
 
 a {
