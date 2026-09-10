@@ -1,10 +1,10 @@
 <section class="hero">
   <div class="hero-content">
     <div class="hero-text">
-      <span>Herramientas conectadas, cada una construida para resolver algo que realmente atravesamos.</span>
+      <span>Nexus conecta lo que está separado&nbsp;—&nbsp;personas, herramientas y datos.</span>
     </div>
-    <span class="hero-sub-text">Lo que empezó como una solución de una sola persona es ahora la organización que está detrás — Nexus.</span>
-    <button class="hero-button">Explorar Proyectos</button>
+    <span class="hero-sub-text">Soluciones simples y precisas, construidas de a módulos validados: de la productividad personal a la finanza de un negocio que no se modernizó.</span>
+    <a href="#proyectos" class="hero-button">Explorar Proyectos</a>
   </div>
   <div class="hero-grid-2">
     <span>N</span>
@@ -17,7 +17,8 @@
     grid-template-columns: repeat(2, 1fr);
     margin: 0 auto;
     max-width: 1400px;
-    padding: 1rem 2rem;
+    /* Banner (36px) + navbar (150px) fijos: baja el contenido al centro óptico de la zona visible */
+    padding: min(16rem, 28vh) 2rem 4rem;
     align-items: center;
     min-height: 100vh;
     min-height: 100svh;
@@ -80,6 +81,9 @@
   }
 
   .hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     align-self: flex-start;
     padding: 14px 28px;
     background-color: var(--accent-default);
@@ -87,6 +91,7 @@
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
+    text-decoration: none;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -99,7 +104,7 @@
   .hero-button:hover {
     background-color: var(--accent-hover, #fde9b0);
     transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(245, 197, 66, 0.35);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
   }
 
   .hero-button:active {
@@ -112,7 +117,8 @@
   @media (max-width: 900px) {
     .hero {
       grid-template-columns: 1fr;
-      padding: 6rem 1.5rem 3rem;
+      /* Banner (36px) + navbar móvil (72px) fijos */
+      padding: 9rem 1.5rem 3rem;
       text-align: center;
     }
 

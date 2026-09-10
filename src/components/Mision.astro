@@ -63,16 +63,21 @@ const cardsMision = [
     margin: 0 auto;
     max-width: 1400px;
     padding: 6rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+    align-items: start;
   }
 
   .section-mision-top-text {
     display: block;
+    grid-column: 1 / -1;
     font-family: "Roboto Mono", monospace;
     font-size: 0.85rem;
     color: var(--accent-default);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
+    margin-bottom: 2rem;
   }
 
   .section-mision-content h2 {
@@ -89,7 +94,7 @@ const cardsMision = [
     margin-top: 1.5rem;
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     color: var(--text-secondary, #a0a0a0);
-    max-width: 720px;
+    max-width: 100%;
   }
 
   .section-mision-content p:first-of-type {
@@ -98,8 +103,8 @@ const cardsMision = [
 
   .section-mision-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: 5rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 0;
     gap: 1.5rem;
   }
 
@@ -136,9 +141,9 @@ const cardsMision = [
 
     box-shadow:
       0 4px 12px rgba(0, 0, 0, 0.35),
-      0 0 20px rgba(245, 197, 66, 0.15),
-      0 0 50px rgba(245, 197, 66, 0.1),
-      0 0 90px rgba(245, 197, 66, 0.06);
+      0 0 20px rgba(212, 175, 55, 0.15),
+      0 0 50px rgba(212, 175, 55, 0.1),
+      0 0 90px rgba(212, 175, 55, 0.06);
   }
 
   .card-mision::before {
@@ -147,7 +152,7 @@ const cardsMision = [
     inset: 0;
     background: radial-gradient(
       circle at 50% 0%,
-      rgba(245, 197, 66, 0.08),
+      rgba(212, 175, 55, 0.08),
       transparent 70%
     );
     opacity: 0;
@@ -185,8 +190,14 @@ const cardsMision = [
   }
 
   @media (max-width: 1024px) {
+    .section-mision {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
     .section-mision-cards {
       grid-template-columns: repeat(2, 1fr);
+      margin-top: 3rem;
     }
   }
 

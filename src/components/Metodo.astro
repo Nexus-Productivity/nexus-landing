@@ -50,7 +50,9 @@ const principios = [
   </div>
 
   <div class="metodo-grid-n">
-    <span>N</span>
+    <div class="metodo-grid-n-stage">
+      <span>N</span>
+    </div>
   </div>
 </section>
 
@@ -62,7 +64,8 @@ const principios = [
     gap: 3rem;
     margin: 0 auto;
     max-width: 1400px;
-    padding: 6rem 2rem;
+    /* Más aire abajo para separar del módulo siguiente */
+    padding: 6rem 2rem 9rem;
   }
 
   .section-metodo-top-text {
@@ -145,24 +148,67 @@ const principios = [
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 
-  .metodo-grid-n span {
+  .metodo-grid-n-stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(24rem, 100%);
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--border-default);
+    border-radius: 2rem;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.14), transparent 62%),
+      var(--bg-surface);
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  /* Estrellas doradas — constelación, estética Nexus */
+  .metodo-grid-n-stage::before,
+  .metodo-grid-n-stage::after {
+    content: "✦";
+    position: absolute;
+    color: var(--accent-default);
+    font-size: 1.15rem;
+    line-height: 1;
+    opacity: 0.9;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+  }
+
+  .metodo-grid-n-stage::before {
+    top: 1.5rem;
+    left: 1.75rem;
+  }
+
+  .metodo-grid-n-stage::after {
+    right: 1.75rem;
+    bottom: 1.5rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .metodo-grid-n-stage span {
     font-family: "Public Stunt", sans-serif;
-    font-size: clamp(6rem, 16vw, 18rem);
+    font-size: clamp(7rem, 15vw, 13rem);
     font-weight: 700;
     line-height: 1;
     color: #ffffff;
+    display: block;
 
-    filter: drop-shadow(0 0 30px rgba(245, 197, 66, 0.45))
-            drop-shadow(0 0 70px rgba(245, 197, 66, 0.2));
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.45))
+            drop-shadow(0 0 70px rgba(212, 175, 55, 0.2));
   }
 
   /* --- Responsive --- */
   @media (max-width: 900px) {
     .section-metodo {
       grid-template-columns: 1fr;
-      padding: 4rem 1.5rem;
+      padding: 4rem 1.5rem 6rem;
       text-align: center;
     }
 
@@ -172,11 +218,15 @@ const principios = [
 
     .metodo-grid-n {
       order: -1;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
-    .metodo-grid-n span {
-      font-size: clamp(5rem, 30vw, 8rem);
+    .metodo-grid-n-stage {
+      width: min(17rem, 100%);
+    }
+
+    .metodo-grid-n-stage span {
+      font-size: clamp(4rem, 24vw, 6.5rem);
     }
   }
 </style>
