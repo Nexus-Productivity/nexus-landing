@@ -12,10 +12,10 @@
   --text-secondary: #A0A0A0;
   --text-muted: #6B6B6B;
 
-  /* Accent (gold) */
-  --accent-default: #F5C542;
-  --accent-hover: #FDE9B0;
-  --accent-pressed: #B8860B;
+  /* Accent (gold — marca: #D4AF37) */
+  --accent-default: #D4AF37;
+  --accent-hover: #E8C968;
+  --accent-pressed: #A8862B;
 
   /* Functional states */
   --state-success: #4ADE80;
