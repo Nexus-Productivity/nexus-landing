@@ -1,6 +1,7 @@
 ---
-import grainientUrl from '../assets/grainient-bg-vp9.webm?url';
-import grainientClaroUrl from '../assets/grainient-white-vp9.webm?url';
+import grainientWebmUrl from '../assets/grainient-white-vp9.webm?url';
+import grainientMp4Url from '../assets/grainient-white-vp9.mp4?url';
+import grainientPosterUrl from '../assets/grainient-white-poster.jpg?url';
 
 const WHATSAPP = '573237453913';
 
@@ -44,29 +45,30 @@ const trust = [
        BACKGROUND
        ===================================================== -->
 
+  <!--
+    Un solo video (versión clara: el tema por defecto es claro).
+
+    Móvil/Safari: iOS no reproduce WebM/VP9 en <video>, por eso hay
+    fallback MP4 (H.264). El `poster` cubre el arranque y el caso
+    de autoplay bloqueado (modo ahorro de batería) para que nunca
+    se vea un recuadro negro.
+  -->
   <video
     class="hero-video"
-    src={grainientUrl}
     autoplay
     muted
     loop
     playsinline
     preload="metadata"
+    poster={grainientPosterUrl}
+    disablepictureinpicture
+    disableremoteplayback
     aria-hidden="true"
     tabindex="-1"
-  ></video>
-
-  <video
-    class="hero-video-light"
-    src={grainientClaroUrl}
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    aria-hidden="true"
-    tabindex="-1"
-  ></video>
+  >
+    <source src={grainientWebmUrl} type="video/webm" />
+    <source src={grainientMp4Url} type="video/mp4" />
+  </video>
 
   <div class="hero-overlay" aria-hidden="true"></div>
 
@@ -263,8 +265,7 @@ const trust = [
      BACKGROUND
      ========================================================= */
 
-  .hero-video,
-  .hero-video-light {
+  .hero-video {
     position: absolute;
 
     inset: 0;
@@ -273,20 +274,13 @@ const trust = [
     height: 100%;
 
     object-fit: cover;
+    object-position: center;
 
     z-index: -3;
 
-    pointer-events: none;
-  }
-
-  .hero-video {
-    opacity: 0.72;
-  }
-
-  .hero-video-light {
-    display: none;
-
     opacity: 0.75;
+
+    pointer-events: none;
   }
 
 
@@ -306,31 +300,6 @@ const trust = [
     background:
       linear-gradient(
         90deg,
-        rgba(0, 0, 0, 0.78) 0%,
-        rgba(0, 0, 0, 0.5) 42%,
-        rgba(0, 0, 0, 0.15) 75%,
-        rgba(0, 0, 0, 0.25) 100%
-      ),
-      linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.65) 0%,
-        rgba(0, 0, 0, 0.05) 55%
-      );
-  }
-
-
-  :global([data-theme='light']) .hero-video {
-    display: none;
-  }
-
-  :global([data-theme='light']) .hero-video-light {
-    display: block;
-  }
-
-  :global([data-theme='light']) .hero-overlay {
-    background:
-      linear-gradient(
-        90deg,
         rgba(255, 255, 255, 0.88) 0%,
         rgba(255, 255, 255, 0.55) 45%,
         rgba(255, 255, 255, 0.12) 78%,
@@ -340,6 +309,24 @@ const trust = [
         0deg,
         rgba(255, 255, 255, 0.5) 0%,
         rgba(255, 255, 255, 0) 60%
+      );
+  }
+
+
+  /* Tema oscuro (si algún día vuelve el toggle) */
+  :global([data-theme='dark']) .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.78) 0%,
+        rgba(0, 0, 0, 0.5) 42%,
+        rgba(0, 0, 0, 0.15) 75%,
+        rgba(0, 0, 0, 0.25) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0.05) 55%
       );
   }
 
@@ -915,8 +902,7 @@ const trust = [
 
   @media (prefers-reduced-motion: reduce) {
 
-    .hero-video,
-    .hero-video-light {
+    .hero-video {
       display: none;
     }
 
@@ -966,6 +952,12 @@ const trust = [
         10vw,
         5rem
       );
+
+      text-wrap: balance;
+    }
+
+    .hero-description {
+      text-wrap: pretty;
     }
 
     .hero-description {
@@ -995,17 +987,17 @@ const trust = [
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.55) 0%,
-          rgba(0, 0, 0, 0.75) 100%
+          rgba(255, 255, 255, 0.55) 0%,
+          rgba(255, 255, 255, 0.82) 100%
         );
     }
 
-    :global([data-theme='light']) .hero-overlay {
+    :global([data-theme='dark']) .hero-overlay {
       background:
         linear-gradient(
           180deg,
-          rgba(255, 255, 255, 0.5) 0%,
-          rgba(255, 255, 255, 0.8) 100%
+          rgba(0, 0, 0, 0.55) 0%,
+          rgba(0, 0, 0, 0.75) 100%
         );
     }
   }

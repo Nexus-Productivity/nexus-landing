@@ -19,30 +19,21 @@ const { title } = Astro.props;
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
 		{/*
-			Aplica el tema antes del primer paint.
+			El tema del sitio es CLARO por defecto (decisión del CEO:
+			no hay toggle, la web es clara siempre).
 
-			Tiene que ir acá, en el `<head>`, y con `is:inline`: un `<script>`
-			normal de Astro se empaqueta y se ejecuta diferido, o sea DESPUÉS
-			de que la página ya se pintó — y eso produce el flash de tema
-			equivocado al cargar (medio segundo de negro en modo claro).
-			`is:inline` lo deja como está, ejecutándose en el momento.
-
-			Prioridad: lo que el usuario eligió > `prefers-color-scheme` del
-			sistema > noche (que es el diseño base).
+			Se fija acá, en el `<head>` y con `is:inline`, antes del
+			primer paint, para que no haya flash de otro tema al cargar.
+			Se limpia además la preferencia vieja de localStorage para
+			que nadie quede atascado en el tema oscuro anterior.
 		*/}
 		<script is:inline>
-			(function () {
-				try {
-					var guardado = localStorage.getItem('nexus-theme');
-					var sistema = window.matchMedia('(prefers-color-scheme: light)').matches
-						? 'light'
-						: 'dark';
-					document.documentElement.dataset.theme = guardado || sistema;
-				} catch (e) {
-					/* localStorage bloqueado (modo privado): se queda en noche. */
-					document.documentElement.dataset.theme = 'dark';
-				}
-			})();
+			document.documentElement.dataset.theme = 'light';
+			try {
+				localStorage.removeItem('nexus-theme');
+			} catch (e) {
+				/* localStorage bloqueado: no pasa nada. */
+			}
 		</script>
 		<title>{title} | Nexus</title>
 	</head>
