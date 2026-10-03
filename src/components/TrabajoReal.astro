@@ -48,21 +48,11 @@ const cases = [
         <article class="case-card">
 
           <div class="case-visual">
-            {item.image ? (
-              <img src={item.image} alt={`Captura del sitio de ${item.name}`} loading="lazy" />
-            ) : (
-              /* Marcador hasta tener la captura real del proyecto */
-              <div class="case-placeholder" aria-hidden="true">
-                <span class="placeholder-bar"></span>
-                <span class="placeholder-bar short"></span>
-                <div class="placeholder-hero"></div>
-                <div class="placeholder-row">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-            )}
+            <img
+              src={item.image}
+              alt={`Logo de ${item.name}`}
+              loading="lazy"
+            />
 
             <span class="case-live">
               <span class="live-dot"></span>
@@ -213,84 +203,66 @@ const cases = [
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
   }
 
-  /* ---------- Visual ---------- */
+  /* ---------- Visual: logo del caso ---------- */
 
   .case-visual {
     position: relative;
 
-    min-height: 320px;
+    display: grid;
+    place-items: center;
+
+    min-height: 300px;
+
+    padding: 2.5rem 2rem;
 
     border-right: 1px solid var(--border-default);
 
     background:
       radial-gradient(
-        ellipse at 30% 20%,
-        rgba(212, 175, 55, 0.08),
-        transparent 60%
-      );
+        ellipse at 50% 42%,
+        rgba(212, 175, 55, 0.1),
+        transparent 65%
+      ),
+      var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    overflow: hidden;
+  }
+
+  /* Anillo dorado fino detrás del logo */
+  .case-visual::before {
+    content: '';
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    border-radius: 50%;
+  }
+
+  .case-visual::after {
+    content: '';
+
+    position: absolute;
+
+    width: 340px;
+    height: 340px;
+
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    border-radius: 50%;
   }
 
   .case-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    position: relative;
+    z-index: 1;
 
-  /* Marcador mientras no hay captura real */
-  .case-placeholder {
-    position: absolute;
-    inset: 2rem;
+    width: auto;
+    height: 180px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
+    object-fit: contain;
 
-    padding: 1.4rem;
-
-    border: 1px solid var(--border-default);
-    border-radius: 12px;
-
-    background: var(--bg-deep, rgba(0, 0, 0, 0.25));
-  }
-
-  .placeholder-bar {
-    width: 55%;
-    height: 8px;
-
-    border-radius: 999px;
-
-    background: var(--border-default);
-  }
-
-  .placeholder-bar.short {
-    width: 32%;
-  }
-
-  .placeholder-hero {
-    flex: 1;
-
-    border-radius: 8px;
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(212, 175, 55, 0.16),
-        rgba(212, 175, 55, 0.03)
-      );
-  }
-
-  .placeholder-row {
-    display: flex;
-    gap: 0.7rem;
-  }
-
-  .placeholder-row span {
-    flex: 1;
-    height: 26px;
-
-    border-radius: 6px;
-
-    background: var(--border-default);
+    filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.16));
   }
 
   .case-live {
@@ -481,10 +453,26 @@ const cases = [
     }
 
     .case-visual {
-      min-height: 240px;
+      min-height: 220px;
+
+      padding: 2rem 1.5rem;
 
       border-right: none;
       border-bottom: 1px solid var(--border-default);
+    }
+
+    .case-visual::before {
+      width: 220px;
+      height: 220px;
+    }
+
+    .case-visual::after {
+      width: 270px;
+      height: 270px;
+    }
+
+    .case-visual img {
+      height: 140px;
     }
   }
 </style>
