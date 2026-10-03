@@ -36,13 +36,18 @@ const description =
     <meta property="og:site_name" content={marca} />
     <meta property="og:title" content={`${title} | ${marca}`} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/Logo.png" />
+    {/* Absoluta a propósito: WhatsApp, Instagram y Slack descartan las
+        rutas relativas al pedir la miniatura, y el preview salía sin
+        imagen. Se arma con `site` de astro.config para que el dominio
+        esté en un solo lugar. */}
+    <meta property="og:image" content={new URL('/Logo.png', Astro.site)} />
+    <meta property="og:url" content={Astro.url.href} />
     <meta property="og:locale" content="es_CO" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | ${marca}`} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/Logo.png" />
+    <meta name="twitter:image" content={new URL('/Logo.png', Astro.site)} />
 
     <meta name="theme-color" content="#d4af37" />
 
