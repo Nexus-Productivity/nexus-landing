@@ -1,232 +1,279 @@
 ---
-const principios = [
+const pasos = [
   {
-    numero: "01",
-    titulo: "Simplicidad",
-    texto: "Lo esencial, nada más. La complejidad se gana, no se asume.",
+    n: '01',
+    name: 'Escuchamos',
+    text: 'Nos cuentas tu negocio por WhatsApp o en una llamada corta. Sin formularios eternos ni jerga técnica.',
+    detail: 'Tú hablas, nosotros tomamos nota.',
   },
   {
-    numero: "02",
-    titulo: "Verdad",
-    texto: "Los hechos antes que la opinión. Observamos antes de construir.",
+    n: '02',
+    name: 'Propuesta cerrada',
+    text: 'Te enviamos una propuesta escrita: qué se hará, en cuánto tiempo y a qué precio. Ese precio no se mueve.',
+    detail: 'Todo por escrito antes de pagar un peso.',
   },
   {
-    numero: "03",
-    titulo: "Acción",
-    texto: "La teoría no resuelve nada. Construimos, probamos, ajustamos.",
+    n: '03',
+    name: 'Construimos',
+    text: 'Trabajamos y te mostramos avances. Tienes 2 rondas de ajustes incluidas para dejarlo como lo quieres.',
+    detail: 'Avances visibles, no promesas.',
   },
   {
-    numero: "04",
-    titulo: "Autonomía",
-    texto: "Cada herramienta funciona sola. Ninguna depende de la otra.",
+    n: '04',
+    name: 'Entregamos y cuidamos',
+    text: 'Te entregamos todo a tu nombre: dominio, accesos y archivos. Y si quieres, lo seguimos cuidando.',
+    detail: 'El dominio y el sitio son tuyos. Siempre.',
   },
 ];
 ---
 
-<section class="section-metodo" id="metodo">
-  <div class="metodo-content">
-    <span class="section-metodo-top-text">03 - Método</span>
-    <h2>Cómo pensamos</h2>
-    <p>Cuatro principios no negociables detrás de cada decisión.</p>
+<section class="metodo" id="metodo" aria-labelledby="metodo-title">
+  <div class="metodo-container">
 
-    <div class="metodo-lista">
-      {
-        principios.map((item, index) => (
-          <>
-            <div class="metodo-item">
-              <span class="metodo-numero">{item.numero}</span>
-              <div class="metodo-item-text">
-                <label>{item.titulo}</label>
-                <p>{item.texto}</p>
-              </div>
-            </div>
-            {index < principios.length - 1 && (
-              <div class="metodo-conector" aria-hidden="true"></div>
-            )}
-          </>
-        ))
-      }
-    </div>
-  </div>
+    <header class="metodo-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Cómo trabajamos
+      </div>
 
-  <div class="metodo-grid-n">
-    <div class="metodo-grid-n-stage">
-      <span>N</span>
-    </div>
+      <h2 id="metodo-title" class="metodo-title">
+        Qué pasa después
+        <span>de decir que sí.</span>
+      </h2>
+
+      <p class="metodo-lead">
+        Cuatro pasos, sin sorpresas. Siempre sabes
+        en qué va tu proyecto y qué sigue.
+      </p>
+    </header>
+
+    <ol class="metodo-steps" role="list">
+      {pasos.map((paso, i) => (
+        <li class="step-item">
+          {i < pasos.length - 1 && (
+            <span class="step-connector" aria-hidden="true"></span>
+          )}
+
+          <span class="step-number">{paso.n}</span>
+
+          <div class="step-body">
+            <h3>{paso.name}</h3>
+            <p class="step-text">{paso.text}</p>
+            <span class="step-detail">{paso.detail}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+
   </div>
 </section>
 
 <style>
-  .section-metodo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 3rem;
+  .metodo {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+  }
+
+  .metodo-container {
+    max-width: 1200px;
     margin: 0 auto;
-    max-width: 1400px;
-    /* Más aire abajo para separar del módulo siguiente */
-    padding: 6rem 2rem 9rem;
   }
 
-  .section-metodo-top-text {
-    display: block;
-    font-family: "Roboto Mono", monospace;
-    font-size: 0.85rem;
-    color: var(--accent-default);
+  /* ---------- Header ---------- */
+
+  .metodo-header {
+    max-width: 640px;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
+
+    color: var(--accent-text, var(--accent-default));
   }
 
-  .metodo-content h2 {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 1rem;
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
   }
 
-  .metodo-content > p {
-    font-family: "Inter", sans-serif;
-    font-size: 1rem;
-    color: var(--text-secondary, #a0a0a0);
-    margin-bottom: 3rem;
+  .metodo-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
   }
 
-  .metodo-lista {
+  .metodo-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .metodo-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .metodo-lead {
+    margin: 1.2rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Pasos ---------- */
+
+  .metodo-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    counter-reset: paso;
+  }
+
+  .step-item {
+    position: relative;
+
     display: flex;
     flex-direction: column;
-  }
 
-  .metodo-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-  }
+    padding: 1.7rem 1.5rem;
 
-  .metodo-numero {
-    font-family: "Roboto Mono", monospace;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--accent-default);
-    opacity: 0.6;
-    min-width: 2.5rem;
-    line-height: 1.3;
-    transition: opacity 0.3s ease;
-  }
-
-  .metodo-item:hover .metodo-numero {
-    opacity: 1;
-  }
-
-  .metodo-item-text label {
-    display: block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.4rem;
-  }
-
-  .metodo-item-text p {
-    font-family: "Inter", sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-secondary, #a0a0a0);
-    margin: 0;
-  }
-
-  .metodo-conector {
-    width: 1px;
-    height: 2rem;
-    background-color: var(--border-default);
-    margin-left: calc(2.5rem + 0.75rem);
-  }
-
-  /* --- La "N" decorativa --- */
-  .metodo-grid-n {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-
-  .metodo-grid-n-stage {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: min(24rem, 100%);
-    aspect-ratio: 1 / 1;
     border: 1px solid var(--border-default);
-    border-radius: 2rem;
-    background:
-      radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.14), transparent 62%),
-      var(--bg-surface);
-    box-shadow:
-      0 8px 40px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease;
   }
 
-  /* Estrellas doradas — constelación, estética Nexus */
-  .metodo-grid-n-stage::before,
-  .metodo-grid-n-stage::after {
-    content: "✦";
+  .step-item:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-3px);
+  }
+
+  .step-connector {
     position: absolute;
-    color: var(--accent-default);
-    font-size: 1.15rem;
-    line-height: 1;
-    opacity: 0.9;
-    text-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+    top: 2.35rem;
+    right: -1rem;
+
+    width: 1rem;
+    height: 1px;
+
+    background: linear-gradient(
+      90deg,
+      rgba(212, 175, 55, 0.5),
+      rgba(212, 175, 55, 0.1)
+    );
   }
 
-  .metodo-grid-n-stage::before {
-    top: 1.5rem;
-    left: 1.75rem;
-  }
+  .step-number {
+    display: grid;
+    place-items: center;
 
-  .metodo-grid-n-stage::after {
-    right: 1.75rem;
-    bottom: 1.5rem;
-    font-size: 0.8rem;
-    opacity: 0.7;
-  }
+    width: 42px;
+    height: 42px;
 
-  .metodo-grid-n-stage span {
-    font-family: "Public Stunt", sans-serif;
-    font-size: clamp(7rem, 15vw, 13rem);
+    margin-bottom: 1.2rem;
+
+    border: 1px solid var(--accent-default);
+    border-radius: 50%;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
     font-weight: 700;
-    line-height: 1;
-    color: #ffffff;
+
+    color: var(--accent-text, var(--accent-default));
+
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .step-item:hover .step-number {
+    background: var(--accent-default);
+    color: #050505;
+  }
+
+  .step-body h3 {
+    margin: 0 0 0.6rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .step-text {
+    margin: 0 0 1rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  .step-detail {
     display: block;
 
-    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.45))
-            drop-shadow(0 0 70px rgba(212, 175, 55, 0.2));
+    margin-top: auto;
+    padding-top: 0.9rem;
+
+    border-top: 1px dashed var(--border-default);
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-style: italic;
+
+    color: var(--accent-text, var(--accent-default));
   }
 
-  /* --- Responsive --- */
-  @media (max-width: 900px) {
-    .section-metodo {
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 1024px) {
+    .metodo-steps {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .step-connector {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .metodo-steps {
       grid-template-columns: 1fr;
-      padding: 4rem 1.5rem 6rem;
-      text-align: center;
-    }
-
-    .metodo-item {
-      text-align: left;
-    }
-
-    .metodo-grid-n {
-      order: -1;
-      margin-bottom: 1.5rem;
-    }
-
-    .metodo-grid-n-stage {
-      width: min(17rem, 100%);
-    }
-
-    .metodo-grid-n-stage span {
-      font-size: clamp(4rem, 24vw, 6.5rem);
+      max-width: 440px;
     }
   }
 </style>

@@ -1,0 +1,275 @@
+---
+const WHATSAPP = '573237453913';
+
+const waText = encodeURIComponent(
+  'Hola NEXUS THRIVE, quiero unirme a la lista de espera de Caja Menor (Ordenado).'
+);
+const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
+
+const mailHref =
+  'mailto:hola@nexusthrive.co?subject=' +
+  encodeURIComponent('Lista de espera — Caja Menor') +
+  '&body=' +
+  encodeURIComponent('Hola, quiero que me avisen cuando Caja Menor esté disponible.');
+---
+
+<section class="espera" id="espera" aria-labelledby="espera-title">
+  <div class="espera-container">
+
+    <div class="espera-card">
+
+      <div class="espera-glow" aria-hidden="true"></div>
+
+      <span class="espera-badge">Próximamente</span>
+
+      <h2 id="espera-title" class="espera-title">
+        Caja Menor
+        <span class="espera-sub">La etapa 03 · Ordenado</span>
+      </h2>
+
+      <p class="espera-text">
+        Cuánto entró, cuánto salió y cómo va tu negocio,
+        sin hojas de cálculo. Estamos construyéndolo con
+        negocios reales. Déjanos tu correo o escríbenos
+        y te avisamos antes que a nadie.
+      </p>
+
+      <div class="espera-actions">
+        <a
+          href={waHref}
+          class="espera-button"
+          target="_blank"
+          rel="noopener"
+          data-cta="whatsapp-espera"
+        >
+          <span>Unirme por WhatsApp</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </a>
+
+        <a href={mailHref} class="espera-alt">
+          Avisarme por correo
+        </a>
+      </div>
+
+      <p class="espera-note">
+        Los primeros de la lista tienen acceso temprano
+        y precio de lanzamiento.
+      </p>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .espera {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+
+    background: var(--bg-deep, transparent);
+  }
+
+  .espera-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Tarjeta ---------- */
+
+  .espera-card {
+    position: relative;
+
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    padding: clamp(2.2rem, 5vw, 3.5rem);
+
+    border: 1px dashed rgba(212, 175, 55, 0.35);
+    border-radius: 18px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    text-align: center;
+
+    overflow: hidden;
+  }
+
+  .espera-glow {
+    position: absolute;
+    top: -40%;
+    left: 50%;
+
+    width: 480px;
+    height: 480px;
+
+    transform: translateX(-50%);
+
+    background: radial-gradient(
+      circle,
+      rgba(212, 175, 55, 0.1),
+      transparent 65%
+    );
+
+    pointer-events: none;
+  }
+
+  .espera-badge {
+    position: relative;
+
+    display: inline-block;
+
+    padding: 4px 12px;
+
+    margin-bottom: 1.4rem;
+
+    border: 1px dashed var(--text-muted);
+    border-radius: 999px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+  }
+
+  .espera-title {
+    position: relative;
+
+    margin: 0 0 1.1rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+
+    color: var(--text-primary);
+  }
+
+  .espera-sub {
+    display: block;
+
+    margin-top: 0.4rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .espera-text {
+    position: relative;
+
+    max-width: 520px;
+
+    margin: 0 auto 2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.7;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Acciones ---------- */
+
+  .espera-actions {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .espera-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    min-height: 48px;
+    padding: 0 1.4rem;
+
+    border: 1px solid var(--accent-default);
+    border-radius: 7px;
+
+    background: var(--accent-default);
+    color: #050505;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .espera-button:hover {
+    color: #050505;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+  }
+
+  .espera-alt {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 48px;
+    padding: 0 1.2rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 7px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    color: var(--text-primary);
+
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .espera-alt:hover {
+    border-color: var(--accent-default);
+    color: var(--accent-text, var(--accent-default));
+    transform: translateY(-2px);
+  }
+
+  .espera-note {
+    position: relative;
+
+    margin: 1.6rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.76rem;
+
+    color: var(--text-muted);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 480px) {
+    .espera-actions {
+      flex-direction: column;
+    }
+
+    .espera-button,
+    .espera-alt {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

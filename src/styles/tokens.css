@@ -1,11 +1,19 @@
 :root {
+  /* Layout */
+  /* Margen lateral de TODAS las secciones. Antes cada sección tenía
+     `max-width: 1400px; margin: 0 auto`, que en pantallas anchas dejaba
+     franjas negras a los lados. Ahora el contenido va de borde a borde y
+     este gutter fluido da el aire. Es el único lugar donde se define. */
+  --gutter: clamp(1.5rem, 4vw, 5rem);
+
   /* Backgrounds */
-  --bg-primary: #000;
+  --bg-primary: #0008;
   --bg-deep: #0A0A0A;
   --bg-surface: #1A1A1A;
 
   /* Borders */
   --border-default: #2E2E2E;
+  --border-strong: #3D3D3D;
 
   /* Text */
   --text-primary: #FFFFFF;
@@ -14,6 +22,11 @@
 
   /* Accent (gold — marca: #D4AF37) */
   --accent-default: #D4AF37;
+  /* Texto y enlaces dorados. En noche es el mismo oro porque sobre negro
+     `#D4AF37` da 7.5:1; en claro NO (da 1.9:1, no lee), y por eso el tema
+     claro lo baja a un dorado oscuro. Toda superficie de texto que use
+     `--accent-default` tiene que usar este en su lugar. */
+  --accent-text: #D4AF37;
   --accent-hover: #E8C968;
   --accent-pressed: #A8862B;
 
@@ -21,4 +34,52 @@
   --state-success: #4ADE80;
   --state-error: #F87171;
   --state-info: #60A5FA;
+
+  /* Sombras y brillos de superficie.
+     En claro no puede ser el mismo negro: una sombra al 45% de negro sobre
+     una card crema se lee como una mancha sucia, no como elevación. */
+  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.45);
+  --shadow-raise: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --sheen: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* Halo del texto grande del hero y de la "N". En noche es un glow
+     blanco; en claro un halo dorado, porque un glow blanco sobre crema
+     no se ve. */
+  --glow-text: rgba(255, 255, 255, 0.35);
+  --glow-mark: rgba(255, 255, 255, 0.5);
+}
+
+/* --- Tema claro ---
+   Se activa con `data-theme="light"` en `<html>`. El atributo lo pone un
+   script en el `<head>` del Layout ANTES del primer paint, para que no
+   haya flash de tema equivocado; si no hay preferencia guardada, se
+   respeta `prefers-color-scheme`. */
+[data-theme='light'] {
+  /* Backgrounds */
+  --bg-primary: #FFFFFF;
+  --bg-deep: #FAF7F0;
+  --bg-surface: #F2EEE3;
+
+  /* Borders */
+  --border-default: #E2DED3;
+  --border-strong: #CFC9B8;
+
+  /* Text */
+  --text-primary: #0A0A0A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #6B6B6B;
+
+  /* Accent (gold — marca: #D4AF37) */
+  --accent-default: #D4AF37;   /* rellenos y bordes */
+  --accent-text: #8A6D1F;      /* texto y enlaces dorados */
+  --accent-hover: #E8C968;
+  --accent-pressed: #A8862B;
+
+  --glow-text: rgba(212, 175, 55, 0.28);
+  --glow-mark: rgba(212, 175, 55, 0.4);
+
+  /* Sombra cálida y suave: en crema el negro al 45% se ve como mancha. */
+  --shadow-card: 0 8px 32px rgba(90, 74, 30, 0.12);
+  --shadow-raise: 0 4px 14px rgba(90, 74, 30, 0.1);
+  --sheen: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }

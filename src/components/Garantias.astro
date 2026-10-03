@@ -1,0 +1,251 @@
+---
+const garantias = [
+  {
+    title: 'Todo por escrito',
+    text: 'Alcance, tiempos y precio en una propuesta firmada antes de empezar. Lo acordado, se cumple.',
+    icon: 'document',
+  },
+  {
+    title: 'Comprobante de pago',
+    text: 'Cada pago tiene su comprobante formal. Tu contabilidad tan clara como nuestro trabajo.',
+    icon: 'receipt',
+  },
+  {
+    title: 'Dominio a tu nombre',
+    text: 'El dominio, el sitio y los accesos son tuyos desde el día uno. Nada queda "prestado".',
+    icon: 'key',
+  },
+  {
+    title: '2 rondas de ajustes',
+    text: 'Incluidas en cada proyecto. Revisas, pides cambios y lo dejamos como lo quieres.',
+    icon: 'adjust',
+  },
+  {
+    title: 'Soporte por WhatsApp',
+    text: 'Hablas con personas, no con tickets. Respondemos en horario laboral, el mismo día.',
+    icon: 'chat',
+  },
+];
+
+const icons: Record<string, string> = {
+  document: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M9 13h6"></path><path d="M9 17h6"></path>',
+  receipt: '<path d="M4 2v20l2-1.5L8 22l2-1.5L12 22l2-1.5L16 22l2-1.5L20 22V2l-2 1.5L16 2l-2 1.5L12 2l-2 1.5L8 2 6 3.5 4 2z"></path><path d="M8 8h8"></path><path d="M8 12h8"></path><path d="M8 16h5"></path>',
+  key: '<path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"></path>',
+  adjust: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>',
+  chat: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>',
+};
+---
+
+<section class="garantias" id="garantias" aria-labelledby="garantias-title">
+  <div class="garantias-container">
+
+    <header class="garantias-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Garantías
+      </div>
+
+      <h2 id="garantias-title" class="garantias-title">
+        Trabajar con nosotros
+        <span>es seguro.</span>
+      </h2>
+
+      <p class="garantias-lead">
+        La confianza no se pide: se construye con reglas claras.
+        Estas son las nuestras, por escrito y siempre.
+      </p>
+    </header>
+
+    <ul class="garantias-grid" role="list">
+      {garantias.map((item) => (
+        <li class="garantia-card">
+          <span class="garantia-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={icons[item.icon]} />
+          </span>
+
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .garantias {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+
+    background: var(--bg-deep, transparent);
+  }
+
+  .garantias-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+
+  .garantias-header {
+    max-width: 640px;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .garantias-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .garantias-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .garantias-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .garantias-lead {
+    margin: 1.2rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Grid ---------- */
+
+  .garantias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .garantia-card {
+    padding: 1.6rem 1.5rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .garantia-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-3px);
+  }
+
+  .garantia-icon {
+    display: grid;
+    place-items: center;
+
+    width: 44px;
+    height: 44px;
+
+    margin-bottom: 1.1rem;
+
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .garantia-card h3 {
+    margin: 0 0 0.55rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .garantia-card p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  /* Las dos últimas tarjetas centradas en el hueco de la grilla 3+2 */
+  .garantia-card:nth-child(4) {
+    grid-column: 1 / 3;
+    max-width: calc(50% - 0.5rem);
+    justify-self: end;
+    width: 100%;
+  }
+
+  .garantia-card:nth-child(5) {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    max-width: calc(50% - 0.5rem);
+    width: 100%;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .garantias-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .garantia-card:nth-child(4),
+    .garantia-card:nth-child(5) {
+      grid-column: auto;
+      grid-row: auto;
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .garantias-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

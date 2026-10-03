@@ -1,0 +1,374 @@
+---
+const stages = [
+  {
+    n: '01',
+    name: 'Visible',
+    tagline: 'Que te encuentren',
+    text: 'Un sitio claro y profesional, con tu información completa en Google y Maps. Cuando te busquen, ahí estás.',
+    gains: [
+      'Sitio web propio, rápido y a tu nombre',
+      'Ficha de Google Maps optimizada',
+      'Botón directo a tu WhatsApp',
+    ],
+    soon: false,
+  },
+  {
+    n: '02',
+    name: 'Conectado',
+    tagline: 'Que todo trabaje junto',
+    text: 'Tus canales dejan de estar sueltos: el sitio, WhatsApp y las redes apuntan al mismo lugar y responden por ti.',
+    gains: [
+      'Catálogo o tarifario siempre actualizado',
+      'Mensajes y reservas ordenados en un solo flujo',
+      'Redes como complemento, no como carga',
+    ],
+    soon: false,
+  },
+  {
+    n: '03',
+    name: 'Ordenado',
+    tagline: 'Que entiendas tu operación',
+    text: 'Caja Menor: cuánto entró, cuánto salió y cómo va el negocio, sin hojas de cálculo ni adivinanzas.',
+    gains: [
+      'Registro simple de ingresos y gastos',
+      'Resumen claro de tu mes',
+      'Decisiones con números, no con intuición',
+    ],
+    soon: true,
+  },
+];
+---
+
+<section class="ruta" id="ruta" aria-labelledby="ruta-title">
+  <div class="ruta-container">
+
+    <header class="ruta-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        La ruta
+      </div>
+
+      <h2 id="ruta-title" class="ruta-title">
+        Tres etapas,
+        <span>un camino claro.</span>
+      </h2>
+
+      <p class="ruta-lead">
+        No tienes que hacerlo todo de una vez.
+        Empiezas donde más duele y avanzas a tu ritmo.
+      </p>
+    </header>
+
+    <ol class="ruta-list" role="list">
+      {stages.map((stage) => (
+        <li class:list={['stage-card', { 'is-soon': stage.soon }]}>
+
+          <div class="stage-top">
+            <span class="stage-number">{stage.n}</span>
+            {stage.soon && (
+              <span class="stage-badge">Próximamente</span>
+            )}
+          </div>
+
+          <h3 class="stage-name">{stage.name}</h3>
+          <p class="stage-tagline">{stage.tagline}</p>
+
+          <p class="stage-text">{stage.text}</p>
+
+          <ul class="stage-gains" role="list">
+            {stage.gains.map((gain) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+                {gain}
+              </li>
+            ))}
+          </ul>
+
+        </li>
+      ))}
+    </ol>
+
+    <div class="ruta-cta">
+      <a href="#precios" class="ruta-button">
+        <span>Ver precios</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14"></path>
+          <path d="m19 12-7 7-7-7"></path>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .ruta {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+  }
+
+  .ruta-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+
+  .ruta-header {
+    max-width: 640px;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .ruta-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .ruta-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .ruta-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .ruta-lead {
+    margin: 1.2rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Etapas ---------- */
+
+  .ruta-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .stage-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.8rem 1.6rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .stage-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  }
+
+  .stage-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 1.4rem;
+  }
+
+  .stage-number {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .stage-badge {
+    padding: 3px 8px;
+
+    border: 1px dashed var(--text-muted);
+    border-radius: 999px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+  }
+
+  .stage-name {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+
+    color: var(--text-primary);
+  }
+
+  .stage-tagline {
+    margin: 0.25rem 0 0.9rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .stage-text {
+    margin: 0 0 1.3rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.87rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  .stage-gains {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    margin: auto 0 0;
+    padding: 1.1rem 0 0;
+
+    border-top: 1px solid var(--border-default);
+
+    list-style: none;
+  }
+
+  .stage-gains li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+
+    color: var(--text-secondary);
+  }
+
+  .stage-gains svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--accent-default);
+  }
+
+  /* Etapa futura: más tenue */
+
+  .stage-card.is-soon {
+    border-style: dashed;
+    opacity: 0.75;
+  }
+
+  .stage-card.is-soon:hover {
+    opacity: 1;
+  }
+
+  /* ---------- CTA ---------- */
+
+  .ruta-cta {
+    display: flex;
+    justify-content: center;
+
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .ruta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    min-height: 48px;
+    padding: 0 1.4rem;
+
+    border: 1px solid var(--accent-default);
+    border-radius: 7px;
+
+    background: var(--accent-default);
+    color: #050505;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .ruta-button:hover {
+    color: #050505;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+  }
+
+  .ruta-button svg {
+    transition: transform 0.2s ease;
+  }
+
+  .ruta-button:hover svg {
+    transform: translateY(3px);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 960px) {
+    .ruta-list {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+  }
+</style>

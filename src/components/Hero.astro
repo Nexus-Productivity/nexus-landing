@@ -1,28 +1,52 @@
 ---
-import fondoUrl from '../assets/hero-fondo.webm?url';
-import posterUrl from '../assets/hero-poster.jpg?url';
+import grainientUrl from '../assets/grainient-bg-vp9.webm?url';
+import grainientClaroUrl from '../assets/grainient-white-vp9.webm?url';
+
+const WHATSAPP = '573237453913';
+
+const waText = encodeURIComponent(
+  'Hola NEXUS THRIVE, quiero saber cómo pueden ayudar a mi negocio.'
+);
+
+const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
+
+const steps = [
+  {
+    n: '01',
+    name: 'Visible',
+    text: 'Presencia digital clara y profesional',
+    soon: false,
+  },
+  {
+    n: '02',
+    name: 'Conectado',
+    text: 'Clientes y canales trabajando juntos',
+    soon: false,
+  },
+  {
+    n: '03',
+    name: 'Ordenado',
+    text: 'Una operación que puedas entender',
+    soon: true,
+  },
+];
+
+const trust = [
+  'Método claro',
+  'Todo por escrito',
+  'Pagos con comprobante',
+];
 ---
 
 <section class="hero">
-  {/*
-    Fondo de video. Va como la primera capa y es decorativo: si el
-    navegador no lo reproduce queda el poster, y si el usuario pidió menos
-    movimiento queda el poster también. Por eso `aria-hidden` y
-    `tabindex="-1"`: no es un control, no debe aparecer en la navegación
-    por teclado.
 
-    `muted` + `playsinline` son OBLIGATORIOS para autoplay en todos los
-    navegadores. Sin `muted`, Chrome y Safari bloquean el `play()` y el
-    video queda clavado en el poster sin error visible.
+  <!-- =====================================================
+       BACKGROUND
+       ===================================================== -->
 
-    `preload="metadata"` en vez de `auto`: con `auto` el navegador baja
-    los 1.2 MB antes de saber si el video se va a ver, y en móvil eso es
-    ancho de banda gastado en una página donde el usuario scrollea rápido.
-  */}
   <video
     class="hero-video"
-    src={fondoUrl}
-    poster={posterUrl}
+    src={grainientUrl}
     autoplay
     muted
     loop
@@ -30,310 +54,1016 @@ import posterUrl from '../assets/hero-poster.jpg?url';
     preload="metadata"
     aria-hidden="true"
     tabindex="-1"
-    data-hero-video
   ></video>
 
-  {/*
-    Dos velos sobre el video, y cada uno hace una cosa distinta:
+  <video
+    class="hero-video-light"
+    src={grainientClaroUrl}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+    tabindex="-1"
+  ></video>
 
-    1. `hero-tinte` lleva el video hacia el dorado de marca con
-       `mix-blend-mode: color`. El archivo es un gradiente mauve/violeta
-       y la marca es #D4AF37; en vez de descartar el video o pelear con
-       él, se le cambia la cromaticidad y se lo deja como fuente de
-       movimiento. `color` (no `hue`): mueve el tono pero no la
-       luminancia, así que no le cambia el brillo al texto que va encima.
+  <div class="hero-overlay" aria-hidden="true"></div>
 
-    2. `hero-velo` es el velo de legibilidad. Sin él, el texto blanco
-       compite con el gradiente moviéndose detrás y en el frame más
-       claro deja de leerse. Va de negro al 72% en la zona del texto a
-       transparente arriba.
-  */}
-  <div class="hero-tinte" aria-hidden="true"></div>
-  <div class="hero-velo" aria-hidden="true"></div>
 
-  <div class="hero-content">
-    <div class="hero-text">
-      <span>Nexus conecta lo que está separado&nbsp;—&nbsp;personas, herramientas y datos.</span>
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+
+  <div class="hero-inner">
+
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line"></span>
+        NEXUS THRIVE
+        <span class="eyebrow-separator">/</span>
+        Business systems
+      </div>
+
+
+      <h1 class="hero-title">
+        Tu negocio,
+        <span>visible y conectado.</span>
+      </h1>
+
+
+      <p class="hero-description">
+        Diseñamos sistemas digitales para que tu negocio
+        sea más fácil de encontrar, entender y operar.
+      </p>
+
+
+      <div class="hero-actions">
+
+        <a
+          href={waHref}
+          class="hero-primary"
+          target="_blank"
+          rel="noopener"
+          data-cta="whatsapp-hero"
+        >
+          <span>Hablemos de tu negocio</span>
+
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </a>
+
+
+        <a href="#metodo" class="hero-secondary">
+          Ver nuestro método
+        </a>
+
+      </div>
+
+
+      <ul class="hero-trust">
+        {trust.map((item) => (
+          <li>
+            <span class="trust-dot"></span>
+            {item}
+          </li>
+        ))}
+      </ul>
+
     </div>
-    <span class="hero-sub-text">Soluciones simples y precisas, construidas de a módulos validados: de la productividad personal a la finanza de un negocio que no se modernizó.</span>
-    <a href="#proyectos" class="hero-button">Explorar Proyectos</a>
+
+
+    <!-- ===================================================
+         ROUTE CARD
+         =================================================== -->
+
+    <aside class="route-card" aria-label="Ruta de crecimiento">
+
+      <div class="route-header">
+
+        <div>
+          <span class="route-label">NEXUS THRIVE</span>
+          <h2>Tu ruta digital</h2>
+        </div>
+
+        <span class="route-status">
+          01 — 03
+        </span>
+
+      </div>
+
+
+      <div class="route-list">
+
+        {steps.map((step, index) => (
+          <div
+            class:list={[
+              'route-step',
+              { 'is-soon': step.soon },
+            ]}
+          >
+
+            <div class="route-index">
+              {step.n}
+            </div>
+
+
+            <div class="route-info">
+
+              <div class="route-name-row">
+
+                <h3>{step.name}</h3>
+
+                {step.soon && (
+                  <span class="route-badge">
+                    Próximamente
+                  </span>
+                )}
+
+              </div>
+
+              <p>{step.text}</p>
+
+            </div>
+
+
+            {index < steps.length - 1 && (
+              <span class="route-line"></span>
+            )}
+
+          </div>
+        ))}
+
+      </div>
+
+
+      <div class="route-footer">
+        <span class="footer-indicator"></span>
+
+        Empieza donde más lo necesitas.
+      </div>
+
+    </aside>
+
   </div>
-  <div class="hero-grid-2">
-    <span>N</span>
+
+
+  <!-- =====================================================
+       SCROLL INDICATOR
+       ===================================================== -->
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+
+    <span class="scroll-line"></span>
   </div>
+
 </section>
 
-<script>
-  /**
-   * Control del video de fondo.
-   *
-   * Tres cosas que un `autoplay` solo no resuelve:
-   *
-   * 1. `prefers-reduced-motion`: no se reproduce. Es un video decorativo
-   *    de 10 segundos en loop; para quien pidió menos movimiento es
-   *    movimiento no pedido. Se pausa y se deja el poster.
-   *
-   * 2. Fuera de pantalla: el hero es lo primero de la página, así que
-   *    después del primer scroll el video sigue decodificando 30 frames
-   *    por segundo sin que nadie lo mire. Un `IntersectionObserver` lo
-   *    pausa. Esto es batería, no estética.
-   *
-   * 3. Pestaña oculta: los navegadores ya pausean solos en iOS y Chrome,
-   *    pero no en todos. Se fuerza por `visibilitychange`.
-   *
-   * `play()` devuelve una promesa que rechaza cuando el navegador la
-   *    bloquea (política de autoplay, ahorro de datos). Si no se atrapa
-   *    esa promesa, aparece un `Unhandled Promise Rejection` en consola.
-   *    El video ya está mostrando el poster, así que un rechazo no es un
-   *    problema: se ignora a propósito.
-   */
-  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-
-  if (video) {
-    const menosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let enPantalla = true;
-
-    const reproducir = () => {
-      if (menosMovimiento.matches || !enPantalla || document.hidden) return;
-      video.play().catch(() => {
-        /* Autoplay bloqueado o ahorro de datos activo. El poster queda. */
-      });
-    };
-
-    const pausar = () => video.pause();
-
-    menosMovimiento.addEventListener('change', reproducir);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) pausar();
-      else reproducir();
-    });
-
-    const observador = new IntersectionObserver(
-      (entradas) => {
-        enPantalla = entradas.some((e) => e.isIntersecting);
-        if (enPantalla) reproducir();
-        else pausar();
-      },
-      { threshold: 0.01 }
-    );
-
-    observador.observe(video);
-
-    if (menosMovimiento.matches) pausar();
-  }
-</script>
 
 <style>
-  .hero {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0 auto;
-    max-width: 1400px;
-    /* Banner (36px) + navbar (150px) fijos: baja el contenido al centro óptico de la zona visible */
-    padding: min(16rem, 28vh) 2rem 4rem;
-    align-items: center;
-    min-height: 100vh;
-    min-height: 100svh;
-    background-color: var(--bg-primary);
-    gap: 2rem;
 
-    /* El video y los velos son absolutos: tienen que quedar detrás del
-       contenido sin sacar al `.hero` del flujo. Y el hero se sale del
-       ancho de la pantalla (max-width 1400px) pero el video tiene que
-       llegar al borde: por eso va en un wrapper de `left: 50%` +
-       `translateX(-50%)` con `width: 100vw`, no con `inset: 0`. */
+  /* =========================================================
+     HERO
+     ========================================================= */
+
+  .hero {
     position: relative;
-    isolation: isolate;
+
+    min-height: 100svh;
+
+    display: flex;
+    align-items: center;
+
     overflow: hidden;
+
+    isolation: isolate;
+
+    padding:
+      9rem
+      var(--gutter)
+      5rem;
   }
 
-  /* El fondo se separa del contenido con `z-index: 0` y los hijos del
-     contenido con `z-index: 1`. `isolation: isolate` crea el contexto de
-     apilado para que `mix-blend-mode` del tinte no se coma el texto. */
+
+  /* =========================================================
+     BACKGROUND
+     ========================================================= */
+
   .hero-video,
-  .hero-tinte,
-  .hero-velo {
+  .hero-video-light {
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
+
+    inset: 0;
+
+    width: 100%;
     height: 100%;
-    z-index: 0;
+
+    object-fit: cover;
+
+    z-index: -3;
+
     pointer-events: none;
   }
 
   .hero-video {
-    object-fit: cover;
-    /* El archivo es 16:9 (1920x1080) y el hero en móvil es alto y angosto,
-       así que `cover` recorta los lados. Se sube un poco el brillo para
-       que el dorado del tinte tenga algo sobre lo que actuar. */
-    filter: brightness(0.85);
+    opacity: 0.72;
   }
 
-  .hero-tinte {
-    /* `color` retona el video a los tonos de la marca sin tocar la
-       luminancia. El negro del hero se mantiene negro. */
-    background-color: var(--accent-default, #d4af37);
-    mix-blend-mode: color;
+  .hero-video-light {
+    display: none;
+
     opacity: 0.75;
   }
 
-  .hero-velo {
-    /* Legibilidad. `180% 90%`: la parte más densa cae justo detrás del
-       texto de la columna izquierda, que es donde está el contenido. */
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.55) 0%,
-      rgba(0, 0, 0, 0.72) 45%,
-      rgba(0, 0, 0, 0.86) 100%
-    );
+
+  /* =========================================================
+     OVERLAY
+     ========================================================= */
+
+  .hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -2;
+
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.78) 0%,
+        rgba(0, 0, 0, 0.5) 42%,
+        rgba(0, 0, 0, 0.15) 75%,
+        rgba(0, 0, 0, 0.25) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0.05) 55%
+      );
   }
 
-  .hero-content,
-  .hero-grid-2 {
-    position: relative;
-    z-index: 1;
+
+  :global([data-theme='light']) .hero-video {
+    display: none;
   }
+
+  :global([data-theme='light']) .hero-video-light {
+    display: block;
+  }
+
+  :global([data-theme='light']) .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.88) 0%,
+        rgba(255, 255, 255, 0.55) 45%,
+        rgba(255, 255, 255, 0.12) 78%,
+        rgba(255, 255, 255, 0.3) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0) 60%
+      );
+  }
+
+
+  /* =========================================================
+     INNER
+     ========================================================= */
+
+  .hero-inner {
+    width: 100%;
+    max-width: 1440px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1.1fr)
+      minmax(360px, 0.65fr);
+
+    align-items: center;
+
+    gap: clamp(3rem, 8vw, 9rem);
+  }
+
+
+  /* =========================================================
+     CONTENT
+     ========================================================= */
 
   .hero-content {
+    max-width: 720px;
+  }
+
+
+  /* =========================================================
+     EYEBROW
+     ========================================================= */
+
+  .hero-eyebrow {
     display: flex;
-    flex-direction: column;
-  }
+    align-items: center;
 
-  .hero-grid-2 {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    transform: rotate(10deg);
-  }
+    gap: 0.6rem;
 
-  .hero-grid-2 span {
-    font-family: "Public Stunt", sans-serif;
-    font-size: clamp(10rem, 24vw, 30rem);
-    font-weight: 700;
-    color: #ffffff;
-    cursor: default;
-    line-height: 1;
+    margin-bottom: 1.6rem;
 
-    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.5))
-            drop-shadow(0 0 80px rgba(255, 255, 255, 0.25));
+    font-family: 'Inter', sans-serif;
 
-    transition: filter 0.3s ease-out, transform 0.3s ease-out;
-  }
-
-  .hero-text {
-    max-width: 520px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(1.5rem, 3vw, 4.5rem);
+    font-size: 0.7rem;
     font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    color: #fff;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
   }
 
-  /* Efecto "focus opaco" — halo difuminado detrás del texto */
-  .hero-text span {
-    text-shadow:
-      0 0 30px rgba(255, 255, 255, 0.35),
-      0 0 60px rgba(255, 255, 255, 0.2),
-      0 0 100px rgba(255, 255, 255, 0.1);
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+
+    background: var(--accent-default);
   }
 
-  .hero-sub-text {
-    font-family: "Inter", sans-serif;
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
+  .eyebrow-separator {
+    opacity: 0.4;
+  }
+
+
+  /* =========================================================
+     TITLE
+     ========================================================= */
+
+  .hero-title {
+    max-width: 700px;
+
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: clamp(
+      3.4rem,
+      6.5vw,
+      6.7rem
+    );
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.055em;
+
+    color: var(--text-primary);
+  }
+
+  .hero-title span {
     display: block;
-    max-width: 480px;
-    line-height: 1.6;
-    margin: 1.75rem 0 2.5rem;
-    color: var(--text-secondary, #a0a0a0);
+
+    color: var(--accent-default);
+
+    text-shadow:
+      0 0 35px var(--glow-text),
+      0 0 80px var(--glow-text);
   }
 
-  .hero-button {
+  :global([data-theme='light']) .hero-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+
+  /* =========================================================
+     DESCRIPTION
+     ========================================================= */
+
+  .hero-description {
+    max-width: 570px;
+
+    margin: 1.8rem 0 2.3rem;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: clamp(
+      1rem,
+      1.4vw,
+      1.18rem
+    );
+
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+
+  /* =========================================================
+     ACTIONS
+     ========================================================= */
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 0.75rem;
+  }
+
+
+  .hero-primary,
+  .hero-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    align-self: flex-start;
-    padding: 14px 28px;
-    background-color: var(--accent-default);
-    color: #0a0a0a;
-    font-family: "Inter", sans-serif;
+
+    gap: 0.65rem;
+
+    min-height: 48px;
+
+    padding: 0 1.25rem;
+
+    border-radius: 7px;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.84rem;
     font-weight: 600;
-    font-size: 0.95rem;
+
     text-decoration: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
 
-    transition: background-color 0.3s ease,
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
   }
 
-  .hero-button:hover {
-    background-color: var(--accent-hover, #fde9b0);
+
+  .hero-primary {
+    background: var(--accent-default);
+
+    border: 1px solid var(--accent-default);
+
+    color: #050505;
+  }
+
+  .hero-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+
+    box-shadow:
+      0 12px 35px rgba(212, 175, 55, 0.2);
   }
 
-  .hero-button:active {
-    background-color: var(--accent-pressed, #b8860b);
-    color: #ffffff;
-    transform: translateY(0);
+  .hero-primary svg {
+    transition: transform 0.2s ease;
   }
 
-  /* --- Responsive --- */
-  @media (max-width: 900px) {
-    .hero {
-      grid-template-columns: 1fr;
-      /* Banner (36px) + navbar móvil (72px) fijos */
-      padding: 9rem 1.5rem 3rem;
-      text-align: center;
-    }
+  .hero-primary:hover svg {
+    transform: translateX(3px);
+  }
 
-    /* En móvil el video queda en 16:9 dentro de una caja alta y angosta:
-       `cover` deja ver solo el centro del gradiente y la mitad del alto
-       se ve como una banda de color. Se baja el brillo más todavía para
-       que no compita con el texto centrado. */
-    .hero-video {
-      filter: brightness(0.7);
-    }
 
-    /* El velo se pone más uniforme: en una columna el texto ocupa el ancho
-       completo, así que el degradado lateral ya no ayuda. */
-    .hero-velo {
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0.8) 50%,
-        rgba(0, 0, 0, 0.9) 100%
+  .hero-secondary {
+    border: 1px solid var(--border-default);
+
+    color: var(--text-primary);
+
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .hero-secondary:hover {
+    border-color: var(--accent-default);
+
+    color: var(--accent-text, var(--accent-default));
+
+    transform: translateY(-2px);
+  }
+
+
+  /* =========================================================
+     TRUST
+     ========================================================= */
+
+  .hero-trust {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 0.6rem 1.5rem;
+
+    margin: 1.7rem 0 0;
+
+    padding: 0;
+
+    list-style: none;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.75rem;
+
+    color: var(--text-secondary);
+  }
+
+  .hero-trust li {
+    display: flex;
+    align-items: center;
+
+    gap: 0.45rem;
+  }
+
+  .trust-dot {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--accent-default);
+  }
+
+
+  /* =========================================================
+     ROUTE CARD
+     ========================================================= */
+
+  .route-card {
+    width: 100%;
+    max-width: 430px;
+
+    justify-self: end;
+
+    padding: 1.5rem;
+
+    border: 1px solid
+      rgba(212, 175, 55, 0.28);
+
+    border-radius: 14px;
+
+    background:
+      color-mix(
+        in srgb,
+        var(--bg-surface, #151515) 68%,
+        transparent
       );
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.25);
+  }
+
+
+  /* =========================================================
+     ROUTE HEADER
+     ========================================================= */
+
+  .route-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding-bottom: 1.3rem;
+
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .route-label {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.62rem;
+    font-weight: 600;
+
+    letter-spacing: 0.15em;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .route-header h2 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 1.25rem;
+    font-weight: 600;
+
+    color: var(--text-primary);
+  }
+
+  .route-status {
+    padding-top: 0.15rem;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.65rem;
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    color: var(--text-muted);
+  }
+
+
+  /* =========================================================
+     ROUTE STEPS
+     ========================================================= */
+
+  .route-list {
+    padding: 1.4rem 0 0;
+  }
+
+  .route-step {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 42px 1fr;
+
+    gap: 0.85rem;
+
+    padding-bottom: 1.35rem;
+  }
+
+  .route-step:last-child {
+    padding-bottom: 0.2rem;
+  }
+
+
+  .route-index {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--accent-default);
+
+    border-radius: 50%;
+
+    background:
+      var(--accent-default);
+
+    color: #050505;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+
+  .route-line {
+    position: absolute;
+
+    left: 20px;
+
+    top: 42px;
+    bottom: 0;
+
+    width: 1px;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(212, 175, 55, 0.4),
+        rgba(212, 175, 55, 0.08)
+      );
+  }
+
+
+  .route-info {
+    padding-top: 0.1rem;
+  }
+
+  .route-name-row {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 0.55rem;
+  }
+
+  .route-name-row h3 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    color: var(--text-primary);
+  }
+
+  .route-info p {
+    margin: 0.3rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.78rem;
+
+    line-height: 1.5;
+
+    color: var(--text-secondary);
+  }
+
+
+  /* =========================================================
+     UPCOMING
+     ========================================================= */
+
+  .route-step.is-soon .route-index {
+    background: transparent;
+
+    border-style: dashed;
+
+    border-color: var(--text-muted);
+
+    color: var(--text-muted);
+  }
+
+  .route-step.is-soon .route-name-row h3 {
+    color: var(--text-secondary);
+  }
+
+  .route-badge {
+    padding: 3px 7px;
+
+    border: 1px dashed var(--text-muted);
+
+    border-radius: 999px;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.55rem;
+    font-weight: 600;
+
+    letter-spacing: 0.06em;
+
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+  }
+
+
+  /* =========================================================
+     ROUTE FOOTER
+     ========================================================= */
+
+  .route-footer {
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+
+    border-top: 1px solid var(--border-default);
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.7rem;
+
+    color: var(--text-muted);
+  }
+
+  .footer-indicator {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--accent-default);
+
+    box-shadow:
+      0 0 10px var(--accent-default);
+  }
+
+
+  /* =========================================================
+     SCROLL
+     ========================================================= */
+
+  .hero-scroll {
+    position: absolute;
+
+    right: var(--gutter);
+    bottom: 2rem;
+
+    display: flex;
+    align-items: center;
+
+    gap: 0.7rem;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.6rem;
+    font-weight: 500;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 42px;
+
+    background:
+      linear-gradient(
+        to bottom,
+        var(--accent-default),
+        transparent
+      );
+  }
+
+
+  /* =========================================================
+     REDUCED MOTION
+     ========================================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .hero-video,
+    .hero-video-light {
+      display: none;
+    }
+
+    .hero-primary,
+    .hero-secondary {
+      transition: none;
+    }
+  }
+
+
+  /* =========================================================
+     TABLET / MOBILE
+     ========================================================= */
+
+  @media (max-width: 900px) {
+
+    .hero {
+      min-height: auto;
+
+      padding:
+        8.5rem
+        var(--gutter)
+        4rem;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+
+      gap: 3rem;
     }
 
     .hero-content {
-      align-items: center;
-      order: 2;
+      max-width: 720px;
+
+      text-align: center;
+
+      margin: 0 auto;
     }
 
-    .hero-text {
-      max-width: 100%;
+    .hero-eyebrow {
+      justify-content: center;
     }
 
-    .hero-sub-text {
-      max-width: 100%;
+    .hero-title {
+      font-size: clamp(
+        3rem,
+        10vw,
+        5rem
+      );
     }
 
-    .hero-button {
-      align-self: center;
+    .hero-description {
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .hero-grid-2 {
-      order: 1;
-      transform: rotate(10deg) scale(0.9);
-      margin-top: 6rem;
-      margin-bottom: -2rem;
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-trust {
+      justify-content: center;
+    }
+
+    .route-card {
+      justify-self: center;
+
+      max-width: 520px;
+    }
+
+    .hero-scroll {
+      display: none;
+    }
+
+    .hero-overlay {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.55) 0%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+    }
+
+    :global([data-theme='light']) .hero-overlay {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0.8) 100%
+        );
     }
   }
+
+
+  /* =========================================================
+     SMALL MOBILE
+     ========================================================= */
+
+  @media (max-width: 480px) {
+
+    .hero {
+      padding:
+        8rem
+        1rem
+        3rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.58rem;
+
+      letter-spacing: 0.1em;
+    }
+
+    .hero-title {
+      font-size: clamp(
+        2.65rem,
+        13vw,
+        4rem
+      );
+
+      letter-spacing: -0.045em;
+    }
+
+    .hero-description {
+      font-size: 0.92rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+
+      width: 100%;
+    }
+
+    .hero-primary,
+    .hero-secondary {
+      width: 100%;
+    }
+
+    .hero-trust {
+      flex-direction: column;
+
+      gap: 0.65rem;
+    }
+
+    .route-card {
+      padding: 1.2rem;
+    }
+  }
+
 </style>

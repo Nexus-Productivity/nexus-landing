@@ -1,0 +1,437 @@
+---
+const WHATSAPP = '573237453913';
+
+const waText = encodeURIComponent(
+  'Hola NEXUS THRIVE, quiero contarles sobre mi negocio.'
+);
+const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
+---
+
+<section class="contacto" id="escuchanos" aria-labelledby="contacto-title">
+  <div class="contacto-container">
+
+    <div class="contacto-grid">
+
+      <div class="contacto-info">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Cuéntanos tu negocio
+        </div>
+
+        <h2 id="contacto-title" class="contacto-title">
+          Empieza sin
+          <span>compromiso.</span>
+        </h2>
+
+        <p class="contacto-lead">
+          Tres campos y un mensaje. Con eso te respondemos
+          con una propuesta escrita y precio cerrado.
+          Nada de spam ni llamadas incómodas.
+        </p>
+
+        <ul class="contacto-promises" role="list">
+          <li>
+            <span class="promise-dot"></span>
+            Respuesta el mismo día (horario laboral)
+          </li>
+          <li>
+            <span class="promise-dot"></span>
+            Propuesta escrita, precio cerrado
+          </li>
+          <li>
+            <span class="promise-dot"></span>
+            Si no te conviene, te lo decimos
+          </li>
+        </ul>
+
+        <div class="contacto-direct">
+          <span>¿Prefieres ir directo?</span>
+          <a
+            href={waHref}
+            class="contacto-wa"
+            target="_blank"
+            rel="noopener"
+            data-cta="whatsapp-contacto"
+          >
+            Escríbenos por WhatsApp
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"></path>
+              <path d="M8 7h9v9"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <form class="contacto-form" id="contacto-form" novalidate>
+        <div class="form-field">
+          <label for="cf-nombre">Tu nombre</label>
+          <input
+            type="text"
+            id="cf-nombre"
+            name="nombre"
+            placeholder="¿Cómo te llamas?"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="cf-negocio">Tu negocio</label>
+          <input
+            type="text"
+            id="cf-negocio"
+            name="negocio"
+            placeholder="Ej: Restaurante en Getsemaní"
+            autocomplete="organization"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="cf-necesidad">¿Qué necesitas?</label>
+          <textarea
+            id="cf-necesidad"
+            name="necesidad"
+            rows="4"
+            placeholder="Cuéntanos en tus palabras: qué te falta, qué te duele, qué quieres lograr."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          <span>Enviar por WhatsApp</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </button>
+
+        <p class="form-note">
+          Al enviar se abre WhatsApp con tu mensaje ya escrito.
+          Sin registros, sin bases de datos.
+        </p>
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const WHATSAPP_NUMBER = '573237453913';
+
+  const form = document.getElementById('contacto-form');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const data = new FormData(event.target as HTMLFormElement);
+
+    const nombre = String(data.get('nombre') ?? '').trim();
+    const negocio = String(data.get('negocio') ?? '').trim();
+    const necesidad = String(data.get('necesidad') ?? '').trim();
+
+    if (!nombre || !negocio || !necesidad) {
+      (event.target as HTMLFormElement).reportValidity();
+      return;
+    }
+
+    const mensaje = [
+      `Hola NEXUS THRIVE, soy ${nombre}.`,
+      `Mi negocio: ${negocio}.`,
+      `Lo que necesito: ${necesidad}`,
+    ].join('\n');
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, '_blank', 'noopener');
+  });
+</script>
+
+<style>
+  .contacto {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+  }
+
+  .contacto-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Layout ---------- */
+
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  /* ---------- Info ---------- */
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .contacto-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .contacto-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .contacto-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .contacto-lead {
+    margin: 1.2rem 0 1.8rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  .contacto-promises {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
+    margin: 0 0 2rem;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .contacto-promises li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+
+    color: var(--text-secondary);
+  }
+
+  .promise-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--accent-default);
+
+    box-shadow: 0 0 8px var(--glow-text, rgba(212, 175, 55, 0.5));
+  }
+
+  .contacto-direct {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    padding-top: 1.6rem;
+
+    border-top: 1px solid var(--border-default);
+  }
+
+  .contacto-direct span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+
+    color: var(--text-muted);
+  }
+
+  .contacto-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    width: fit-content;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .contacto-wa svg {
+    transition: transform 0.2s ease;
+  }
+
+  .contacto-wa:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* ---------- Formulario ---------- */
+
+  .contacto-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 16px;
+
+    background:
+      color-mix(
+        in srgb,
+        var(--bg-surface, #151515) 70%,
+        transparent
+      );
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .form-field label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    color: var(--text-secondary);
+  }
+
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+
+    padding: 0.85rem 1rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+
+    background: var(--bg-primary);
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    color: var(--text-primary);
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+
+    border-color: var(--accent-default);
+
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+  }
+
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    min-height: 48px;
+
+    margin-top: 0.3rem;
+
+    border: 1px solid var(--accent-default);
+    border-radius: 7px;
+
+    background: var(--accent-default);
+    color: #050505;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+  }
+
+  .form-submit svg {
+    transition: transform 0.2s ease;
+  }
+
+  .form-submit:hover svg {
+    transform: translateX(3px);
+  }
+
+  .form-note {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    text-align: center;
+
+    color: var(--text-muted);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .contacto-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

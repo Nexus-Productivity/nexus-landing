@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# transcripciones de sesiones (ruido, no va al repo)
+conversations/

@@ -1,0 +1,540 @@
+---
+const WHATSAPP = '573237453913';
+
+const waText = encodeURIComponent(
+  'Hola NEXUS THRIVE, quiero pedir una propuesta con precio cerrado para mi negocio.'
+);
+const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
+
+const plans = [
+  {
+    n: '01',
+    name: 'Visible',
+    price: 'Desde $590.000',
+    unit: 'COP · pago único',
+    description: 'Tu negocio en internet con presencia profesional y todo a tu nombre.',
+    includes: [
+      'Sitio web de hasta 4 secciones',
+      'Dominio .com a tu nombre (1 año)',
+      'Ficha de Google Maps configurada',
+      'Botón directo a WhatsApp',
+      'Textos claros, escritos contigo',
+    ],
+    soon: false,
+    featured: false,
+  },
+  {
+    n: '02',
+    name: 'Conectado',
+    price: 'Desde $1.190.000',
+    unit: 'COP · pago único',
+    description: 'Todo lo de Visible, más tus canales trabajando juntos.',
+    includes: [
+      'Catálogo o tarifario actualizable sin PDF',
+      'Formulario que llega directo a tu WhatsApp',
+      'Conexión con tus redes sociales',
+      'Plantillas de respuesta rápida',
+      'Capacitación de 1 hora para manejarlo',
+    ],
+    soon: false,
+    featured: true,
+  },
+  {
+    n: '03',
+    name: 'Ordenado',
+    price: 'Próximamente',
+    unit: 'Caja Menor · lista de espera abierta',
+    description: 'El control de tu dinero sin hojas de cálculo.',
+    includes: [
+      'Registro simple de ingresos y gastos',
+      'Resumen claro de tu mes',
+      'Acceso temprano para los primeros de la lista',
+    ],
+    soon: true,
+    featured: false,
+  },
+];
+
+const extras = [
+  {
+    name: 'Cuidado',
+    detail: 'Opcional, mensual',
+    text: 'Nosotros lo mantenemos: cambios menores, actualizaciones y monitoreo. Desde $90.000/mes.',
+  },
+  {
+    name: 'Redes',
+    detail: 'Complemento',
+    text: 'Plan de contenidos y publicaciones conectadas con tu sitio. Se cotiza aparte, solo si lo necesitas.',
+  },
+];
+---
+
+<section class="precios" id="precios" aria-labelledby="precios-title">
+  <div class="precios-container">
+
+    <header class="precios-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Precios claros
+      </div>
+
+      <h2 id="precios-title" class="precios-title">
+        Sabes cuánto cuesta
+        <span>antes de empezar.</span>
+      </h2>
+
+      <p class="precios-lead">
+        Cada proyecto se entrega con una propuesta escrita
+        y <strong>precio cerrado</strong>: lo que dice ahí, es lo que pagas.
+      </p>
+    </header>
+
+    <div class="precios-grid">
+      {plans.map((plan) => (
+        <article
+          class:list={[
+            'plan-card',
+            { 'is-featured': plan.featured, 'is-soon': plan.soon },
+          ]}
+        >
+          {plan.featured && (
+            <span class="plan-flag">El más pedido</span>
+          )}
+
+          <div class="plan-head">
+            <span class="plan-number">{plan.n}</span>
+            <h3>{plan.name}</h3>
+          </div>
+
+          <div class="plan-price">
+            <span class="price-value">{plan.price}</span>
+            <span class="price-unit">{plan.unit}</span>
+          </div>
+
+          <p class="plan-description">{plan.description}</p>
+
+          <ul class="plan-includes" role="list">
+            {plan.includes.map((item) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="precios-extras">
+      {extras.map((extra) => (
+        <div class="extra-item">
+          <div class="extra-head">
+            <h4>{extra.name}</h4>
+            <span>{extra.detail}</span>
+          </div>
+          <p>{extra.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="precios-cta">
+      <a
+        href={waHref}
+        class="precios-button"
+        target="_blank"
+        rel="noopener"
+        data-cta="whatsapp-precios"
+      >
+        <span>Pedir propuesta</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="m13 6 6 6-6 6"></path>
+        </svg>
+      </a>
+
+      <p class="precios-note">
+        Sin compromiso. Te respondemos con una propuesta escrita y precio cerrado.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .precios {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+
+    background: var(--bg-deep, transparent);
+  }
+
+  .precios-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+
+  .precios-header {
+    max-width: 680px;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .precios-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .precios-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .precios-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .precios-lead {
+    margin: 1.2rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  .precios-lead strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ---------- Planes ---------- */
+
+  .precios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .plan-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.8rem 1.6rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .plan-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.35);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  }
+
+  .plan-card.is-featured {
+    border-color: rgba(212, 175, 55, 0.45);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(212, 175, 55, 0.07),
+        transparent 45%
+      ),
+      var(--bg-surface, rgba(255, 255, 255, 0.02));
+  }
+
+  .plan-card.is-soon {
+    border-style: dashed;
+    opacity: 0.75;
+  }
+
+  .plan-card.is-soon:hover {
+    opacity: 1;
+  }
+
+  .plan-flag {
+    position: absolute;
+    top: -11px;
+    left: 1.6rem;
+
+    padding: 3px 10px;
+
+    border-radius: 999px;
+
+    background: var(--accent-default);
+    color: #050505;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .plan-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+
+    margin-bottom: 1.2rem;
+  }
+
+  .plan-number {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .plan-head h3 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+
+    color: var(--text-primary);
+  }
+
+  .plan-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
+
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .price-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+
+    color: var(--text-primary);
+  }
+
+  .price-unit {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+
+    color: var(--text-muted);
+  }
+
+  .plan-description {
+    margin: 0 0 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  .plan-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .plan-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+
+    color: var(--text-secondary);
+  }
+
+  .plan-includes svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--accent-default);
+  }
+
+  /* ---------- Extras ---------- */
+
+  .precios-extras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    margin-top: 1rem;
+  }
+
+  .extra-item {
+    padding: 1.3rem 1.4rem;
+
+    border: 1px dashed var(--border-default);
+    border-radius: 12px;
+  }
+
+  .extra-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .extra-head h4 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+
+    color: var(--text-primary);
+  }
+
+  .extra-head span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+  }
+
+  .extra-item p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- CTA ---------- */
+
+  .precios-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+
+    text-align: center;
+  }
+
+  .precios-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    min-height: 48px;
+    padding: 0 1.4rem;
+
+    border: 1px solid var(--accent-default);
+    border-radius: 7px;
+
+    background: var(--accent-default);
+    color: #050505;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .precios-button:hover {
+    color: #050505;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+  }
+
+  .precios-button svg {
+    transition: transform 0.2s ease;
+  }
+
+  .precios-button:hover svg {
+    transform: translateX(3px);
+  }
+
+  .precios-note {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+
+    color: var(--text-muted);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 960px) {
+    .precios-grid {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .precios-extras {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+</style>

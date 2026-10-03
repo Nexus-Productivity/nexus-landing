@@ -1,0 +1,268 @@
+---
+// Cada quien decide si muestra foto o solo iniciales.
+// Para agregar foto: importar el asset arriba y ponerlo en `photo`.
+const team = [
+  {
+    name: 'Carlos',
+    role: 'Sistemas y construcción',
+    bio: 'El que convierte la idea en algo que funciona. Le molesta profundamente que las cosas no le sirvan a la gente.',
+    photo: null,
+    initials: 'CA',
+  },
+  {
+    name: 'Socio(a)',
+    role: 'Diseño y comunicación',
+    bio: 'El que hace que se entienda y se vea bien. Convencido de que lo simple es lo que funciona.',
+    photo: null,
+    initials: 'NT',
+  },
+];
+---
+
+<section class="equipo" id="mision" aria-labelledby="equipo-title">
+  <div class="equipo-container">
+
+    <header class="equipo-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Quiénes somos
+      </div>
+
+      <h2 id="equipo-title" class="equipo-title">
+        Las personas
+        <span>detrás de NEXUS THRIVE.</span>
+      </h2>
+
+      <p class="equipo-lead">
+        Empezamos porque vimos el mismo problema una y otra vez:
+        buenos negocios, invisibles o desordenados en internet.
+        Decidimos arreglarlo, uno a la vez.
+      </p>
+    </header>
+
+    <ul class="equipo-grid" role="list">
+      {team.map((person) => (
+        <li class="person-card">
+          <div class="person-avatar" aria-hidden="true">
+            {person.photo ? (
+              <img src={person.photo} alt={`Foto de ${person.name}`} loading="lazy" />
+            ) : (
+              <span>{person.initials}</span>
+            )}
+          </div>
+
+          <h3>{person.name}</h3>
+          <span class="person-role">{person.role}</span>
+          <p>{person.bio}</p>
+        </li>
+      ))}
+
+      <li class="person-card person-note">
+        <h3>¿Y tú?</h3>
+        <span class="person-role">El siguiente negocio</span>
+        <p>
+          No somos una agencia gigante con miles de clientes.
+          Somos un equipo pequeño que conoce por nombre
+          a cada negocio con el que trabaja.
+        </p>
+      </li>
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .equipo {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+  }
+
+  .equipo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+
+  .equipo-header {
+    max-width: 660px;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .equipo-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .equipo-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .equipo-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .equipo-lead {
+    margin: 1.2rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Grid ---------- */
+
+  .equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .person-card {
+    padding: 1.8rem 1.6rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .person-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-3px);
+  }
+
+  .person-avatar {
+    display: grid;
+    place-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin-bottom: 1.2rem;
+
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.15),
+        rgba(212, 175, 55, 0.04)
+      );
+
+    overflow: hidden;
+  }
+
+  .person-avatar span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .person-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .person-card h3 {
+    margin: 0 0 0.3rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .person-role {
+    display: block;
+
+    margin-bottom: 0.9rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .person-card p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  /* Tarjeta de cierre: tono distinto, sin avatar */
+
+  .person-note {
+    border-style: dashed;
+
+    background: transparent;
+  }
+
+  .person-note h3 {
+    margin-top: 0.4rem;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .equipo-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+</style>
