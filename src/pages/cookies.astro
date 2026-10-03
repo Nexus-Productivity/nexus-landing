@@ -1,0 +1,165 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Política de Cookies">
+  <main class="legal">
+    <div class="legal-container">
+
+      <header class="legal-header">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Legal
+        </div>
+
+        <h1>Política de Cookies</h1>
+
+        <p class="legal-lead">
+          La verdad sobre las cookies en este sitio: apenas usamos.
+        </p>
+      </header>
+
+      <div class="legal-body">
+
+        <section class="legal-section">
+          <h2>1. Qué son las cookies</h2>
+          <p>
+            Las cookies son pequeños archivos de texto que un sitio web
+            guarda en tu dispositivo para recordar información sobre tu visita.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>2. Qué cookies utiliza este sitio</h2>
+          <p>
+            Este sitio <strong>no utiliza cookies de análisis, de marketing
+            ni de terceros</strong>. No instalamos herramientas de rastreo
+            publicitario ni medimos tu comportamiento con cookies.
+          </p>
+          <p>
+            El único almacenamiento que utiliza el sitio es estrictamente
+            necesario para su funcionamiento técnico (por ejemplo, preferencias
+            de visualización), y no requiere consentimiento.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>3. Cookies de terceros</h2>
+          <p>
+            Al hacer clic en enlaces externos (WhatsApp, GitHub, Google Maps),
+            esos servicios pueden aplicar sus propias políticas de cookies,
+            que son ajenas a este sitio.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>4. Cómo desactivarlas</h2>
+          <p>
+            Si tu navegador te muestra avisos de cookies en este sitio,
+            puedes bloquearlas desde la configuración de tu navegador sin
+            afectar el funcionamiento de la página.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>5. Actualizaciones</h2>
+          <p>
+            Si en el futuro incorporáramos cookies que requieran
+            consentimiento, actualizaremos esta página y te pediremos tu
+            preferencia. Fecha de última actualización: [ENTRAR FECHA].
+          </p>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal {
+    padding: 10rem var(--gutter) clamp(4rem, 8vw, 7rem);
+  }
+
+  .legal-container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .legal-header {
+    margin-bottom: 3rem;
+
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .legal-header h1 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .legal-lead {
+    margin: 1.1rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  .legal-section {
+    margin-bottom: 2.2rem;
+  }
+
+  .legal-section h2 {
+    margin: 0 0 0.7rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .legal-section p {
+    margin: 0 0 0.7rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+
+    color: var(--text-secondary);
+  }
+</style>

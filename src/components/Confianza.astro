@@ -1,0 +1,222 @@
+---
+const capabilities = [
+  {
+    name: 'Software a medida',
+    text: 'Sistemas internos, dashboards, portales y aplicaciones web construidos para tu operación.',
+    icon: 'code',
+  },
+  {
+    name: 'Automatización',
+    text: 'Workflows e integraciones que eliminan tareas repetitivas entre tus herramientas.',
+    icon: 'workflow',
+  },
+  {
+    name: 'Infraestructura',
+    text: 'Servidores, cloud, Docker y deployments con monitorización constante.',
+    icon: 'server',
+  },
+  {
+    name: 'Sistemas empresariales',
+    text: 'Operaciones completas conectadas: datos, procesos y personas en un solo lugar.',
+    icon: 'layers',
+  },
+  {
+    name: 'Seguridad',
+    text: 'Control de accesos, gestión de secretos, backups y protección de infraestructura.',
+    icon: 'shield',
+  },
+  {
+    name: 'Integraciones',
+    text: 'Tus herramientas existentes comunicándose entre sí, sin duplicar información.',
+    icon: 'plug',
+  },
+];
+
+const icons: Record<string, string> = {
+  code: '<path d="m16 18 6-6-6-6"></path><path d="m8 6-6 6 6 6"></path>',
+  workflow: '<rect x="3" y="3" width="6" height="6" rx="1"></rect><rect x="15" y="15" width="6" height="6" rx="1"></rect><path d="M9 6h6a3 3 0 0 1 3 3v6"></path><path d="M15 18H9a3 3 0 0 1-3-3V9"></path>',
+  server: '<rect x="2" y="3" width="20" height="7" rx="2"></rect><rect x="2" y="14" width="20" height="7" rx="2"></rect><path d="M6 6.5h.01"></path><path d="M6 17.5h.01"></path>',
+  layers: '<path d="m12 2 9 4.9-9 4.9-9-4.9z"></path><path d="m3 11.9 9 4.9 9-4.9"></path><path d="m3 16.9 9 4.9 9-4.9"></path>',
+  shield: '<path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"></path><path d="m9 11.5 2 2 4-4.5"></path>',
+  plug: '<path d="M9 7V3"></path><path d="M15 7V3"></path><path d="M7 7h10v4a5 5 0 0 1-10 0z"></path><path d="M12 16v5"></path>',
+};
+---
+
+<section class="confianza" aria-labelledby="confianza-title">
+  <div class="confianza-container">
+
+    <header class="confianza-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Qué hacemos
+      </div>
+
+      <h2 id="confianza-title" class="confianza-title">
+        Tecnología que convierte operaciones
+        <span>en sistemas que funcionan.</span>
+      </h2>
+    </header>
+
+    <ul class="confianza-grid" role="list">
+      {capabilities.map((item) => (
+        <li class="capability-card">
+          <span class="capability-icon" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={icons[item.icon]} />
+          </span>
+
+          <h3>{item.name}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .confianza {
+    padding: clamp(4.5rem, 9vw, 7.5rem) var(--gutter);
+
+    background: var(--bg-deep, transparent);
+  }
+
+  .confianza-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+
+  .confianza-header {
+    max-width: 680px;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .confianza-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+
+    color: var(--text-primary);
+  }
+
+  .confianza-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .confianza-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  /* ---------- Grid ---------- */
+
+  .confianza-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .capability-card {
+    padding: 1.5rem 1.4rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .capability-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.08);
+  }
+
+  .capability-icon {
+    display: grid;
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 1rem;
+
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .capability-card h3 {
+    margin: 0 0 0.45rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .capability-card p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .confianza-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .confianza-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

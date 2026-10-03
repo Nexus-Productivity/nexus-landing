@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const secciones = [
+  {
+    titulo: '1. Uso del sitio',
+    texto: [
+      'Este sitio web es propiedad de [ENTRAR RAZÓN SOCIAL] y se ofrece con fines informativos sobre nuestros servicios. Al acceder y utilizar este sitio, aceptas estos términos y condiciones.',
+    ],
+  },
+  {
+    titulo: '2. Propiedad intelectual',
+    texto: [
+      'Todo el contenido de este sitio — textos, diseño, logotipos, imágenes y código — es propiedad de [ENTRAR RAZÓN SOCIAL] o de sus licenciantes, y está protegido por las leyes de propiedad intelectual aplicables.',
+      'Queda prohibida su reproducción, distribución o modificación sin autorización expresa por escrito.',
+    ],
+  },
+  {
+    titulo: '3. Responsabilidades',
+    texto: [
+      'Nos esforzamos por mantener la información de este sitio actualizada y precisa, pero no garantizamos su exactitud completa ni la disponibilidad ininterrumpida del sitio.',
+      'No nos hacemos responsables por daños derivados del uso de este sitio ni por el contenido de sitios de terceros enlazados desde aquí.',
+    ],
+  },
+  {
+    titulo: '4. Servicios',
+    texto: [
+      'La información sobre servicios publicada en este sitio tiene carácter informativo. Cada proyecto se define en una propuesta comercial con alcance, tiempos y precio cerrados, acordados por escrito antes de su ejecución.',
+    ],
+  },
+  {
+    titulo: '5. Enlaces externos',
+    texto: [
+      'Este sitio puede contener enlaces a sitios de terceros. No controlamos ni nos hacemos responsables del contenido ni de las prácticas de privacidad de dichos sitios.',
+    ],
+  },
+  {
+    titulo: '6. Disponibilidad',
+    texto: [
+      'Trabajamos para mantener el sitio disponible, pero no garantizamos su funcionamiento ininterrumpido. Podemos suspender el acceso por mantenimiento o mejoras sin previo aviso.',
+    ],
+  },
+  {
+    titulo: '7. Modificaciones',
+    texto: [
+      'Podemos modificar estos términos en cualquier momento. La versión vigente siempre estará disponible en esta página. El uso continuado del sitio tras una modificación implica la aceptación de los nuevos términos.',
+    ],
+  },
+  {
+    titulo: '8. Legislación aplicable',
+    texto: [
+      'Estos términos se rigen por las leyes de la República de Colombia. Cualquier controversia derivada del uso de este sitio será sometida a los tribunales competentes de Cartagena de Indias, con renuncia a cualquier otro fuero.',
+    ],
+  },
+  {
+    titulo: '9. Contacto',
+    texto: [
+      'Si tienes preguntas sobre estos términos, escríbenos a [ENTRAR EMAIL OFICIAL].',
+    ],
+  },
+];
+---
+
+<Layout title="Términos y Condiciones">
+  <main class="legal">
+    <div class="legal-container">
+
+      <header class="legal-header">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Legal
+        </div>
+
+        <h1>Términos y Condiciones</h1>
+
+        <p class="legal-lead">
+          Las reglas que rigen el uso de este sitio web.
+        </p>
+      </header>
+
+      <div class="legal-body">
+        {secciones.map((seccion) => (
+          <section class="legal-section">
+            <h2>{seccion.titulo}</h2>
+            {seccion.texto.map((parrafo) => (
+              <p>{parrafo}</p>
+            ))}
+          </section>
+        ))}
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal {
+    padding: 10rem var(--gutter) clamp(4rem, 8vw, 7rem);
+  }
+
+  .legal-container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .legal-header {
+    margin-bottom: 3rem;
+
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .legal-header h1 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .legal-lead {
+    margin: 1.1rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  .legal-section {
+    margin-bottom: 2.2rem;
+  }
+
+  .legal-section h2 {
+    margin: 0 0 0.7rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .legal-section p {
+    margin: 0 0 0.7rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+
+    color: var(--text-secondary);
+  }
+</style>

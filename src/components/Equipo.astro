@@ -38,6 +38,11 @@ const team = [
         buenos negocios, invisibles o desordenados en internet.
         Decidimos arreglarlo, uno a la vez.
       </p>
+
+      <blockquote class="equipo-quote">
+        "Construimos sistemas porque creemos que la tecnología
+        debe simplificar, no complicar."
+      </blockquote>
     </header>
 
     <ul class="equipo-grid" role="list">
@@ -139,6 +144,21 @@ const team = [
     line-height: 1.65;
 
     color: var(--text-secondary);
+  }
+
+  .equipo-quote {
+    margin: 1.6rem 0 0;
+    padding: 1.1rem 1.4rem;
+
+    border-left: 2px solid var(--accent-default);
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
   }
 
   /* ---------- Grid ---------- */

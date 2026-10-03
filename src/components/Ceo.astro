@@ -1,0 +1,374 @@
+---
+const puntos = [
+  {
+    title: 'Cuánto cuesta el problema',
+    text: 'Cada proceso manual tiene un precio: horas, errores y retrabajo. Lo medimos antes de proponer nada.',
+  },
+  {
+    title: 'Qué tiempo consume',
+    text: 'El tiempo que tu equipo gasta en tareas repetitivas es tiempo que no gasta en crecer.',
+  },
+  {
+    title: 'Qué riesgo genera',
+    text: 'La información dispersa y los procesos dependientes de personas concretas son un riesgo operativo real.',
+  },
+  {
+    title: 'Qué puede automatizarse',
+    text: 'No todo se automatiza, pero casi siempre hay más margen del que parece. Lo identificamos juntos.',
+  },
+  {
+    title: 'Qué puede escalar',
+    text: 'Un sistema bien diseñado crece contigo. Uno mal diseñado se rompe justo cuando más lo necesitas.',
+  },
+  {
+    title: 'Qué inversión requiere',
+    text: 'Precio cerrado por escrito antes de empezar. Sabes cuánto cuesta antes de decidir.',
+  },
+];
+
+const antes = [
+  'Procesos manuales',
+  'Errores',
+  'Retrabajo',
+  'Pérdida de tiempo',
+];
+
+const despues = [
+  'Sistema centralizado',
+  'Automatización',
+  'Información disponible',
+  'Mayor control',
+];
+---
+
+<section class="ceo" id="ceo" aria-labelledby="ceo-title">
+  <div class="ceo-container">
+
+    <div class="ceo-grid">
+
+      <div class="ceo-info">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Para quienes toman decisiones
+        </div>
+
+        <h2 id="ceo-title" class="ceo-title">
+          Deja de administrar problemas tecnológicos.
+          <span>Empieza a usarlos para resolverlos.</span>
+        </h2>
+
+        <p class="ceo-lead">
+          No necesitas entender de tecnología.
+          Necesitas entender qué está pasando en tu operación
+          y qué se puede mejorar. De eso hablamos primero.
+        </p>
+
+        <ul class="ceo-points" role="list">
+          {puntos.map((punto) => (
+            <li>
+              <span class="point-marker" aria-hidden="true"></span>
+              <div>
+                <h3>{punto.title}</h3>
+                <p>{punto.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="ceo-flow">
+        <div class="flow-block">
+          <span class="flow-label">Antes</span>
+
+          <ul class="flow-list" role="list">
+            {antes.map((step, i) => (
+              <li>
+                <span class="flow-step">{step}</span>
+                {i < antes.length - 1 && (
+                  <svg class="flow-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14"></path>
+                    <path d="m19 12-7 7-7-7"></path>
+                  </svg>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="flow-divider" aria-hidden="true">
+          <span class="flow-divider-line"></span>
+          <span class="flow-divider-text">Con NEXUS</span>
+          <span class="flow-divider-line"></span>
+        </div>
+
+        <div class="flow-block">
+          <span class="flow-label is-after">Después</span>
+
+          <ul class="flow-list" role="list">
+            {despues.map((step, i) => (
+              <li>
+                <span class="flow-step">{step}</span>
+                {i < despues.length - 1 && (
+                  <svg class="flow-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14"></path>
+                    <path d="m19 12-7 7-7-7"></path>
+                  </svg>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .ceo {
+    padding: clamp(5rem, 10vw, 8.5rem) var(--gutter);
+
+    background: var(--bg-deep, transparent);
+  }
+
+  .ceo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Layout ---------- */
+
+  .ceo-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  /* ---------- Info ---------- */
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .ceo-title {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+
+    color: var(--text-primary);
+  }
+
+  .ceo-title span {
+    display: block;
+    color: var(--accent-default);
+  }
+
+  :global([data-theme='light']) .ceo-title span {
+    color: var(--accent-text, #80651d);
+  }
+
+  .ceo-lead {
+    margin: 1.2rem 0 2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Puntos ---------- */
+
+  .ceo-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .ceo-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .point-marker {
+    flex-shrink: 0;
+
+    width: 7px;
+    height: 7px;
+
+    margin-top: 0.45rem;
+
+    border-radius: 50%;
+
+    background: var(--accent-default);
+
+    box-shadow: 0 0 8px var(--glow-text, rgba(212, 175, 55, 0.4));
+  }
+
+  .ceo-points h3 {
+    margin: 0 0 0.25rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .ceo-points p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.83rem;
+    line-height: 1.55;
+
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Flujo Antes/Después ---------- */
+
+  .ceo-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    padding: clamp(1.6rem, 3vw, 2.2rem);
+
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+  }
+
+  .flow-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .flow-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+  }
+
+  .flow-label.is-after {
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .flow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .flow-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .flow-step {
+    padding: 0.55rem 0.9rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+
+    color: var(--text-secondary);
+  }
+
+  .flow-block:last-child .flow-step {
+    border-color: rgba(212, 175, 55, 0.35);
+
+    background: rgba(212, 175, 55, 0.06);
+
+    color: var(--text-primary);
+  }
+
+  .flow-arrow {
+    margin-left: 0.9rem;
+
+    color: var(--text-muted);
+  }
+
+  .flow-block:last-child .flow-arrow {
+    color: var(--accent-default);
+  }
+
+  .flow-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .flow-divider-line {
+    flex: 1;
+
+    height: 1px;
+
+    background: var(--border-default);
+  }
+
+  .flow-divider-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 960px) {
+    .ceo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

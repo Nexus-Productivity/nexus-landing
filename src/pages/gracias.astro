@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Gracias">
+  <main class="gracias">
+    <div class="gracias-container">
+
+      <span class="gracias-icon" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </span>
+
+      <h1>Recibimos tu solicitud.</h1>
+
+      <p class="gracias-text">
+        Revisaremos la información y nos pondremos en contacto contigo.
+        Si quieres acelerar el proceso, escríbenos directo por WhatsApp.
+      </p>
+
+      <div class="gracias-actions">
+        <a href="/" class="gracias-primary">
+          <span>Volver al sitio</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5"></path>
+            <path d="m11 18-6-6 6-6"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .gracias {
+    min-height: 100svh;
+
+    display: grid;
+    place-items: center;
+
+    padding: 8rem var(--gutter) 4rem;
+  }
+
+  .gracias-container {
+    max-width: 520px;
+
+    margin: 0 auto;
+
+    text-align: center;
+  }
+
+  .gracias-icon {
+    display: grid;
+    place-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 1.6rem;
+
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 50%;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .gracias-container h1 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .gracias-text {
+    margin: 1.2rem 0 2.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  .gracias-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .gracias-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    min-height: 48px;
+    padding: 0 1.4rem;
+
+    border: 1px solid var(--accent-default);
+    border-radius: 7px;
+
+    background: var(--accent-default);
+    color: #050505;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .gracias-primary:hover {
+    color: #050505;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+  }
+</style>

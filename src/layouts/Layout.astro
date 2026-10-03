@@ -6,6 +6,16 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const SITE_URL = 'https://nexusthrive.com.co';
+const SITE_NAME = 'NEXUS THRIVE';
+const DEFAULT_DESCRIPTION =
+	'NEXUS THRIVE — Negocios visibles, conectados y ordenados. Diseñamos sistemas digitales para que tu negocio sea más fácil de encontrar, entender y operar.';
+const PAGE_DESCRIPTION =
+	`${title} — ${DEFAULT_DESCRIPTION}`;
+
+const CANONICAL = new URL(Astro.url.pathname, SITE_URL);
+const OG_IMAGE = new URL('/og-image.webp', SITE_URL);
 ---
 
 <!doctype html>
@@ -13,11 +23,52 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="Nexus — soluciones simples y precisas para personas y negocios. Construidas de a módulos validados." />
+		<meta name="description" content={PAGE_DESCRIPTION} />
+		<link rel="canonical" href={CANONICAL} />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={SITE_NAME} />
+		<meta property="og:locale" content="es_CO" />
+		<meta property="og:title" content={title === 'Inicio' ? SITE_NAME : `${title} | ${SITE_NAME}`} />
+		<meta property="og:description" content={DEFAULT_DESCRIPTION} />
+		<meta property="og:url" content={CANONICAL} />
+		<meta property="og:image" content={OG_IMAGE} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="NEXUS THRIVE — Negocios visibles, conectados y ordenados." />
+
+		<!-- Twitter / X -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title === 'Inicio' ? SITE_NAME : `${title} | ${SITE_NAME}`} />
+		<meta name="twitter:description" content={DEFAULT_DESCRIPTION} />
+		<meta name="twitter:image" content={OG_IMAGE} />
+
+		<!-- Datos estructurados: Organización -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Organization',
+			name: SITE_NAME,
+			url: SITE_URL,
+			description: DEFAULT_DESCRIPTION,
+			logo: OG_IMAGE.toString(),
+			address: {
+				'@type': 'PostalAddress',
+				addressLocality: 'Cartagena de Indias',
+				addressCountry: 'CO',
+			},
+			contactPoint: {
+				'@type': 'ContactPoint',
+				telephone: '+57-323-745-3913',
+				contactType: 'sales',
+				areaServed: 'CO',
+				availableLanguage: 'es',
+			},
+		})} />
 		{/*
 			El tema del sitio es CLARO por defecto (decisión del CEO:
 			no hay toggle, la web es clara siempre).

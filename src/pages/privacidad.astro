@@ -1,0 +1,207 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+/*
+  ⚠️ DATOS EMPRESARIALES PENDIENTES DE COMPLETAR (no inventar):
+  - Razón social de la empresa
+  - NIT
+  - Email de contacto oficial
+  - Domicilio
+
+  Mientras tanto se usan placeholders visibles [ENTRAR ...].
+  Esta página está orientada a la normativa colombiana
+  (Ley 1581 de 2012, Decreto 1377 de 2013). Revisar con
+  asesoría jurídica antes de publicar.
+*/
+
+const secciones = [
+  {
+    id: 'responsable',
+    titulo: '1. Responsable del tratamiento',
+    texto: [
+      '[ENTRAR RAZÓN SOCIAL], identificada con NIT [ENTRAR NIT], con domicilio en Cartagena de Indias, Colombia, es la responsable del tratamiento de los datos personales recopilados a través de este sitio web.',
+      'Para consultas relacionadas con el tratamiento de datos personales, puedes escribirnos a [ENTRAR EMAIL OFICIAL].',
+    ],
+  },
+  {
+    id: 'datos',
+    titulo: '2. Qué datos recopilamos',
+    texto: [
+      'A través del formulario de contacto recopilamos: nombre, empresa, email corporativo, descripción de la necesidad y presupuesto aproximado.',
+      'No recopilamos datos personales sensibles. No utilizamos cookies de análisis ni de marketing en este sitio.',
+    ],
+  },
+  {
+    id: 'finalidad',
+    titulo: '3. Para qué utilizamos tus datos',
+    texto: [
+      'Los datos recopilados se utilizan exclusivamente para: (a) responder a tu solicitud de contacto, (b) preparar una propuesta comercial y (c) dar seguimiento a la relación comercial.',
+      'No vendemos, alquilamos ni compartimos tus datos personales con terceros con fines comerciales.',
+    ],
+  },
+  {
+    id: 'base',
+    titulo: '4. Base jurídica del tratamiento',
+    texto: [
+      'El tratamiento de tus datos se fundamenta en el consentimiento que otorgas al enviar el formulario, y en la ejecución de medidas precontractuales (preparación de propuestas).',
+    ],
+  },
+  {
+    id: 'conservacion',
+    titulo: '5. Tiempo de conservación',
+    texto: [
+      'Los datos se conservan durante el tiempo necesario para gestionar la solicitud y la relación comercial, y mientras no solicites su eliminación. Una vez finalizada la relación, los datos se conservan por los plazos legales aplicables.',
+    ],
+  },
+  {
+    id: 'terceros',
+    titulo: '6. Proveedores y terceros',
+    texto: [
+      'Utilizamos proveedores de infraestructura (alojamiento web) que pueden tratar datos en nuestro nombre bajo acuerdos de confidencialidad. No realizamos transferencias internacionales de datos personales.',
+    ],
+  },
+  {
+    id: 'derechos',
+    titulo: '7. Tus derechos',
+    texto: [
+      'Como titular de los datos, tienes derecho a: (a) acceder a tus datos personales, (b) rectificarlos cuando sean inexactos, (c) solicitar su eliminación, (d) revocar el consentimiento y (e) presentar una queja ante la Superintendencia de Industria y Comercio (SIC).',
+      'Para ejercer estos derechos, escríbenos a [ENTRAR EMAIL OFICIAL] indicando el derecho que deseas ejercer.',
+    ],
+  },
+  {
+    id: 'seguridad',
+    titulo: '8. Medidas de seguridad',
+    texto: [
+      'Aplicamos medidas técnicas y organizativas razonables para proteger tus datos: conexiones HTTPS, control de accesos y gestión segura de credenciales.',
+    ],
+  },
+  {
+    id: 'actualizaciones',
+    titulo: '9. Actualizaciones de esta política',
+    texto: [
+      'Podemos actualizar esta política periódicamente. La versión vigente siempre estará disponible en esta página. Fecha de última actualización: [ENTRAR FECHA].',
+    ],
+  },
+];
+---
+
+<Layout title="Política de Privacidad">
+  <main class="legal">
+    <div class="legal-container">
+
+      <header class="legal-header">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Legal
+        </div>
+
+        <h1>Política de Privacidad</h1>
+
+        <p class="legal-lead">
+          Cómo recopilamos, utilizamos y protegemos tus datos personales
+          cuando interactúas con este sitio.
+        </p>
+      </header>
+
+      <div class="legal-body">
+        {secciones.map((seccion) => (
+          <section class="legal-section" id={seccion.id}>
+            <h2>{seccion.titulo}</h2>
+            {seccion.texto.map((parrafo) => (
+              <p>{parrafo}</p>
+            ))}
+          </section>
+        ))}
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal {
+    padding: 10rem var(--gutter) clamp(4rem, 8vw, 7rem);
+  }
+
+  .legal-container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .legal-header {
+    margin-bottom: 3rem;
+
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    margin-bottom: 1.2rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .eyebrow-line {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-default);
+  }
+
+  .legal-header h1 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+  }
+
+  .legal-lead {
+    margin: 1.1rem 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+
+    color: var(--text-secondary);
+  }
+
+  .legal-section {
+    margin-bottom: 2.2rem;
+  }
+
+  .legal-section h2 {
+    margin: 0 0 0.7rem;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    color: var(--text-primary);
+  }
+
+  .legal-section p {
+    margin: 0 0 0.7rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+
+    color: var(--text-secondary);
+  }
+</style>

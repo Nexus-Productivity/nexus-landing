@@ -63,32 +63,46 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
       </div>
 
       <form class="contacto-form" id="contacto-form" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="cf-nombre">Tu nombre</label>
+            <input
+              type="text"
+              id="cf-nombre"
+              name="nombre"
+              placeholder="¿Cómo te llamas?"
+              autocomplete="name"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="cf-empresa">Empresa</label>
+            <input
+              type="text"
+              id="cf-empresa"
+              name="empresa"
+              placeholder="Nombre de tu empresa o negocio"
+              autocomplete="organization"
+              required
+            />
+          </div>
+        </div>
+
         <div class="form-field">
-          <label for="cf-nombre">Tu nombre</label>
+          <label for="cf-email">Email corporativo</label>
           <input
-            type="text"
-            id="cf-nombre"
-            name="nombre"
-            placeholder="¿Cómo te llamas?"
-            autocomplete="name"
+            type="email"
+            id="cf-email"
+            name="email"
+            placeholder="tucorreo@empresa.com"
+            autocomplete="email"
             required
           />
         </div>
 
         <div class="form-field">
-          <label for="cf-negocio">Tu negocio</label>
-          <input
-            type="text"
-            id="cf-negocio"
-            name="negocio"
-            placeholder="Ej: Restaurante en Getsemaní"
-            autocomplete="organization"
-            required
-          />
-        </div>
-
-        <div class="form-field">
-          <label for="cf-necesidad">¿Qué necesitas?</label>
+          <label for="cf-necesidad">¿Qué necesitas resolver?</label>
           <textarea
             id="cf-necesidad"
             name="necesidad"
@@ -97,6 +111,26 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
             required
           ></textarea>
         </div>
+
+        <div class="form-field">
+          <label for="cf-presupuesto">Presupuesto aproximado</label>
+          <select id="cf-presupuesto" name="presupuesto" required>
+            <option value="" disabled selected>Selecciona un rango</option>
+            <option value="Menos de $1.000.000 COP">Menos de $1.000.000 COP</option>
+            <option value="$1.000.000 – $3.000.000 COP">$1.000.000 – $3.000.000 COP</option>
+            <option value="$3.000.000 – $10.000.000 COP">$3.000.000 – $10.000.000 COP</option>
+            <option value="Más de $10.000.000 COP">Más de $10.000.000 COP</option>
+            <option value="No lo sé aún">No lo sé aún</option>
+          </select>
+        </div>
+
+        <label class="form-consent">
+          <input type="checkbox" id="cf-privacidad" name="privacidad" required />
+          <span>
+            Autorizo el tratamiento de mis datos personales de acuerdo con la
+            <a href="/privacidad">Política de Privacidad</a>.
+          </span>
+        </label>
 
         <button type="submit" class="form-submit">
           <span>Enviar por WhatsApp</span>
@@ -128,18 +162,22 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
     const data = new FormData(event.target as HTMLFormElement);
 
     const nombre = String(data.get('nombre') ?? '').trim();
-    const negocio = String(data.get('negocio') ?? '').trim();
+    const empresa = String(data.get('empresa') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
     const necesidad = String(data.get('necesidad') ?? '').trim();
+    const presupuesto = String(data.get('presupuesto') ?? '').trim();
+    const privacidad = Boolean(data.get('privacidad'));
 
-    if (!nombre || !negocio || !necesidad) {
+    if (!nombre || !empresa || !email || !necesidad || !presupuesto || !privacidad) {
       (event.target as HTMLFormElement).reportValidity();
       return;
     }
 
     const mensaje = [
-      `Hola NEXUS THRIVE, soy ${nombre}.`,
-      `Mi negocio: ${negocio}.`,
-      `Lo que necesito: ${necesidad}`,
+      `Hola NEXUS THRIVE, soy ${nombre} (${email}).`,
+      `Empresa: ${empresa}.`,
+      `Lo que necesito resolver: ${necesidad}`,
+      `Presupuesto aproximado: ${presupuesto}.`,
     ].join('\n');
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
@@ -319,6 +357,12 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
   }
 
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
   .form-field {
     display: flex;
     flex-direction: column;
@@ -336,7 +380,8 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
   }
 
   .form-field input,
-  .form-field textarea {
+  .form-field textarea,
+  .form-field select {
     width: 100%;
 
     padding: 0.85rem 1rem;
@@ -355,6 +400,20 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
+  }
+
+  .form-field select {
+    cursor: pointer;
+
+    appearance: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+  }
+
+  .form-field select:invalid {
+    color: var(--text-muted);
   }
 
   .form-field textarea {
@@ -416,6 +475,40 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
     transform: translateX(3px);
   }
 
+  .form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+
+    cursor: pointer;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.5;
+
+    color: var(--text-secondary);
+  }
+
+  .form-consent input {
+    flex-shrink: 0;
+
+    width: 16px;
+    height: 16px;
+
+    margin-top: 2px;
+
+    accent-color: var(--accent-default);
+
+    cursor: pointer;
+  }
+
+  .form-consent a {
+    color: var(--accent-text, var(--accent-default));
+
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
   .form-note {
     margin: 0;
 
@@ -431,6 +524,10 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
   @media (max-width: 900px) {
     .contacto-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-row {
       grid-template-columns: 1fr;
     }
   }
