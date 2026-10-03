@@ -1,4 +1,56 @@
+---
+import fondoUrl from '../assets/hero-fondo.webm?url';
+import posterUrl from '../assets/hero-poster.jpg?url';
+---
+
 <section class="hero">
+  {/*
+    Fondo de video. Va como la primera capa y es decorativo: si el
+    navegador no lo reproduce queda el poster, y si el usuario pidió menos
+    movimiento queda el poster también. Por eso `aria-hidden` y
+    `tabindex="-1"`: no es un control, no debe aparecer en la navegación
+    por teclado.
+
+    `muted` + `playsinline` son OBLIGATORIOS para autoplay en todos los
+    navegadores. Sin `muted`, Chrome y Safari bloquean el `play()` y el
+    video queda clavado en el poster sin error visible.
+
+    `preload="metadata"` en vez de `auto`: con `auto` el navegador baja
+    los 1.2 MB antes de saber si el video se va a ver, y en móvil eso es
+    ancho de banda gastado en una página donde el usuario scrollea rápido.
+  */}
+  <video
+    class="hero-video"
+    src={fondoUrl}
+    poster={posterUrl}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+    tabindex="-1"
+    data-hero-video
+  ></video>
+
+  {/*
+    Dos velos sobre el video, y cada uno hace una cosa distinta:
+
+    1. `hero-tinte` lleva el video hacia el dorado de marca con
+       `mix-blend-mode: color`. El archivo es un gradiente mauve/violeta
+       y la marca es #D4AF37; en vez de descartar el video o pelear con
+       él, se le cambia la cromaticidad y se lo deja como fuente de
+       movimiento. `color` (no `hue`): mueve el tono pero no la
+       luminancia, así que no le cambia el brillo al texto que va encima.
+
+    2. `hero-velo` es el velo de legibilidad. Sin él, el texto blanco
+       compite con el gradiente moviéndose detrás y en el frame más
+       claro deja de leerse. Va de negro al 72% en la zona del texto a
+       transparente arriba.
+  */}
+  <div class="hero-tinte" aria-hidden="true"></div>
+  <div class="hero-velo" aria-hidden="true"></div>
+
   <div class="hero-content">
     <div class="hero-text">
       <span>Nexus conecta lo que está separado&nbsp;—&nbsp;personas, herramientas y datos.</span>
@@ -10,6 +62,67 @@
     <span>N</span>
   </div>
 </section>
+
+<script>
+  /**
+   * Control del video de fondo.
+   *
+   * Tres cosas que un `autoplay` solo no resuelve:
+   *
+   * 1. `prefers-reduced-motion`: no se reproduce. Es un video decorativo
+   *    de 10 segundos en loop; para quien pidió menos movimiento es
+   *    movimiento no pedido. Se pausa y se deja el poster.
+   *
+   * 2. Fuera de pantalla: el hero es lo primero de la página, así que
+   *    después del primer scroll el video sigue decodificando 30 frames
+   *    por segundo sin que nadie lo mire. Un `IntersectionObserver` lo
+   *    pausa. Esto es batería, no estética.
+   *
+   * 3. Pestaña oculta: los navegadores ya pausean solos en iOS y Chrome,
+   *    pero no en todos. Se fuerza por `visibilitychange`.
+   *
+   * `play()` devuelve una promesa que rechaza cuando el navegador la
+   *    bloquea (política de autoplay, ahorro de datos). Si no se atrapa
+   *    esa promesa, aparece un `Unhandled Promise Rejection` en consola.
+   *    El video ya está mostrando el poster, así que un rechazo no es un
+   *    problema: se ignora a propósito.
+   */
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+
+  if (video) {
+    const menosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let enPantalla = true;
+
+    const reproducir = () => {
+      if (menosMovimiento.matches || !enPantalla || document.hidden) return;
+      video.play().catch(() => {
+        /* Autoplay bloqueado o ahorro de datos activo. El poster queda. */
+      });
+    };
+
+    const pausar = () => video.pause();
+
+    menosMovimiento.addEventListener('change', reproducir);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pausar();
+      else reproducir();
+    });
+
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        enPantalla = entradas.some((e) => e.isIntersecting);
+        if (enPantalla) reproducir();
+        else pausar();
+      },
+      { threshold: 0.01 }
+    );
+
+    observador.observe(video);
+
+    if (menosMovimiento.matches) pausar();
+  }
+</script>
 
 <style>
   .hero {
@@ -24,6 +137,64 @@
     min-height: 100svh;
     background-color: var(--bg-primary);
     gap: 2rem;
+
+    /* El video y los velos son absolutos: tienen que quedar detrás del
+       contenido sin sacar al `.hero` del flujo. Y el hero se sale del
+       ancho de la pantalla (max-width 1400px) pero el video tiene que
+       llegar al borde: por eso va en un wrapper de `left: 50%` +
+       `translateX(-50%)` con `width: 100vw`, no con `inset: 0`. */
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  /* El fondo se separa del contenido con `z-index: 0` y los hijos del
+     contenido con `z-index: 1`. `isolation: isolate` crea el contexto de
+     apilado para que `mix-blend-mode` del tinte no se coma el texto. */
+  .hero-video,
+  .hero-tinte,
+  .hero-velo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-video {
+    object-fit: cover;
+    /* El archivo es 16:9 (1920x1080) y el hero en móvil es alto y angosto,
+       así que `cover` recorta los lados. Se sube un poco el brillo para
+       que el dorado del tinte tenga algo sobre lo que actuar. */
+    filter: brightness(0.85);
+  }
+
+  .hero-tinte {
+    /* `color` retona el video a los tonos de la marca sin tocar la
+       luminancia. El negro del hero se mantiene negro. */
+    background-color: var(--accent-default, #d4af37);
+    mix-blend-mode: color;
+    opacity: 0.75;
+  }
+
+  .hero-velo {
+    /* Legibilidad. `180% 90%`: la parte más densa cae justo detrás del
+       texto de la columna izquierda, que es donde está el contenido. */
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.72) 45%,
+      rgba(0, 0, 0, 0.86) 100%
+    );
+  }
+
+  .hero-content,
+  .hero-grid-2 {
+    position: relative;
+    z-index: 1;
   }
 
   .hero-content {
@@ -120,6 +291,25 @@
       /* Banner (36px) + navbar móvil (72px) fijos */
       padding: 9rem 1.5rem 3rem;
       text-align: center;
+    }
+
+    /* En móvil el video queda en 16:9 dentro de una caja alta y angosta:
+       `cover` deja ver solo el centro del gradiente y la mitad del alto
+       se ve como una banda de color. Se baja el brillo más todavía para
+       que no compita con el texto centrado. */
+    .hero-video {
+      filter: brightness(0.7);
+    }
+
+    /* El velo se pone más uniforme: en una columna el texto ocupa el ancho
+       completo, así que el degradado lateral ya no ayuda. */
+    .hero-velo {
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.9) 100%
+      );
     }
 
     .hero-content {
