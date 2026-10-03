@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { marca } from '../data/oferta';
+---
+
+<Layout
+  title="Política de privacidad"
+  description="Cómo trata NEXUS los datos que nos enviás por esta web."
+>
+  <Navbar />
+
+  <main class="legal" id="contenido">
+    <div class="container legal-inner">
+      <span class="eyebrow">Legal</span>
+      <h1 class="legal-title">Política de privacidad</h1>
+      <p class="legal-fecha">Última actualización: 2 de octubre de 2026</p>
+
+      <section>
+        <h2>Qué datos recogemos</h2>
+        <p>
+          Esta web no tiene servidor propio donde se guarden datos. El formulario
+          de contacto no envía nada a un servidor: arma un mensaje y abre
+          WhatsApp con el texto que escribiste.
+        </p>
+        <p>
+          Si decides escribirnos, los datos que nos llegan son los que vos
+          elegís compartir (tu nombre, tu negocio y lo que cuentes del
+          problema), y quedan en el historial de tu conversación de WhatsApp.
+        </p>
+      </section>
+
+      <section>
+        <h2>Para qué los usamos</h2>
+        <p>
+          Únicamente para responderte, entender el problema que nos contás y
+          preparar una propuesta para vos. No vendemos ni cedemos tus datos a
+          terceros, y no los usamos para publicidad.
+        </p>
+      </section>
+
+      <section>
+        <h2>WhatsApp</h2>
+        <p>
+          La conversación se sostiene dentro de WhatsApp, que es un servicio de
+          Meta. Aplican la política de privacidad y las condiciones de WhatsApp,
+          sobre las que {marca} no tiene control.
+        </p>
+      </section>
+
+      <section>
+        <h2>Tus derechos</h2>
+        <p>
+          Podés pedirnos acceso, corrección o eliminación de tus datos,
+          revocar el consentimiento y presentar una queja. Escribinos y lo
+          atendemos.
+        </p>
+      </section>
+
+      <aside class="legal-pendiente">
+        <h2>Pendiente de completar antes de facturar</h2>
+        <p>
+          Esta política está redactada con lo que {marca} hace hoy, pero le
+          faltan los datos legales obligatorios: razón social, NIT, política
+          de retención de datos y el canal PQR con su radicado. Se completan
+          cuando se defina la entidad legal. No publiques ni cobres con esto
+          sin una revisión legal.
+        </p>
+      </aside>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem);
+    background-color: var(--bg-primary);
+  }
+
+  .legal-inner {
+    max-width: 68ch;
+  }
+
+  .legal-title {
+    margin-top: 1rem;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .legal-fecha {
+    margin-top: 0.6rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .legal section {
+    margin-top: 2.5rem;
+  }
+
+  .legal h2 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .legal p {
+    margin-top: 0.7rem;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .legal-pendiente {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--bg-surface);
+    border: 1px dashed var(--border-strong);
+    border-radius: 12px;
+  }
+
+  .legal-pendiente h2 {
+    color: var(--accent-ink);
+  }
+</style>

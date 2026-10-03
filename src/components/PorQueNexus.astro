@@ -1,0 +1,180 @@
+---
+import { diferenciadores, argumentoBocaABoca } from '../data/oferta';
+import { whatsappUrl } from '../data/contacto';
+---
+
+<section class="porque" id="por-que">
+  <div class="container">
+    <div class="porque-grid">
+      <div class="porque-texto" data-reveal="sube">
+        <span class="eyebrow">03 — Por qué Nexus</span>
+        <h2 class="section-title">Por qué Nexus y no otra opción.</h2>
+
+        <ul class="lista" data-reveal="stagger">
+          {
+            diferenciadores.map((item) => (
+              <li>
+                <h3>{item.titulo}</h3>
+                <p>{item.texto}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- El argumento central: las redes como prueba, no como canal -->
+      <aside class="boca" data-reveal="sube">
+        <span class="boca-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5" />
+          </svg>
+        </span>
+
+        <h3 class="boca-titulo">{argumentoBocaABoca.titulo}</h3>
+        <p class="boca-texto">{argumentoBocaABoca.texto}</p>
+
+        <a class="boca-link" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Quiero que me encuentren
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .porque {
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .porque-grid {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .porque-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+
+  .porque-texto .section-title {
+    margin-top: 1rem;
+  }
+
+  .lista {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .lista li {
+    padding-left: 1.1rem;
+    border-left: 2px solid var(--accent-default);
+  }
+
+  .lista h3 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .lista p {
+    margin-top: 0.35rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* --- Bloque oscuro: el argumento --- */
+  .boca {
+    position: sticky;
+    top: 110px;
+    padding: 2rem;
+    background-color: var(--bg-deep);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* Halo dorado: la única vez que se usa dorado sobre negro como
+     superficie amplia, y con opacidad baja para no quemarse */
+  .boca::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.22), transparent 68%);
+    pointer-events: none;
+  }
+
+  .boca-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background-color: rgba(212, 175, 55, 0.14);
+    color: var(--accent-default);
+  }
+
+  .boca-titulo {
+    position: relative;
+    margin-top: 1.5rem;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    text-wrap: balance;
+  }
+
+  .boca-texto {
+    position: relative;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .boca-link {
+    position: relative;
+    margin-top: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent-default);
+    text-decoration: none;
+  }
+
+  .boca-link svg {
+    transition: transform 0.2s ease;
+  }
+
+  .boca-link:hover {
+    color: var(--accent-hover);
+  }
+
+  .boca-link:hover svg {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 999px) {
+    .boca {
+      position: static;
+    }
+  }
+</style>

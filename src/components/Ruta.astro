@@ -1,0 +1,380 @@
+---
+import { etapas, adicionales, formatCOP } from '../data/precios';
+import { whatsappUrl } from '../data/contacto';
+---
+
+<section class="gradiente-fondo ruta" id="ruta">
+  <div class="container">
+    <div class="ruta-head" data-reveal="sube">
+      <span class="eyebrow">01 — La ruta</span>
+      <h2 class="section-title">Tú decides hasta dónde llegar.</h2>
+      <p class="section-lead">
+        Cada etapa incluye la anterior. Si subís de nivel, solo pagás la
+        diferencia. Empezás por lo que necesitás y nada te obliga a comprar el
+        resto.
+      </p>
+    </div>
+
+    <ol class="ruta-grid" data-reveal="stagger">
+      {
+        etapas.map((etapa) => (
+          <li
+            class={`etapa ${etapa.estado === 'en-construccion' ? 'etapa--futura' : ''}`}
+            {/* tilt 3D, salvo en la etapa que no se está vendiendo */}
+            data-tilt={etapa.estado === 'en-construccion' ? undefined : ''}
+          >
+            <div class="etapa-top">
+              <span class="etapa-nombre">{etapa.nombre}</span>
+              {etapa.estado === 'en-construccion' && (
+                <span class="etapa-badge">En construcción</span>
+              )}
+            </div>
+
+            <p class="etapa-resultado">{etapa.resultado}</p>
+
+            <ul class="etapa-lista">
+              {etapa.incluye.map((item) => (
+                <li>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="etapa-pie">
+              {
+                etapa.precio ? (
+                  <>
+                    <span class="etapa-precio">
+                      <span class="etapa-precio-label">Desde</span>
+                      {formatCOP(etapa.precio)}
+                    </span>
+                    <span class="etapa-detalle">
+                      Entrega: {etapa.entrega}
+                      {etapa.cuidado && ` · Cuidado ${formatCOP(etapa.cuidado)}/trimestre`}
+                    </span>
+                  </>
+                ) : (
+                  <span class="etapa-precio etapa-precio--na">
+                    Sin precio
+                    <span class="etapa-precio-label">Todavía no existe</span>
+                  </span>
+                )
+              }
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- Lo que se suma o se quita -->
+    <div class="adicionales" data-reveal="sube">
+      <h3 class="adicionales-titulo">Lo que podés sumar o quitar</h3>
+      <p class="adicionales-lead">
+        Cada adicional tiene su precio aparte. Si no lo necesitás, no lo pagás.
+      </p>
+      <ul class="adicionales-lista">
+        {
+          adicionales.map((item) => (
+            <li>
+              <strong>{item.nombre}</strong>
+              <span>{item.detalle}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="ruta-cta">
+      <p>¿No sabés cuál te sirve? Justamente eso es lo primero que preguntamos.</p>
+      <a class="btn btn-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+        Contanos tu caso
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ruta {
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    background-color: var(--bg-subtle);
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .ruta-head {
+    max-width: 62ch;
+  }
+
+  .ruta-head .section-title {
+    margin-top: 1rem;
+  }
+
+  .ruta-head .section-lead {
+    margin-top: 1.1rem;
+  }
+
+  .ruta-grid {
+    margin-top: 3.5rem;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+
+    /* El tilt 3D de GSAP necesita una perspectiva en el padre. Sin
+       esto los `rotationX/rotationY` se aplanan y el efecto no se ve. */
+    perspective: 1100px;
+  }
+
+  @media (min-width: 760px) {
+    .ruta-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .etapa {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition:
+      border-color var(--dur-media) var(--ease-out),
+      box-shadow var(--dur-media) var(--ease-out);
+  }
+
+  /* Barrido de luz diagonal al pasar el mouse. Es un pseudo-elemento
+     que se mueve con `transform`, no con background-position: lo
+     primero lo compone la GPU, lo segundo repinta el elemento. */
+  .etapa::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 38%,
+      var(--accent-soft) 50%,
+      transparent 62%
+    );
+    opacity: 0;
+    transform: translate3d(-70%, 0, 0);
+    transition:
+      opacity var(--dur-lenta) var(--ease-out),
+      transform 0.85s var(--ease-out);
+    pointer-events: none;
+  }
+
+  .etapa:hover {
+    border-color: var(--accent-default);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .etapa:hover::before {
+    opacity: 1;
+    transform: translate3d(70%, 0, 0);
+  }
+
+  /* La etapa en construcción no se vende: se muestra apagada y sin precio */
+  .etapa--futura {
+    background-color: var(--bg-surface);
+    border-style: dashed;
+    border-color: var(--border-strong);
+  }
+
+  .etapa--futura:hover {
+    box-shadow: none;
+    border-color: var(--border-strong);
+  }
+
+  .etapa--futura::before {
+    display: none;
+  }
+
+  .etapa-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .etapa-nombre {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  .etapa-badge {
+    padding: 0.25rem 0.6rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .etapa--futura .etapa-badge {
+    background-color: transparent;
+  }
+
+  .etapa-resultado {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--accent-ink);
+    font-weight: 500;
+  }
+
+  .etapa-lista {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+  }
+
+  .etapa-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .etapa-lista svg {
+    flex-shrink: 0;
+    margin-top: 0.32em;
+    color: var(--accent-default);
+  }
+
+  .etapa--futura .etapa-lista svg {
+    color: var(--text-muted);
+  }
+
+  .etapa-pie {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-default);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .etapa-precio {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.15;
+  }
+
+  .etapa-precio--na {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+  }
+
+  .etapa-precio-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .etapa-detalle {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* --- Adicionales --- */
+  .adicionales {
+    margin-top: 3.5rem;
+    padding: 1.75rem;
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    background-color: var(--bg-primary);
+  }
+
+  .adicionales-titulo {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .adicionales-lead {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .adicionales-lista {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 620px) {
+    .adicionales-lista {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .adicionales-lista li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--accent-default);
+  }
+
+  .adicionales-lista strong {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .adicionales-lista span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  /* --- Cierre de la ruta --- */
+  .ruta-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+  }
+
+  .ruta-cta p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+</style>

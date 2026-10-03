@@ -1,216 +1,398 @@
 ---
-import starUrl from '../assets/star.svg?url';
+import Logo from './Logo.astro';
+import { whatsappUrl, whatsappTextoBoton } from '../data/contacto';
 
 const navItems = [
-  { label: 'Proyectos', href: '#proyectos' },
-  { label: 'Filosofía', href: '#mision' },
+  { label: 'La ruta', href: '#ruta' },
   { label: 'Método', href: '#metodo' },
-  { label: 'Escuchamos', href: '#escuchanos' },
+  { label: 'Por qué Nexus', href: '#por-que' },
+  { label: 'Preguntas', href: '#faq' },
 ];
 ---
 
-<div class="top-banner">Estamos construyendo NEXUS!</div>
-
-<header class="navbar">
-  <div class="navbar-container">
-    <a href="/" class="navbar-logo">
-      <img class="logo-star" src={starUrl} alt="Estrella Nexus" />
-      <span class="logo">NEXUS</span>
+<header class="header" id="header" data-header>
+  <div class="header-inner">
+    <a href="/" class="header-brand" aria-label="Nexus, inicio">
+      <Logo size="md" />
     </a>
-    <nav class="navbar-nav">
-      <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-hidden="true" />
-      <label for="menu-toggle" class="menu-icon" aria-label="Abrir menú">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-      <ul class="nav-menu">
-        {navItems.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
-        <li><button class="button">Explorar Proyectos</button></li>
+
+    <nav class="header-nav" aria-label="Principal">
+      <ul class="nav-list">
+        {
+          navItems.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))
+        }
       </ul>
     </nav>
+
+    <div class="header-actions">
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Cambiar entre modo claro y oscuro"
+        title="Cambiar tema"
+      >
+        <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none"
+          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" fill="none"
+          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+        </svg>
+      </button>
+
+      <a class="btn btn-primary header-cta halo" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-magnetic="0.22">
+        WhatsApp
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-movil"
+        aria-label="Abrir menú"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú móvil -->
+  <div class="mobile-menu" id="menu-movil" hidden>
+    <ul class="mobile-list">
+      {
+        navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))
+      }
+    </ul>
+    <a class="btn btn-primary mobile-cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+      {whatsappTextoBoton}
+    </a>
   </div>
 </header>
 
 <style>
-  .top-banner {
-    position: fixed;
+  .header {
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 101;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--accent-default);
-    color: #000;
-    font-family: "Inter", sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-
-  .navbar {
-    position: fixed;
-    top: 36px;
-    left: 0;
-    right: 0;
     z-index: 100;
-    background-color: var(--bg-primary);
+
+    /* SIN backdrop-filter, a propósito.
+       Medido en esta página: con `backdrop-filter: blur(14px)` el
+       escritorio iba a 53 fps con 10% de frames perdidos; sin él, 60
+       fps con 0%. El blur obligatorio al compositor a recalcular el
+       fondo difuminado en cada frame de scroll, y como debajo hay
+       halos dorados animados el costo se multiplica.
+
+       Para que el header siga leyéndose "vidrio" sin el filtro, se
+       usan dos capas: un fondo casi opaco y un gradiente sutil. A
+       simple vista el resultado es el mismo y el scroll va fluido. */
+    background-color: color-mix(in srgb, var(--bg-primary) 96%, transparent);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg-primary) 92%, transparent),
+      color-mix(in srgb, var(--bg-primary) 99%, transparent)
+    );
+    border-bottom: 1px solid transparent;
+    transition:
+      transform 0.35s var(--ease-out),
+      border-color 0.25s ease,
+      background-color 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
-  .navbar-container {
-    height: 150px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
+  /* Baja al hacer scroll para devolverle altura al contenido, y
+     vuelve en cuanto subís. La sombra solo aparece cuando está
+     elevated: sin contenido detrás, un borde solo se ve como una
+     línea suelta. */
+  .header[data-oculto] {
+    transform: translate3d(0, -100%, 0);
+  }
+
+  /* Borde apenas pasa del tope: separa sin ruido */
+  .header[data-scrolled] {
+    border-bottom-color: var(--border-default);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header-brand {
+    text-decoration: none;
+
+    /* `min-width: 0` + `flex-shrink: 1` permiten que el logo ceda
+       espacio. Sin esto, el wordmark "NEXUS THRIVE" en Public Stunt
+       (una fuente muy ancha) empujaba los botones fuera del viewport
+       en pantallas de 390px: el menú hamburguesa quedaba en x=427 y
+       era inclicable. `overflow-x: clip` lo ocultaba sin avisar. */
+    flex-shrink: 1;
+    min-width: 0;
+    display: flex;
+  }
+
+  .header-brand :global(.logo) {
+    min-width: 0;
+  }
+
+  /* En pantallas chicas el logo se achica en vez de empujar. */
+  @media (max-width: 480px) {
+    .header-brand :global(.logo-wordmark) {
+      font-size: 1.2rem;
+    }
+
+    .header-brand :global(.logo-star) {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .header-brand :global(.logo-wordmark) {
+      font-size: 1.02rem;
+    }
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0.9rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.75rem;
   }
 
-  .navbar-logo {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
+  @media (min-width: 768px) {
+    .header-inner {
+      padding-inline: 2.5rem;
+      gap: 1.5rem;
+    }
   }
 
-  .logo-star {
-    position: absolute;
-    top: -52px;
-    right: 88px;
-    height: 160px;
-    width: auto;
-    transform: rotate(-19deg);
-    z-index: 0;
-  }
-
-  .logo {
-    position: relative;
-    z-index: 1;
-    font-family: 'Public Stunt', sans-serif;
-    font-size: 2.1rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    color: var(--text-primary);
-  }
-
-  .menu-toggle,
-  .menu-icon {
+  .header-nav {
     display: none;
   }
 
-  .nav-menu {
+  .nav-list {
     display: flex;
-    gap: 2rem;
-    list-style: none;
     align-items: center;
+    gap: 1.9rem;
   }
 
-  .navbar-nav a {
-    color: var(--text-secondary);
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    transition: color 0.2s ease;
-  }
-
-  .navbar-nav a:hover {
-    color: var(--accent-default);
-  }
-
-  .button {
-    font-family: "Inter", sans-serif;
+  .nav-list a {
+    font-size: 0.9rem;
     font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    position: relative;
+    padding-block: 0.25rem;
+  }
+
+  .nav-list a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1.5px;
+    width: 100%;
     background-color: var(--accent-default);
-    padding: 10px 18px;
-    border-radius: 5px;
-    border: none;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s ease;
+  }
+
+  .nav-list a:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-list a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .header-cta {
+    display: none;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  /* --- Toggle de tema --- */
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent-default);
+    color: var(--accent-ink);
+  }
+
+  /* En claro se muestra el sol (invita a oscurecer); en oscuro, la luna */
+  .theme-toggle .icon-moon {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .theme-toggle .icon-moon {
+    display: block;
+  }
+
+  :global([data-theme='dark']) .theme-toggle .icon-sun {
+    display: none;
+  }
+
+  /* --- Hamburguesa --- */
+  .menu-toggle {
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    width: 38px;
+    height: 36px;
+    background-color: transparent;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
     cursor: pointer;
   }
 
-  /* --- Responsive móvil: barra compacta + menú hamburguesa --- */
-  @media (max-width: 900px) {
-    .navbar-container {
-      height: 72px;
-      padding: 0.5rem 1.25rem;
-    }
+  .menu-toggle span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background-color: var(--text-primary);
+    transition: transform 0.22s ease, opacity 0.22s ease;
+  }
 
-    .logo-star {
-      top: -22px;
-      right: 44px;
-      height: 72px;
-    }
+  .menu-toggle[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
 
-    .logo {
-      font-size: 1.5rem;
-    }
+  .menu-toggle[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
 
-    .menu-icon {
+  .menu-toggle[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* --- Menú móvil --- */
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem 1.75rem;
+    border-top: 1px solid var(--border-default);
+    background-color: var(--bg-primary);
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-list a {
+    display: block;
+    padding: 0.7rem 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .mobile-list a:hover {
+    color: var(--accent-ink);
+  }
+
+  .mobile-cta {
+    align-self: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    .header-nav,
+    .header-cta {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px 4px;
     }
 
-    .menu-icon span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background-color: var(--text-primary);
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .nav-menu {
+    .menu-toggle,
+    .mobile-menu {
       display: none;
-      position: absolute;
-      top: 72px;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1.25rem;
-      background-color: var(--bg-primary);
-      border-bottom: 1px solid var(--border-default);
-      padding: 1.25rem 1.5rem 1.75rem;
-    }
-
-    .menu-toggle:checked ~ .nav-menu {
-      display: flex;
-    }
-
-    .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .menu-toggle:checked ~ .menu-icon span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle:checked ~ .menu-icon span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    .nav-menu .button {
-      align-self: flex-start;
     }
   }
 </style>
 
 <script>
-  // En móvil: cerrar el menú hamburguesa al elegir una opción
-  const menuToggle = document.getElementById('menu-toggle');
-  document.querySelectorAll('.nav-menu a').forEach((link) => {
+  // --- Menú móvil ---
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu-movil');
+
+  toggle?.addEventListener('click', () => {
+    const abierto = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!abierto));
+    toggle.setAttribute('aria-label', abierto ? 'Abrir menú' : 'Cerrar menú');
+    if (menu) menu.hidden = abierto;
+  });
+
+  // Cerrar al elegir una sección o al salir de móvil
+  menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      if (menuToggle) menuToggle.checked = false;
+      toggle?.setAttribute('aria-expanded', 'false');
+      menu.hidden = true;
     });
   });
+
+  // El header se cierra solo si se agrandó la ventana hasta el
+  // breakpoint de escritorio
+  const mqDesktop = window.matchMedia('(min-width: 900px)');
+  mqDesktop.addEventListener('change', () => {
+    if (mqDesktop.matches && menu && !menu.hidden) {
+      menu.hidden = true;
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // --- Toggle de tema ---
+  const themeButton = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  themeButton?.addEventListener('click', () => {
+    const actual = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const nuevo = actual === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', nuevo);
+    try {
+      localStorage.setItem('nexus-tema', nuevo);
+    } catch (_) {
+      /* modo privado: el tema no se recuerda, no es grave */
+    }
+
+    // Cambiar el tema cambia los contrastes y a veces los anchos:
+    // avisarle al sistema de movimiento para que recalcule.
+    root.dispatchEvent(new CustomEvent('nexus:tema'));
+  });
+
+  // El header al scrollear lo maneja `scripts/motion.ts` (necesita
+  // conocer la dirección del scroll, y con Lenis el evento no es el
+  // nativo). No duplicar el listener acá.
 </script>

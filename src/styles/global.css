@@ -1,6 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,700&display=swap');
 @import './tokens.css';
 
+/* ------------------------------------------------------------
+   Tipografía de marca — Public Stunt (Mans Greback)
+   ⚠️ El archivo es PERSONAL_USE_ONLY: uso comercial requiere
+   licencia. Ver README de marca antes de facturar con la web.
+   ------------------------------------------------------------ */
 @font-face {
   font-family: 'Public Stunt';
   src: url('../assets/Fonts/public_stunt/PublicStunt_PERSONAL_USE_ONLY.otf') format('opentype');
@@ -26,39 +31,507 @@
 }
 
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+
+  /* `overflow-x: clip` en vez de `hidden`.
+     Medido en esta página: con `hidden` el scroll del escritorio daba
+     ~53 fps (10% de frames perdidos) y con `clip` da 60 fps (0%).
+     La diferencia es que `hidden` convierte al elemento en contenedor
+     de scroll, lo que rompe `position: sticky` y obliga a recomputar
+     el ancho de la página en cada frame. `clip` recorta sin crear
+     contenedor. Los halos absolutos de las secciones necesitan esto
+     para no abrir una barra horizontal. */
+  overflow-x: clip;
 }
 
 body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   min-height: 100vh;
-  line-height: 1.6;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Compensar la navbar fija (+banner) al navegar con anclas */
-section[id] {
-  scroll-margin-top: 200px;
+/* ------------------------------------------------------------
+   TEXTURA DE FONDO
+   ------------------------------------------------------------
+   El grano va como `background-image` de las secciones, no como un
+   overlay fijo sobre todo el viewport. Es la misma textura pero sin
+   el costo: un overlay `position: fixed` por encima del header sticky
+   obligaba a recomponer el viewport en cada frame de scroll
+   (medido: 50 fps con overlay, 58 fps sin él).
+
+   Se aplica sobre el fondo de la sección, así que se pinta una sola
+   vez durante el paint y no existe como capa durante el scroll. */
+.gradiente-fondo,
+.superficie-oro,
+.textura {
+  background-image: var(--textura-ruido);
+  background-repeat: repeat;
+  background-size: 160px 160px;
 }
 
-@media (max-width: 900px) {
-  section[id] {
-    scroll-margin-top: 115px;
+/* ------------------------------------------------------------
+   FONDOS GRADIENTE ANIMADOS
+   ------------------------------------------------------------
+   Halos dorados muy lentos detrás de las secciones. Se hacen con
+   dos capas radiales que se desplazan en sentidos distintos: el
+   ojo no llega a leer el movimiento, solo nota que el fondo vive.
+
+   El dorado va siempre con opacidad baja. A plena opacidad sobre
+   blanco pasa a ser amarillo y ensucia la pagina en vez de
+   iluminarla.
+
+   Los keyframes animan SOLO `translate`. Incorporar `scale()` acá
+   costaba 7.3 fps: escalar una capa obliga al navegador a
+   rasterizar el gradiente de nuevo en el nuevo tamaño, cada frame.
+   Trasladar reutiliza la textura ya rasterizada. */
+.gradiente-fondo {
+  position: relative;
+  isolation: isolate;
+
+  /* `clip`, no `hidden`. Los halos ::before/::after cuelgan fuera del
+     borde a propósito (`right: -12%`, `left: -14%`), y eso agranda el
+     scrollWidth del documento: se podía arrastrar la página 173px hacia
+     la derecha en un monitor de 1440. `overflow-x: clip` recorta ese
+     desborde SIN crear un contenedor de scroll — con `hidden` el
+     navegador igual mide el contenido desbordado y lo mismo dispara el
+     scroll horizontal. Además `clip` no genera un nuevo bloque de
+     formato, así que los `position: fixed` internos (el header sticky)
+     no quedan alterados. */
+  overflow-x: clip;
+}
+
+.gradiente-fondo::before,
+.gradiente-fondo::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Lejos del viewport, los halos se pausan. Una animación infinita
+   fuera de pantalla sigue consumiendo compositor sin que nadie la
+   vea; esto los detiene sin sacarlos del DOM. */
+.gradiente-fondo[data-pausa]::before,
+.gradiente-fondo[data-pausa]::after {
+  animation-play-state: paused;
+}
+
+.gradiente-fondo::before {
+  top: -20%;
+  right: -12%;
+  width: 46vw;
+  height: 46vw;
+  max-width: 560px;
+  max-height: 560px;
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%);
+  animation: deriva-a 26s ease-in-out infinite;
+}
+
+.gradiente-fondo::after {
+  bottom: -22%;
+  left: -14%;
+  width: 40vw;
+  height: 40vw;
+  max-width: 480px;
+  max-height: 480px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.09) 0%, transparent 66%);
+  animation: deriva-b 32s ease-in-out infinite;
+}
+
+@keyframes deriva-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-5%, 6%, 0);
   }
 }
 
+@keyframes deriva-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(6%, -5%, 0);
+  }
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
 a {
-  color: var(--accent-default);
+  color: var(--accent-ink);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--accent-hover);
+  color: var(--accent-ink-hover);
 }
 
-img {
-  max-width: 100%;
+button {
+  font-family: inherit;
+}
+
+/* Compensa el header fijo al saltar a un ancla */
+section[id] {
+  scroll-margin-top: 140px;
+}
+
+@media (max-width: 900px) {
+  section[id] {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Utilidades compartidas
+   ------------------------------------------------------------ */
+
+/* Ancho máximo +Padding lateral: una sola fuente de verdad */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  /* Necesario para que un `<input>` (ancho intrínseco ~180px por
+     `size=20`) o un `word` largo dentro de un grid puedan encogerse en
+     vez de ensanchar la columna hasta desbordar el viewport. */
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Etiqueta de sección: mono, mayúscula, dorada */
+.eyebrow {
   display: block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.eyebrow--invert {
+  color: var(--accent-default);
+}
+
+/* Encabezado de sección */
+.section-title {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.section-lead {
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------------------
+   Botones
+   ------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: var(--accent-default);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  color: var(--on-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px var(--accent-soft);
+}
+
+.btn-primary:active {
+  background-color: var(--accent-pressed);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-default);
+  color: var(--accent-ink);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.btn-whatsapp:hover {
+  background-color: var(--accent-default);
+  color: var(--on-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px var(--accent-soft);
+}
+
+/* En bloques oscuros el botón principal necesita contraste propio */
+.on-dark .btn-primary {
+  color: var(--on-accent);
+}
+
+.on-dark .btn-outline {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.on-dark .btn-outline:hover {
+  color: var(--accent-default);
+  border-color: var(--accent-default);
+}
+
+/* ------------------------------------------------------------
+   UTILIDADES DE MOVIMIENTO
+   ------------------------------------------------------------
+   El estado inicial de un reveal vive acá, no en JS. Motivo: si el
+   bundle falla o el JS se desactiva, el contenido queda invisible.
+   Por eso está detrás de `.js`, que el <head> agrega con un script
+   inline antes del primer paint. Sin JS → sin clase → sin ocultar. */
+
+/* `:not([data-reveal='stagger'])` es lo que arregla las secciones que no
+   aparecían. Esta regla también alcanzaba al CONTENEDOR de un grupo
+   escalonado, y como la regla de abajo (línea ~385) solo revela a los
+   HIJOS, el contenedor se quedaba en opacidad 0 para siempre: sus hijos
+   llegaban a 1, pero el padre seguía transparente y no se veía nada.
+
+   Con un grupo escalonado lo que se oculta son los hijos, y el
+   contenedor nunca se oculta: si el bundle falla, el grupo entero se ve
+   de una, que es justo lo que se busca con esta red de seguridad. */
+.js [data-reveal]:not([data-reveal='stagger']) {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 26px), 0) scale(var(--reveal-scale, 1));
+
+  /* Sin `will-change` acá a propósito. Promover 60 elementos de la
+     página de golpe es exactamente lo que vuelve pesado el scroll
+     (medido: +0.9 fps al sacarlo). GSAP lo pone solo mientras el
+     tween corre y lo saca al terminar. */
+}
+
+/* Cuando el elemento entra, GSAP quita el will-change para no dejar
+   capas promotingadas por toda la página. */
+.js [data-reveal].revelado {
+  will-change: auto;
+}
+
+/* Variantes: desplazamiento, escala o solo opacidad */
+[data-reveal='sube'] {
+  --reveal-y: 34px;
+}
+[data-reveal='escala'] {
+  --reveal-y: 18px;
+  --reveal-scale: 0.965;
+}
+[data-reveal='suave'] {
+  --reveal-y: 0px;
+  --reveal-scale: 1;
+}
+
+/* Los hijos de un grupo se revelan escalonados por CSS como red de
+   seguridad; GSAP hace el stagger real cuando está activo. */
+.js [data-reveal='stagger'] > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.js [data-reveal='stagger'].revelado > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------
+   UTILIDADES DE GRADIENTE
+   ------------------------------------------------------------ */
+
+/* Texto con relleno de gradiente dorado. El fallback de color va
+   antes para que si el navegador no soporta background-clip:text el
+   texto siga siendo dorado legible en vez de invisible. */
+.text-gradiente {
+  color: var(--accent-ink);
+  background-image: var(--gradiente-texto);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not (background-clip: text) {
+  .text-gradiente {
+    color: var(--accent-ink);
+  }
+}
+
+/* Contenedor que proyecta un halo dorado detrás (para CTAs y
+   bloques oscuros). El halo es un pseudo-elemento: no añade nodos
+   al DOM ni estorba al layout. */
+.halo {
+  position: relative;
+  isolation: isolate;
+}
+
+.halo::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -25%;
+  border-radius: 50%;
+  background: var(--gradiente-halo);
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity var(--dur-lenta) var(--ease-out),
+    transform var(--dur-lenta) var(--ease-out);
+  pointer-events: none;
+}
+
+.halo:hover::before,
+.halo:focus-within::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Superficie oscura con velo dorado: la forma en que la web "respira"
+   en los bloques invertidos. */
+.superficie-oro {
+  position: relative;
+  isolation: isolate;
+}
+
+.superficie-oro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--gradiente-velo);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   ACCESIBILIDAD
+   ------------------------------------------------------------ */
+
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background-color: var(--accent-default);
+  color: var(--on-accent);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--accent-default);
+  color: var(--on-accent);
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  color: var(--on-accent);
+}
+
+/* Sin movimiento si la persona lo pidió */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .gradiente-fondo::before,
+  .gradiente-fondo::after {
+    animation: none;
+  }
+
+  /* Nada se esconde: el contenido tiene que estar legible aunque no
+     se anime. */
+  .js [data-reveal],
+  [data-reveal='stagger'] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

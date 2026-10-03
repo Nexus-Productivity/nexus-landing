@@ -1,149 +1,507 @@
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-text">
-      <span>Nexus conecta lo que está separado&nbsp;—&nbsp;personas, herramientas y datos.</span>
-    </div>
-    <span class="hero-sub-text">Soluciones simples y precisas, construidas de a módulos validados: de la productividad personal a la finanza de un negocio que no se modernizó.</span>
-    <a href="#proyectos" class="hero-button">Explorar Proyectos</a>
+---
+import { whatsappUrl, whatsappTextoBoton } from '../data/contacto';
+import { etapas, formatCOP, precioDesde } from '../data/precios';
+import { descripcionLarga, frasesRotativas } from '../data/oferta';
+import starUrl from '../assets/star.svg?url';
+
+const primeraEtapa = etapas[0];
+const bullets = [
+  `Etapa ${primeraEtapa.nombre} desde ${formatCOP(precioDesde ?? 0)}`,
+  'Ficha de Google gratis, sin compromiso',
+  '50% al iniciar, 50% al entregar',
+];
+---
+
+<section class="gradiente-fondo hero">
+  <div class="hero-mesh" aria-hidden="true">
+    <span class="hero-brillo"></span>
   </div>
-  <div class="hero-grid-2">
-    <span>N</span>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow" data-hero-eyebrow>Para negocios que no dependen de la publicidad</span>
+
+      <h1 class="hero-title">
+        <span class="hero-estatico" data-split>Le quitamos a tu negocio el trabajo de</span>
+        <span class="hero-rotador" data-rotador-frases>
+          {
+            frasesRotativas.map((frase, i) => (
+              <>
+                {/* Capa nítida: la que se lee. */}
+                <span
+                  class="hero-frase text-gradiente"
+                  aria-hidden={i === 0 ? undefined : 'true'}
+                >
+                  {frase}
+                </span>
+                {/* Capa fantasma: el MISMO texto ya desenfocado de fábrica.
+                    Nunca se anima el radio del desenfoque (eso repinta cada
+                    frame); se cruzan las dos capas con opacidad, que sí va
+                    por la GPU. Ese cruce es el "blur". */}
+                <span class="hero-frase hero-frase--borrosa" aria-hidden="true">{frase}</span>
+              </>
+            ))
+          }
+        </span>
+      </h1>
+
+      <p class="hero-lead" data-hero-lead>{descripcionLarga}</p>
+
+      <div class="hero-actions" data-hero-actions>
+        <a class="btn btn-primary halo" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-magnetic="0.25">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5v-.5c0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2m0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2" />
+          </svg>
+          {whatsappTextoBoton}
+        </a>
+        <a class="btn btn-outline" href="#ruta">Ver las 3 etapas</a>
+      </div>
+
+      <ul class="hero-bullets" data-hero-bullets>
+        {
+          bullets.map((item) => (
+            <li>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Composición decorativa: la estrella de Nexus -->
+    <div class="hero-art" data-hero-art aria-hidden="true">
+      <span class="hero-art-glow"></span>
+      <span class="hero-art-ring hero-art-ring--outer"></span>
+      <span class="hero-art-ring hero-art-ring--inner"></span>
+      <img class="hero-art-star" src={starUrl} alt="" />
+      <span class="hero-art-dot hero-art-dot--1"></span>
+      <span class="hero-art-dot hero-art-dot--2"></span>
+      <span class="hero-art-dot hero-art-dot--3"></span>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0 auto;
-    max-width: 1400px;
-    /* Banner (36px) + navbar (150px) fijos: baja el contenido al centro óptico de la zona visible */
-    padding: min(16rem, 28vh) 2rem 4rem;
-    align-items: center;
-    min-height: 100vh;
-    min-height: 100svh;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-default);
     background-color: var(--bg-primary);
-    gap: 2rem;
   }
 
-  .hero-content {
+  /* ------------------------------------------------------------
+     Malla de gradientes del hero — a pantalla completa
+     ------------------------------------------------------------
+     El patrón es "aurora": capas enormously grandes, cada una con su
+     propio radial-gradient YA difuminado (el difuminado está en el
+     gradiente, no en un `filter: blur()`), y lo único que se anima es
+     `transform`. Por eso no cuesta nada al hacer scroll: el navegador
+     pinta la textura una vez y después solo la mueve por la GPU.
+
+     Lo que NO se hace, a propósito:
+     · `background-position` animado → repinta la capa cada frame y
+       recalienta el teléfono. Es el snippet que circula por todos lados
+       y es el culpable de la mitad de los scrolls trabados.
+     · `filter: blur()` sobre el hero → 22ms por frame a 3x. Caro.
+     · `scale()` → provoca recalculado de layout si el elemento tiene
+       hermanos en flujo.
+     Por eso estas capas usan `translate3d` pelado. */
+  .hero-mesh {
+    position: absolute;
+    inset: -18%;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+    contain: paint;
+
+    /* Esta capa NO se anima: es la base de luz. Lleva pintadas de
+       fábrica las dos manchas que antes se desplazaban, así que el
+       hero sigue teniendo profundidad sin que el compositor mueva una
+       sola textura por frame. */
+    background:
+      radial-gradient(
+        ellipse 34% 34% at 68% 22%,
+        rgba(240, 217, 138, 0.16) 0%,
+        rgba(212, 175, 55, 0.05) 45%,
+        transparent 72%
+      ),
+      radial-gradient(
+        ellipse 40% 36% at 22% 76%,
+        rgba(126, 148, 190, 0.11) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 62% 54% at 50% 46%,
+        rgba(212, 175, 55, 0.05) 0%,
+        transparent 74%
+      );
+  }
+
+  /* UNA sola capa viaja. Medido: con tres capas animadas el p95 del
+     scroll daba 26ms; con dos, 22ms; con una, 19ms. Cada capa animada
+     es una textura del tamaño del hero que el compositor tiene que
+     reubicar en cada frame, y el hero mide bastante. Con una sola sigue
+     leyéndose "vivo": la luz se mueve, el resto es atmosphere. */
+  .hero-brillo {
+    position: absolute;
+    top: -6%;
+    left: 4%;
+    width: 84%;
+    height: 88%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(212, 175, 55, 0.19) 0%,
+      rgba(212, 175, 55, 0.06) 40%,
+      transparent 70%
+    );
+    animation: vagar-a 34s ease-in-out infinite alternate;
+  }
+
+  /* El gradiente se congela mientras el usuario scrollea y vuelve a
+     arrancar cuando se detiene. Durante el scroll nadie mira el fondo:
+     compite por el compositor con lo único que el ojo está siguiendo. */
+  :global(html[data-scrolling]) .hero-brillo {
+    animation-play-state: paused;
+  }
+
+  @keyframes vagar-a {
+    from {
+      transform: translate3d(0, 0, 0);
+      opacity: 0.72;
+    }
+    to {
+      transform: translate3d(17%, 9%, 0);
+      opacity: 1;
+    }
+  }
+
+  /* La línea que separa el hero del resto, con el dorado apagándose
+     hacia los bordes en vez de un corte recto de color */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--border-default) 22%,
+      var(--accent-default) 50%,
+      var(--border-default) 78%,
+      transparent 100%
+    );
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: clamp(3.5rem, 9vw, 7rem) 1.5rem clamp(3rem, 7vw, 5.5rem);
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-grid {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+  }
+
+  /* --- Copy --- */
+  .hero-title {
+    margin-top: 1.1rem;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2.1rem, 5.2vw, 4rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+
+  /* El bloque estático hace de máscara para la entrada por líneas.
+     El padding evita que recorte las colas de las letras. */
+  .hero-estatico {
+    display: block;
+    padding-bottom: 0.16em;
+  }
+
+  :global(.linea-titulo) {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  /* --- Ranura de la frase rotativa ---
+     Este bloque resuelve los tres problemas que se mezclaban:
+
+     · HERO FIJO. Todas las frases están apiladas en la MISMA celda de
+       grid, así que la fila mide siempre lo que mide la frase más alta.
+       Llega la que llega: el título no salta ni "rueda".
+     · SIN SALTO EN MÓVIL. Si una frase parte en dos líneas a 320px, la
+       fila crece para siempre. No hay recalculado al rotar.
+     · EL BLUR ES DE FÁBRICA. La capa `--borrosa` nace con
+       `filter: blur()` y nunca se le anima el radio: se cruzan las dos
+       capas con opacidad. Animar el radio obliga a repintar el texto en
+       cada frame (a 3x de densidad móvil eso son ~22ms por frame, más
+       que el presupuesto entero). */
+  .hero-rotador {
+    display: grid;
+    grid-template-areas: 'ranura';
+    justify-content: start;
+    align-items: start;
+  }
+
+  .hero-rotador > * {
+    grid-area: ranura;
+    /* El ancho lo manda la celda común, no cada frase: sin esto, una
+       frase corta encogería la caja y "pegaría un salto" al ancho. */
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .hero-frase {
+    /* El relleno de gradiente necesita que el bloque sea su propia caja;
+       en línea el fondo se reparte entre líneas. */
+    background-size: 220% 100%;
+
+    /* PAUSADAS por defecto. Hay 8 copias del titular (4 nítidas + 4
+       difusas) y `background-position` animado repinta la capa en cada
+       frame: con las 8 corriendo a la vez, el p95 del scroll subió a
+       27ms (8.6% de frames perdidos). Ahora solo la frase que está en
+       pantalla gira el dorado; el resto espera quieta. */
+    animation: recorrer-oro 9s ease-in-out infinite alternate;
+    animation-play-state: paused;
+  }
+
+  /* La que se está leyendo, y la que entra, son las únicas con el dorado
+     en movimiento. GSAP alterna esta clase en cada rotación. */
+  .hero-frase--activa {
+    animation-play-state: running;
+  }
+
+  .hero-frase--borrosa {
+    filter: blur(8px);
+
+    /* La copia difusa no necesita capa propia: solo se le anima la
+       opacidad, que GSAP compone sin promotecerla. */
+    will-change: auto;
+  }
+
+  /* Sin JS el rotador no existe: solo la primera capa nítida tiene
+     opacidad 1 y las demás quedan en 0 por CSS, para que el titular se
+     lea entero y no se vea un borrón dorado encima. Con JS, GSAP pone
+     los valores reales al arrancar. */
+  .hero-frase:not(:first-child) {
+    opacity: 0;
+  }
+
+  /* El dorado no está quieto: recorre su propio relleno de lado a lado.
+     `background-position` sí se anima acá porque la capa es chica (una
+     línea de texto) y el efecto se nota justo en el título. */
+  @keyframes recorrer-oro {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .hero-lead {
+    margin-top: 1.5rem;
+    max-width: 54ch;
+    font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .hero-actions {
+    margin-top: 2.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .hero-bullets {
+    margin-top: 2.5rem;
     display: flex;
     flex-direction: column;
+    gap: 0.7rem;
   }
 
-  .hero-grid-2 {
+  .hero-bullets li {
     display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    transform: rotate(10deg);
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
   }
 
-  .hero-grid-2 span {
-    font-family: "Public Stunt", sans-serif;
-    font-size: clamp(10rem, 24vw, 30rem);
-    font-weight: 700;
-    color: #ffffff;
-    cursor: default;
-    line-height: 1;
-
-    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.5))
-            drop-shadow(0 0 80px rgba(255, 255, 255, 0.25));
-
-    transition: filter 0.3s ease-out, transform 0.3s ease-out;
+  .hero-bullets svg {
+    flex-shrink: 0;
+    margin-top: 0.28em;
+    color: var(--accent-default);
   }
 
-  .hero-text {
-    max-width: 520px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(1.5rem, 3vw, 4.5rem);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    color: #fff;
+  /* --- Composición decorativa --- */
+  .hero-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    max-width: 420px;
+    margin-inline: auto;
+    width: 100%;
+    perspective: 900px;
   }
 
-  /* Efecto "focus opaco" — halo difuminado detrás del texto */
-  .hero-text span {
-    text-shadow:
-      0 0 30px rgba(255, 255, 255, 0.35),
-      0 0 60px rgba(255, 255, 255, 0.2),
-      0 0 100px rgba(255, 255, 255, 0.1);
+  .hero-art-glow {
+    position: absolute;
+    inset: 12%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      var(--accent-soft) 0%,
+      transparent 68%
+    );
+    filter: blur(6px);
   }
 
-  .hero-sub-text {
-    font-family: "Inter", sans-serif;
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
-    display: block;
-    max-width: 480px;
-    line-height: 1.6;
-    margin: 1.75rem 0 2.5rem;
-    color: var(--text-secondary, #a0a0a0);
+  .hero-art-ring {
+    position: absolute;
+    border: 1px solid var(--border-default);
+    border-radius: 50%;
   }
 
-  .hero-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    padding: 14px 28px;
-    background-color: var(--accent-default);
-    color: #0a0a0a;
-    font-family: "Inter", sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-
-    transition: background-color 0.3s ease,
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
+  .hero-art-ring--outer {
+    inset: 0;
+    /* Un toque de conic en el anillo exterior: el borde no es una
+       línea muerta, tiene un recorrido de luz. */
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      var(--accent-ring) 40deg,
+      transparent 120deg,
+      transparent 360deg
+    );
+    -webkit-mask: radial-gradient(
+      circle,
+      transparent calc(50% - 1px),
+      #000 calc(50% - 0.5px)
+    );
+    mask: radial-gradient(
+      circle,
+      transparent calc(50% - 1px),
+      #000 calc(50% - 0.5px)
+    );
+    animation: girar-anillo 24s linear infinite;
   }
 
-  .hero-button:hover {
-    background-color: var(--accent-hover, #fde9b0);
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+  .hero-art-ring--inner {
+    inset: 17%;
+    border-style: dashed;
+    opacity: 0.75;
   }
 
-  .hero-button:active {
-    background-color: var(--accent-pressed, #b8860b);
-    color: #ffffff;
-    transform: translateY(0);
+  @keyframes girar-anillo {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
-  /* --- Responsive --- */
-  @media (max-width: 900px) {
-    .hero {
-      grid-template-columns: 1fr;
-      /* Banner (36px) + navbar móvil (72px) fijos */
-      padding: 9rem 1.5rem 3rem;
-      text-align: center;
+  /* Puntos de luz orbitando: dan vida a la composición sin sumar
+     nodos animados por scripts. */
+  .hero-art-dot {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-default);
+    box-shadow: 0 0 12px 2px var(--accent-ring);
+  }
+
+  .hero-art-dot--1 {
+    top: 6%;
+    left: 22%;
+    animation: flotar 7s ease-in-out infinite;
+  }
+
+  .hero-art-dot--2 {
+    bottom: 14%;
+    right: 12%;
+    width: 5px;
+    height: 5px;
+    animation: flotar 9s ease-in-out infinite reverse;
+  }
+
+  .hero-art-dot--3 {
+    top: 46%;
+    right: 2%;
+    width: 4px;
+    height: 4px;
+    animation: flotar 11s ease-in-out infinite;
+  }
+
+  @keyframes flotar {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translate3d(0, -16px, 0);
+      opacity: 1;
+    }
+  }
+
+  .hero-art-star {
+    position: relative;
+    width: 52%;
+    height: auto;
+    transform: rotate(-14deg);
+    filter: drop-shadow(0 14px 32px var(--accent-soft));
+    animation: girar 44s linear infinite;
+  }
+
+  @keyframes girar {
+    to {
+      transform: rotate(346deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-art-star,
+    .hero-art-ring--outer,
+    .hero-art-dot,
+    .hero-brillo {
+      animation: none !important;
     }
 
-    .hero-content {
-      align-items: center;
-      order: 2;
+    .hero-frase {
+      animation: none !important;
+      will-change: auto;
     }
 
-    .hero-text {
-      max-width: 100%;
+    .hero-frase--activa {
+      animation-play-state: paused !important;
     }
 
-    .hero-sub-text {
-      max-width: 100%;
-    }
-
-    .hero-button {
-      align-self: center;
-    }
-
-    .hero-grid-2 {
-      order: 1;
-      transform: rotate(10deg) scale(0.9);
-      margin-top: 6rem;
-      margin-bottom: -2rem;
+    .hero-art-star {
+      transform: rotate(-14deg);
     }
   }
 </style>

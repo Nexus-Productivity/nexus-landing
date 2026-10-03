@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { etapas, formatCOP } from '../data/precios';
+import { marca } from '../data/oferta';
+---
+
+<Layout title="Términos y condiciones" description={`Condiciones de contratación de ${marca}.`}>
+  <Navbar />
+
+  <main class="legal" id="contenido">
+    <div class="container legal-inner">
+      <span class="eyebrow">Legal</span>
+      <h1 class="legal-title">Términos y condiciones</h1>
+      <p class="legal-fecha">Última actualización: 2 de octubre de 2026</p>
+
+      <section>
+        <h2>Qué vendemos</h2>
+        <p>
+          {marca} ofrece servicios de presencia digital y organización para
+          negocios. El trabajo se contrata por etapas y cada etapa se cotiza por
+          separado.
+        </p>
+        <ul>
+          {
+            etapas
+              .filter((e) => e.precio !== null)
+              .map((e) => (
+                <li>
+                  <strong>{e.nombre}</strong> — desde {formatCOP(e.precio ?? 0)}, entrega
+                  en {e.entrega}.
+                </li>
+              ))
+          }
+        </ul>
+        <p>
+          La etapa {etapas[etapas.length - 1].nombre} aparece en la web como
+          “en construcción” y no se está vendiendo: no existe todavía.
+        </p>
+      </section>
+
+      <section>
+        <h2>Precio y forma de pago</h2>
+        <p>
+          El precio se cierra en una propuesta escrita antes de empezar. Se paga
+          50% al iniciar y 50% al entregar. Los precios publicados en esta web
+          son de referencia y pueden cambiar: lo que manda es la propuesta que
+          firmaste.
+        </p>
+      </section>
+
+      <section>
+        <h2>Qué no prometemos</h2>
+        <p>
+          No prometemos posiciones en buscadores ni resultados concretos de
+          venta. El orden de un trabajo externo depende de factores que no
+          controlamos. No prometemos volumen de contenido que no podamos
+          sostener: lo que acordamos por escrito es un número que se cumple.
+        </p>
+      </section>
+
+      <section>
+        <h2>Cambios y plazos</h2>
+        <p>
+          Los plazos de entrega arrancan cuando recibimos todo el material que
+          necesitamos. Si falta contenido, imágenes o definiciones de tu lado,
+          el plazo se mueve y te lo avisamos.
+        </p>
+      </section>
+
+      <aside class="legal-pendiente">
+        <h2>Pendiente de completar antes de facturar</h2>
+        <p>
+          {marca} todavía no está constituida como sociedad, así que este
+          documento no tiene razón social, NIT, condiciones de retracto con
+          radicado, descripción del proveedor ni canal PQR. Todo eso se
+          completa antes de recibir dinero. No operes con estos términos sin una
+          revisión legal: en especial, si sos consumidor final, aplica el
+          derecho de retracto de la Ley 1480 de 2011.
+        </p>
+      </aside>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem);
+    background-color: var(--bg-primary);
+  }
+
+  .legal-inner {
+    max-width: 68ch;
+  }
+
+  .legal-title {
+    margin-top: 1rem;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .legal-fecha {
+    margin-top: 0.6rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .legal section {
+    margin-top: 2.5rem;
+  }
+
+  .legal h2 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .legal p {
+    margin-top: 0.7rem;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .legal ul {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .legal li {
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-default);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .legal li strong {
+    color: var(--text-primary);
+  }
+
+  .legal-pendiente {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--bg-surface);
+    border: 1px dashed var(--border-strong);
+    border-radius: 12px;
+  }
+
+  .legal-pendiente h2 {
+    color: var(--accent-ink);
+  }
+</style>

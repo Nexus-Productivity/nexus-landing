@@ -1,0 +1,89 @@
+---
+/**
+ * ═══════════════════════════════════════════════════════════
+ * LOGO — único lugar donde vive la marca visual
+ * ═══════════════════════════════════════════════════════════
+ * Hoy es la estrella + el wordmark NEXUS THRIVE en Public Stunt.
+ * Cuando llegue el logo definitivo, se reemplaza SOLO este
+ * archivo y se actualiza navbar, hero y footer.
+ *
+ * La estrella (src/assets/star.svg) es un PNG dorado embebido en
+ * SVG: 256 KB. Si el logo nuevo llega como SVG limpio o PNG
+ * optimizado, conviene cambiar el import.
+ */
+import starUrl from '../assets/star.svg?url';
+import { marca } from '../data/oferta';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  /** Etiqueta del wordmark. Por defecto, la marca de data/oferta. */
+  wordmark?: string;
+}
+
+const { size = 'md', wordmark = marca } = Astro.props;
+---
+
+<span class={`logo logo--${size}`}>
+  <img class="logo-star" src={starUrl} alt="" aria-hidden="true" />
+  <span class="logo-wordmark">{wordmark}</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;
+
+    /* El conjunto puede encogerse si el contenedor lo exige. */
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .logo-star {
+    flex-shrink: 0;
+    transform: rotate(-12deg);
+  }
+
+  .logo-wordmark {
+    font-family: 'Public Stunt', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    white-space: nowrap;
+
+    /* Si aun así no entra, se recorta con puntos en vez de desbordar
+       y empujar el resto del header fuera de pantalla. */
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* La estrella es dorada: necesita un tamaño propio por peso visual */
+  .logo--sm .logo-star {
+    width: 20px;
+    height: 20px;
+  }
+
+  .logo--sm .logo-wordmark {
+    font-size: 1.15rem;
+  }
+
+  .logo--md .logo-star {
+    width: 28px;
+    height: 28px;
+  }
+
+  .logo--md .logo-wordmark {
+    font-size: 1.6rem;
+  }
+
+  .logo--lg .logo-star {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo--lg .logo-wordmark {
+    font-size: 2.25rem;
+  }
+</style>

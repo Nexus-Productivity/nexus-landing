@@ -1,24 +1,138 @@
+/* ============================================================
+   NEXUS — tokens de diseño
+   Paleta: blanco · negro · dorado (#D4AF37). Los colores no
+   cambian entre modos; cambia el ROL de cada uno.
+   Modo claro por defecto. Modo oscuro vía [data-theme="dark"].
+   ============================================================ */
+
 :root {
-  /* Backgrounds */
-  --bg-primary: #000;
-  --bg-deep: #0A0A0A;
-  --bg-surface: #1A1A1A;
+  /* --- Fondo --- */
+  --bg-primary: #ffffff;
+  --bg-subtle: #faf8f3;
+  --bg-surface: #f4f1ea;
+  --bg-deep: #0a0a0a; /* bloques invertidos: footer, franjas */
 
-  /* Borders */
-  --border-default: #2E2E2E;
+  /* --- Bordes --- */
+  --border-default: #e5e0d4;
+  --border-strong: #cfc7b4;
 
-  /* Text */
-  --text-primary: #FFFFFF;
-  --text-secondary: #A0A0A0;
-  --text-muted: #6B6B6B;
+  /* --- Texto --- */
+  --text-primary: #0a0a0a;
+  --text-secondary: #454545;
+  --text-muted: #6e6e6e;
+  --text-invert: #ffffff;
 
-  /* Accent (gold — marca: #D4AF37) */
-  --accent-default: #D4AF37;
-  --accent-hover: #E8C968;
-  --accent-pressed: #A8862B;
+  /* --- Acento dorado ---
+     --accent-*  → rellenos y bordes (sobre fondo oscuro o como bloque)
+     --accent-ink → texto y links: #D4AF37 sobre blanco no alcanza
+                    contraste AA, así que el dorado se oscurece. */
+  --accent-default: #d4af37;
+  --accent-hover: #c29b26;
+  --accent-pressed: #a8862b;
+  --accent-ink: #8a6a12;
+  --accent-ink-hover: #6d530d;
+  --accent-soft: rgba(212, 175, 55, 0.12);
+  --accent-ring: rgba(212, 175, 55, 0.35);
+  --on-accent: #0a0a0a; /* texto sobre un botón dorado */
 
-  /* Functional states */
-  --state-success: #4ADE80;
-  --state-error: #F87171;
-  --state-info: #60A5FA;
+  /* --- Estados --- */
+  --state-success: #1f9d55;
+  --state-error: #c0392b;
+  --state-info: #2563eb;
+
+  /* --- Sombras (más suaves en claro, más profundas en oscuro) --- */
+  --shadow-sm: 0 1px 2px rgba(10, 10, 10, 0.06);
+  --shadow-md: 0 4px 16px rgba(10, 10, 10, 0.08);
+  --shadow-lg: 0 18px 48px rgba(10, 10, 10, 0.12);
+  --glow-accent: 0 0 0 3px var(--accent-soft);
+
+  /* --- Gradientes ---
+     Todo el sistema visual se apoya en estas 4 piezas. Se nombran por
+     función, no por color, para poder cambiarlas sin tocar componentes. */
+  /* Relleno de texto dorado. En claro arranca en un dorado oscuro para
+     que el primer tramo del texto ya tenga contraste AA. */
+  --gradiente-texto: linear-gradient(
+    100deg,
+    var(--accent-ink) 0%,
+    var(--accent-default) 42%,
+    var(--accent-hover) 100%
+  );
+  /* Halo radial: el "oro que ilumina" sin ensuciar. */
+  --gradiente-halo: radial-gradient(circle, var(--accent-ring) 0%, transparent 68%);
+  /* Velo dorado para bloques oscuros. */
+  --gradiente-velo: linear-gradient(
+    160deg,
+    rgba(212, 175, 55, 0.16) 0%,
+    rgba(212, 175, 55, 0.02) 45%,
+    transparent 100%
+  );
+  /* Barrido de brillo para bordes de botón. */
+  --gradiente-borde: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 80%
+  );
+
+  /* --- Textura ---
+     Ruido monocromo como teja de 160px. La opacidad va DENTRO del
+     SVG (atributo `opacity` del rect) y no en el elemento: así se
+     puede usar como `background-image` de una sección sin necesidad
+     de una capa superpuesta.
+
+     Y por eso NO existe un `body::after` fijo con ruido: medido en
+     esta página, ese overlay costaba 7.7 fps (50 → 58), porque al
+     estar por encima del header sticky hadía que recomponer el
+     viewport entero en cada frame de scroll. Como fondo de la
+     sección se pinta una vez y no cuesta nada. */
+  --textura-ruido: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+
+  /* --- Movimiento ---
+     Un solo lugar para los tiempos. Cambiar la sensación de la página
+     entera se hace acá y en nada más. */
+  --dur-rapida: 0.18s;
+  --dur-media: 0.32s;
+  --dur-lenta: 0.55s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #000000;
+  --bg-subtle: #0a0a0a;
+  --bg-surface: #141414;
+  --bg-deep: #000000;
+
+  --border-default: #2a2a2a;
+  --border-strong: #3d3d3d;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b5b5b5;
+  --text-muted: #7a7a7a;
+  --text-invert: #0a0a0a;
+
+  --accent-default: #d4af37;
+  --accent-hover: #e8c968;
+  --accent-pressed: #b8901f;
+  --accent-ink: #e8c968;
+  --accent-ink-hover: #f0d78c;
+  --accent-soft: rgba(212, 175, 55, 0.14);
+  --accent-ring: rgba(212, 175, 55, 0.4);
+  --on-accent: #0a0a0a;
+
+  --state-success: #4ade80;
+  --state-error: #f87171;
+  --state-info: #60a5fa;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.7);
+
+  /* Sobre negro el ruido necesita más presencia para notarse: es el
+     mismo tono pero con más alpha. */
+  --textura-ruido: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+
+  color-scheme: dark;
 }

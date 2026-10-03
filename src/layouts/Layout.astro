@@ -3,24 +3,100 @@ import '../styles/global.css';
 
 interface Props {
 	title: string;
+	description?: string;
 }
 
 const { title } = Astro.props;
+
+import { marca, promesa } from '../data/oferta';
+
+const description =
+  Astro.props.description ??
+  `${marca} — quitamos a los negocios el trabajo de darse a conocer y de ordenarse. Visible, Conectado, Ordenado.`;
 ---
 
 <!doctype html>
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="Nexus — soluciones simples y precisas para personas y negocios. Construidas de a módulos validados." />
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | Nexus</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title} | {marca}</title>
+    <meta name="description" content={description} />
+
+    <!-- Que el buscador no indexe la web como si fuera un diario -->
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Open Graph / previews de WhatsApp e Instagram.
+         Rutas relativas a propósito: el dominio final todavía no
+         está comprado (nexusthrive.co) y una URL absoluta vieja
+         rompe el preview. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={marca} />
+    <meta property="og:title" content={`${title} | ${marca}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/Logo.png" />
+    <meta property="og:locale" content="es_CO" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | ${marca}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/Logo.png" />
+
+    <meta name="theme-color" content="#d4af37" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!--
+      Dos scripts inline y bloqueantes, a propósito.
+
+      1. `.js`: marca que hay JavaScript. Todo el estado inicial de las
+         animaciones vive detrás de esta clase, así que si el bundle
+         falla o la persona desactiva JS, el contenido aparece igual en
+         vez de quedar invisible.
+      2. Tema: se aplica antes del primer paint para que no haya
+         destello blanco→negro.
+    -->
+    <script is:inline>
+      (() => {
+        document.documentElement.classList.add('js');
+
+        try {
+          const guardado = localStorage.getItem('nexus-tema');
+          const tema =
+            guardado === 'dark' || guardado === 'light' ? guardado : 'light';
+          document.documentElement.setAttribute('data-theme', tema);
+        } catch (_) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot />
+
+    <!--
+      SIN <ClientRouter />, a propósito.
+
+      Se probó y producía exactamente el síntoma reportado: al recargar,
+      "se recarga una vez y se vuelve a recargar". El router de Astro
+      hace un intercambio de página en la primera carga, y como el
+      sistema de movimiento ya había arrancado sobre el DOM viejo, todo
+      se volvía a inicializar sobre un DOM que enseguida se iba a
+      reemplazar: doble arranque, doble animación, un flash.
+
+      Son tres páginas estáticas. El intercambio no aporta nada frente
+      a un enlace normal, y acá costaba más de lo que daba.
+    -->
+
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
 </html>

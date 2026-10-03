@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# logs crudos de sesión con la IA: son 2MB de transcripción y no
+# aportan nada al repo. Las decisiones de diseño quedan explicadas en los
+# comentarios del código, que es donde se consultan.
+conversations/
