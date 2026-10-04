@@ -2,7 +2,7 @@
 const WHATSAPP = '573237453913';
 
 const waText = encodeURIComponent(
-  'Hola NEXUS THRIVE, quiero contarles sobre mi negocio.'
+  'Hola NEXUS THRIVE, quiero mi radiografía gratis.'
 );
 const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 ---
@@ -24,7 +24,7 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
         </h2>
 
         <p class="contacto-lead">
-          Tres campos y un mensaje. Con eso te respondemos
+          Nombre, negocio y WhatsApp. Con eso te respondemos
           con una propuesta escrita y precio cerrado.
           Nada de spam ni llamadas incómodas.
         </p>
@@ -32,7 +32,7 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
         <ul class="contacto-promises" role="list">
           <li>
             <span class="promise-dot"></span>
-            Respuesta el mismo día (horario laboral)
+            Respuesta el mismo día — lun a sáb, 8 a. m. a 6 p. m.
           </li>
           <li>
             <span class="promise-dot"></span>
@@ -77,12 +77,12 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
           </div>
 
           <div class="form-field">
-            <label for="cf-empresa">Empresa</label>
+            <label for="cf-empresa">Tu negocio</label>
             <input
               type="text"
               id="cf-empresa"
               name="empresa"
-              placeholder="Nombre de tu empresa o negocio"
+              placeholder="Nombre de tu negocio"
               autocomplete="organization"
               required
             />
@@ -90,38 +90,25 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
         </div>
 
         <div class="form-field">
-          <label for="cf-email">Email corporativo</label>
+          <label for="cf-whatsapp">Tu WhatsApp</label>
           <input
-            type="email"
-            id="cf-email"
-            name="email"
-            placeholder="tucorreo@empresa.com"
-            autocomplete="email"
+            type="tel"
+            id="cf-whatsapp"
+            name="whatsapp"
+            placeholder="+57 3XX XXX XXXX"
+            autocomplete="tel"
             required
           />
         </div>
 
         <div class="form-field">
-          <label for="cf-necesidad">¿Qué necesitas resolver?</label>
+          <label for="cf-necesidad">¿Qué necesitas resolver? <em>(opcional)</em></label>
           <textarea
             id="cf-necesidad"
             name="necesidad"
             rows="4"
             placeholder="Cuéntanos en tus palabras: qué te falta, qué te duele, qué quieres lograr."
-            required
           ></textarea>
-        </div>
-
-        <div class="form-field">
-          <label for="cf-presupuesto">Presupuesto aproximado</label>
-          <select id="cf-presupuesto" name="presupuesto" required>
-            <option value="" disabled selected>Selecciona un rango</option>
-            <option value="Menos de $1.000.000 COP">Menos de $1.000.000 COP</option>
-            <option value="$1.000.000 – $3.000.000 COP">$1.000.000 – $3.000.000 COP</option>
-            <option value="$3.000.000 – $10.000.000 COP">$3.000.000 – $10.000.000 COP</option>
-            <option value="Más de $10.000.000 COP">Más de $10.000.000 COP</option>
-            <option value="No lo sé aún">No lo sé aún</option>
-          </select>
         </div>
 
         <label class="form-consent">
@@ -142,7 +129,7 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
         <p class="form-note">
           Al enviar se abre WhatsApp con tu mensaje ya escrito.
-          Sin registros, sin bases de datos.
+          Guardamos tu solicitud para darte seguimiento.
         </p>
       </form>
 
@@ -163,22 +150,28 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
     const nombre = String(data.get('nombre') ?? '').trim();
     const empresa = String(data.get('empresa') ?? '').trim();
-    const email = String(data.get('email') ?? '').trim();
+    const whatsapp = String(data.get('whatsapp') ?? '').trim();
     const necesidad = String(data.get('necesidad') ?? '').trim();
-    const presupuesto = String(data.get('presupuesto') ?? '').trim();
     const privacidad = Boolean(data.get('privacidad'));
 
-    if (!nombre || !empresa || !email || !necesidad || !presupuesto || !privacidad) {
+    if (!nombre || !empresa || !whatsapp || !privacidad) {
       (event.target as HTMLFormElement).reportValidity();
       return;
     }
 
+    // Guardamos cada solicitud para dar seguimiento (el formulario
+    // puede abrir WhatsApp y el mensaje no siempre se envía).
+    try {
+      const guardadas = JSON.parse(localStorage.getItem('nexus_solicitudes') || '[]');
+      guardadas.push({ nombre, empresa, whatsapp, necesidad, fecha: new Date().toISOString() });
+      localStorage.setItem('nexus_solicitudes', JSON.stringify(guardadas));
+    } catch { /* almacenamiento bloqueado: no pasa nada */ }
+
     const mensaje = [
-      `Hola NEXUS THRIVE, soy ${nombre} (${email}).`,
-      `Empresa: ${empresa}.`,
-      `Lo que necesito resolver: ${necesidad}`,
-      `Presupuesto aproximado: ${presupuesto}.`,
-    ].join('\n');
+      `Hola NEXUS THRIVE, quiero mi radiografía gratis.`,
+      `Soy ${nombre}, negocio: ${empresa}, WhatsApp: ${whatsapp}.`,
+      necesidad ? `Lo que necesito resolver: ${necesidad}` : '',
+    ].filter(Boolean).join('\n');
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
 

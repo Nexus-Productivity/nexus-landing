@@ -2,7 +2,7 @@
 const WHATSAPP = '573237453913';
 
 const waText = encodeURIComponent(
-  'Hola NEXUS THRIVE, vengo del sitio web.'
+  'Hola NEXUS THRIVE, quiero mi radiografía gratis.'
 );
 const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
@@ -48,15 +48,7 @@ const navGroups = [
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            Cartagena, Colombia
-          </span>
-          <span class="fact">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M2 12h20"></path>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            Español
+            Turbaco y Cartagena, Colombia
           </span>
         </div>
       </div>
@@ -85,8 +77,18 @@ const navGroups = [
         <span class="footer-column-title">Social</span>
         <ul role="list">
           <li>
-            <a href="https://github.com/Nexus-Productivity" target="_blank" rel="noopener">
-              GitHub
+            <a href="https://instagram.com/nexusthrive" target="_blank" rel="noopener">
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://tiktok.com/@nexusthrive" target="_blank" rel="noopener">
+              TikTok
+            </a>
+          </li>
+          <li>
+            <a href="https://x.com/nexusthrive" target="_blank" rel="noopener">
+              X
             </a>
           </li>
         </ul>
@@ -147,6 +149,8 @@ const navGroups = [
     font-family: 'Public Stunt', sans-serif;
     font-size: 2.4rem;
     line-height: 1;
+
+    align-items: center;
   }
 
   .footer-logo:hover {
@@ -154,8 +158,11 @@ const navGroups = [
   }
 
   .logo-sub {
-    position: absolute;
-    top: 2.1rem;
+    position: static;
+
+    margin-top: -0.35rem;
+
+    line-height: 1;
 
     font-family: 'Montserrat', sans-serif;
     font-size: 0.55rem;

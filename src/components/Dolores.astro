@@ -16,6 +16,10 @@ const pains = [
     title: 'Publicas cuando puedes',
     text: 'Las redes quedan para el final del día, cuando ya no queda energía. Y se nota.',
   },
+  {
+    title: 'Las plataformas se quedan con tu margen',
+    text: 'En restaurantes, hospedajes y tours, las plataformas de reserva suelen cobrar entre un 15 % y un 25 % por reserva. Es un rango reportado por el sector, no una promesa de ahorro.',
+  },
 ];
 ---
 
@@ -34,26 +38,48 @@ const pains = [
 
       <p class="dolores-lead">
         No es que te falte empeño. Es que el negocio creció
-        y las herramientas se quedaron atrás.
+        y las herramientas se quedaron atrás. Marca las que te tocan.
       </p>
     </header>
 
     <ul class="dolores-grid" role="list">
       {pains.map((pain, i) => (
         <li class="pain-card">
-          <span class="pain-number">{String(i + 1).padStart(2, '0')}</span>
+          <label class="pain-check">
+            <input type="checkbox" class="pain-checkbox" value={String(i)} />
+            <span class="pain-number">{String(i + 1).padStart(2, '0')}</span>
+          </label>
           <h3>{pain.title}</h3>
           <p>{pain.text}</p>
         </li>
       ))}
     </ul>
 
-    <p class="dolores-close">
-      Si marcaste al menos dos, esta página es para ti.
+    <p class="dolores-close" id="dolores-close">
+      Si te pasan dos o más de estas, esta página es para ti.
     </p>
 
   </div>
 </section>
+
+<script>
+  const checkboxes = document.querySelectorAll<HTMLInputElement>('.pain-checkbox');
+  const close = document.getElementById('dolores-close');
+
+  function updateClose() {
+    const count = Array.from(checkboxes).filter((c) => c.checked).length;
+    if (!close) return;
+    if (count === 0) {
+      close.textContent = 'Si te pasan dos o más de estas, esta página es para ti.';
+    } else if (count === 1) {
+      close.textContent = 'Marcaste 1. Si te pasan dos o más, esta página es para ti.';
+    } else {
+      close.textContent = `Marcaste ${count}. Esta página es para ti.`;
+    }
+  }
+
+  checkboxes.forEach((c) => c.addEventListener('change', updateClose));
+</script>
 
 <style>
   .dolores {
@@ -184,10 +210,27 @@ const pains = [
     opacity: 1;
   }
 
+  .pain-check {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    margin-bottom: 0.9rem;
+  }
+
+  .pain-checkbox {
+    width: 18px;
+    height: 18px;
+
+    accent-color: var(--accent-default);
+
+    cursor: pointer;
+  }
+
   .pain-number {
     display: block;
 
-    margin-bottom: 0.9rem;
+    margin-bottom: 0;
 
     font-family: 'Roboto Mono', monospace;
     font-size: 0.72rem;

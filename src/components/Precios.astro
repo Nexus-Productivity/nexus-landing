@@ -2,7 +2,7 @@
 const WHATSAPP = '573237453913';
 
 const waText = encodeURIComponent(
-  'Hola NEXUS THRIVE, quiero pedir una propuesta con precio cerrado para mi negocio.'
+  'Hola NEXUS THRIVE, quiero mi radiografía gratis.'
 );
 const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
@@ -10,12 +10,12 @@ const plans = [
   {
     n: '01',
     name: 'Visible',
-    price: 'Desde $590.000',
+    price: 'Desde $900.000',
     unit: 'COP · pago único',
     description: 'Tu negocio en internet con presencia profesional y todo a tu nombre.',
     includes: [
       'Sitio web de hasta 4 secciones',
-      'Dominio .com a tu nombre (1 año)',
+      'Dominio .com.co o .com a tu nombre (1er año)',
       'Ficha de Google Maps configurada',
       'Botón directo a WhatsApp',
       'Textos claros, escritos contigo',
@@ -26,7 +26,7 @@ const plans = [
   {
     n: '02',
     name: 'Conectado',
-    price: 'Desde $1.190.000',
+    price: 'Desde $1.700.000',
     unit: 'COP · pago único',
     description: 'Todo lo de Visible, más tus canales trabajando juntos.',
     includes: [
@@ -43,7 +43,7 @@ const plans = [
     n: '03',
     name: 'Ordenado',
     price: 'Próximamente',
-    unit: 'Caja Menor · lista de espera abierta',
+    unit: 'Lista de espera abierta',
     description: 'El control de tu dinero sin hojas de cálculo.',
     includes: [
       'Registro simple de ingresos y gastos',
@@ -59,7 +59,7 @@ const extras = [
   {
     name: 'Cuidado',
     detail: 'Opcional, mensual',
-    text: 'Nosotros lo mantenemos: cambios menores, actualizaciones y monitoreo. Desde $90.000/mes.',
+    text: 'Nosotros lo mantenemos: cambios menores, actualizaciones y monitoreo. Desde $90.000/mes. Incluye hasta 4 cambios menores al mes, actualizaciones y monitoreo.',
   },
   {
     name: 'Redes',
@@ -87,6 +87,13 @@ const extras = [
         Cada proyecto se entrega con una propuesta escrita
         y <strong>precio cerrado</strong>: lo que dice ahí, es lo que pagas.
       </p>
+
+      <p class="precios-nota">
+        Precios en pesos colombianos (COP). Plazo típico: 2 a 3 semanas
+        desde que tienes tu información lista. El precio no incluye IVA:
+        cuando corresponda, se desglosa aparte en la propuesta. No incluye: pauta en redes,
+        fotografía profesional ni creación de contenido publicitario.
+      </p>
     </header>
 
     <div class="precios-grid">
@@ -98,7 +105,7 @@ const extras = [
           ]}
         >
           {plan.featured && (
-            <span class="plan-flag">El más pedido</span>
+            <span class="plan-flag">Para empezar</span>
           )}
 
           <div class="plan-head">
@@ -112,6 +119,10 @@ const extras = [
           </div>
 
           <p class="plan-description">{plan.description}</p>
+
+          {!plan.soon && <p class="plan-plazo">Plazo: 2–3 semanas</p>}
+
+          {plan.soon && <p class="plan-plazo">Lista de espera abierta</p>}
 
           <ul class="plan-includes" role="list">
             {plan.includes.map((item) => (
@@ -524,7 +535,29 @@ const extras = [
   /* ---------- Responsive ---------- */
 
   @media (max-width: 960px) {
-    .precios-grid {
+  .precios-nota {
+    margin: 0.9rem 0 0;
+
+    max-width: 620px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
+
+    color: var(--text-secondary);
+  }
+
+  .plan-plazo {
+    margin: 0 0 1rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .precios-grid {
       grid-template-columns: 1fr;
       max-width: 520px;
       margin: 0 auto;

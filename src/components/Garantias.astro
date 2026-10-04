@@ -2,7 +2,7 @@
 const garantias = [
   {
     title: 'Todo por escrito',
-    text: 'Alcance, tiempos y precio en una propuesta firmada antes de empezar. Lo acordado, se cumple.',
+    text: 'Alcance, tiempos y precio en la propuesta antes de empezar. Revisas el sitio antes de pagar el 50 % final; si no queda como lo acordamos, lo corregimos sin costo.',
     icon: 'document',
   },
   {
@@ -79,15 +79,10 @@ const icons: Record<string, string> = {
         <h3>Seguridad por diseño</h3>
       </div>
 
-      <ul class="seguridad-list" role="list">
-        <li>Principio de mínimo privilegio</li>
-        <li>Separación de entornos</li>
-        <li>Gestión segura de secretos</li>
-        <li>Backups y recuperación</li>
-        <li>Monitorización continua</li>
-        <li>Control de accesos</li>
-        <li>HTTPS en todo el sitio</li>
-      </ul>
+      <p class="seguridad-text">
+        Tu sitio con HTTPS, respaldos periódicos y accesos solo tuyos.
+        Nada de tus datos sin permiso.
+      </p>
     </div>
 
   </div>
@@ -298,41 +293,14 @@ const icons: Record<string, string> = {
     color: var(--text-primary);
   }
 
-  .seguridad-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.4rem;
-
+  .seguridad-text {
     margin: 0;
-    padding: 0;
-
-    list-style: none;
-  }
-
-  .seguridad-list li {
-    position: relative;
-
-    padding-left: 1rem;
 
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
 
     color: var(--text-secondary);
-  }
-
-  .seguridad-list li::before {
-    content: '';
-
-    position: absolute;
-    left: 0;
-    top: 0.42rem;
-
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: var(--accent-default);
   }
 
   /* ---------- Responsive ---------- */

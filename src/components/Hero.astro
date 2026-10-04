@@ -6,40 +6,20 @@ import grainientPosterUrl from '../assets/grainient-white-poster.jpg?url';
 const WHATSAPP = '573237453913';
 
 const waText = encodeURIComponent(
-  'Hola NEXUS THRIVE, quiero saber cómo pueden ayudar a mi negocio.'
+  'Hola NEXUS THRIVE, quiero mi radiografía gratis.'
 );
 
 const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
-const steps = [
-  {
-    n: '01',
-    name: 'Visible',
-    text: 'Presencia digital clara y profesional',
-    soon: false,
-  },
-  {
-    n: '02',
-    name: 'Conectado',
-    text: 'Clientes y canales trabajando juntos',
-    soon: false,
-  },
-  {
-    n: '03',
-    name: 'Ordenado',
-    text: 'Una operación que puedas entender',
-    soon: true,
-  },
-];
 
 const trust = [
-  'Método claro',
+  'Sitio en producción: casapozonmuseo.org',
   'Todo por escrito',
-  'Pagos con comprobante',
+  'Propuesta sin compromiso',
 ];
 ---
 
-<section class="hero">
+<section class="hero" style={`background-image: url(${grainientPosterUrl})`}>
 
   <!-- =====================================================
        BACKGROUND
@@ -85,19 +65,20 @@ const trust = [
         <span class="eyebrow-line"></span>
         NEXUS THRIVE
         <span class="eyebrow-separator">/</span>
-        Business systems
+        Turbaco y Cartagena
       </div>
 
 
       <h1 class="hero-title">
-        Tu negocio,
-        <span>visible y conectado.</span>
+        Que te encuentren,
+        <span>que te escriban, que sepas cuánto ganas.</span>
       </h1>
 
 
       <p class="hero-description">
-        Diseñamos sistemas digitales para que tu negocio
-        sea más fácil de encontrar, entender y operar.
+        Le devolvemos a tu negocio tiempo, orden y claridad:
+        un sitio que trabaja por ti y un método claro para
+        que sepas qué pasa con tu operación.
       </p>
 
 
@@ -110,7 +91,7 @@ const trust = [
           rel="noopener"
           data-cta="whatsapp-hero"
         >
-          <span>Hablemos de tu negocio</span>
+          <span>Pedir mi radiografía gratis</span>
 
           <svg
             width="17"
@@ -148,77 +129,6 @@ const trust = [
     </div>
 
 
-    <!-- ===================================================
-         ROUTE CARD
-         =================================================== -->
-
-    <aside class="route-card" aria-label="Ruta de crecimiento">
-
-      <div class="route-header">
-
-        <div>
-          <span class="route-label">NEXUS THRIVE</span>
-          <h2>Tu ruta digital</h2>
-        </div>
-
-        <span class="route-status">
-          01 — 03
-        </span>
-
-      </div>
-
-
-      <div class="route-list">
-
-        {steps.map((step, index) => (
-          <div
-            class:list={[
-              'route-step',
-              { 'is-soon': step.soon },
-            ]}
-          >
-
-            <div class="route-index">
-              {step.n}
-            </div>
-
-
-            <div class="route-info">
-
-              <div class="route-name-row">
-
-                <h3>{step.name}</h3>
-
-                {step.soon && (
-                  <span class="route-badge">
-                    Próximamente
-                  </span>
-                )}
-
-              </div>
-
-              <p>{step.text}</p>
-
-            </div>
-
-
-            {index < steps.length - 1 && (
-              <span class="route-line"></span>
-            )}
-
-          </div>
-        ))}
-
-      </div>
-
-
-      <div class="route-footer">
-        <span class="footer-indicator"></span>
-
-        Empieza donde más lo necesitas.
-      </div>
-
-    </aside>
 
   </div>
 
@@ -244,6 +154,9 @@ const trust = [
 
   .hero {
     position: relative;
+
+    background-size: cover;
+    background-position: center;
 
     min-height: 100svh;
 
@@ -343,13 +256,13 @@ const trust = [
 
     display: grid;
 
-    grid-template-columns:
-      minmax(0, 1.1fr)
-      minmax(360px, 0.65fr);
+    grid-template-columns: minmax(0, 760px);
 
     align-items: center;
 
-    gap: clamp(3rem, 8vw, 9rem);
+    justify-content: center;
+
+    text-align: center;
   }
 
 
@@ -358,7 +271,11 @@ const trust = [
      ========================================================= */
 
   .hero-content {
-    max-width: 720px;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    text-align: center;
   }
 
 
@@ -369,6 +286,7 @@ const trust = [
   .hero-eyebrow {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     gap: 0.6rem;
 
@@ -410,9 +328,9 @@ const trust = [
     font-family: 'Space Grotesk', sans-serif;
 
     font-size: clamp(
-      3.4rem,
-      6.5vw,
-      6.7rem
+      2.6rem,
+      5vw,
+      4.4rem
     );
 
     font-weight: 500;
@@ -444,9 +362,9 @@ const trust = [
      ========================================================= */
 
   .hero-description {
-    max-width: 570px;
+    max-width: 600px;
 
-    margin: 1.8rem 0 2.3rem;
+    margin: 1.6rem auto 2.2rem;
 
     font-family: 'Inter', sans-serif;
 
@@ -469,6 +387,7 @@ const trust = [
   .hero-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     flex-wrap: wrap;
 
@@ -553,6 +472,7 @@ const trust = [
   .hero-trust {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     flex-wrap: wrap;
 
@@ -589,285 +509,22 @@ const trust = [
 
 
   /* =========================================================
-     ROUTE CARD
-     ========================================================= */
-
-  .route-card {
-    width: 100%;
-    max-width: 430px;
-
-    justify-self: end;
-
-    padding: 1.5rem;
-
-    border: 1px solid
-      rgba(212, 175, 55, 0.28);
-
-    border-radius: 14px;
-
-    background:
-      color-mix(
-        in srgb,
-        var(--bg-surface, #151515) 68%,
-        transparent
-      );
-
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-
-    box-shadow:
-      0 30px 80px rgba(0, 0, 0, 0.25);
-  }
-
-
-  /* =========================================================
-     ROUTE HEADER
-     ========================================================= */
-
-  .route-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    padding-bottom: 1.3rem;
-
-    border-bottom: 1px solid var(--border-default);
-  }
-
-  .route-label {
-    display: block;
-
-    margin-bottom: 0.4rem;
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.62rem;
-    font-weight: 600;
-
-    letter-spacing: 0.15em;
-
-    color: var(--accent-text, var(--accent-default));
-  }
-
-  .route-header h2 {
-    margin: 0;
-
-    font-family: 'Space Grotesk', sans-serif;
-
-    font-size: 1.25rem;
-    font-weight: 600;
-
-    color: var(--text-primary);
-  }
-
-  .route-status {
-    padding-top: 0.15rem;
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.65rem;
-    font-weight: 600;
-
-    letter-spacing: 0.08em;
-
-    color: var(--text-muted);
-  }
-
-
-  /* =========================================================
-     ROUTE STEPS
-     ========================================================= */
-
-  .route-list {
-    padding: 1.4rem 0 0;
-  }
-
-  .route-step {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns: 42px 1fr;
-
-    gap: 0.85rem;
-
-    padding-bottom: 1.35rem;
-  }
-
-  .route-step:last-child {
-    padding-bottom: 0.2rem;
-  }
-
-
-  .route-index {
-    position: relative;
-    z-index: 2;
-
-    display: grid;
-    place-items: center;
-
-    width: 42px;
-    height: 42px;
-
-    border: 1px solid var(--accent-default);
-
-    border-radius: 50%;
-
-    background:
-      var(--accent-default);
-
-    color: #050505;
-
-    font-family: 'Space Grotesk', sans-serif;
-
-    font-size: 0.72rem;
-    font-weight: 700;
-  }
-
-
-  .route-line {
-    position: absolute;
-
-    left: 20px;
-
-    top: 42px;
-    bottom: 0;
-
-    width: 1px;
-
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(212, 175, 55, 0.4),
-        rgba(212, 175, 55, 0.08)
-      );
-  }
-
-
-  .route-info {
-    padding-top: 0.1rem;
-  }
-
-  .route-name-row {
-    display: flex;
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 0.55rem;
-  }
-
-  .route-name-row h3 {
-    margin: 0;
-
-    font-family: 'Space Grotesk', sans-serif;
-
-    font-size: 1rem;
-    font-weight: 600;
-
-    color: var(--text-primary);
-  }
-
-  .route-info p {
-    margin: 0.3rem 0 0;
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.78rem;
-
-    line-height: 1.5;
-
-    color: var(--text-secondary);
-  }
-
-
-  /* =========================================================
-     UPCOMING
-     ========================================================= */
-
-  .route-step.is-soon .route-index {
-    background: transparent;
-
-    border-style: dashed;
-
-    border-color: var(--text-muted);
-
-    color: var(--text-muted);
-  }
-
-  .route-step.is-soon .route-name-row h3 {
-    color: var(--text-secondary);
-  }
-
-  .route-badge {
-    padding: 3px 7px;
-
-    border: 1px dashed var(--text-muted);
-
-    border-radius: 999px;
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.55rem;
-    font-weight: 600;
-
-    letter-spacing: 0.06em;
-
-    text-transform: uppercase;
-
-    color: var(--text-muted);
-  }
-
-
-  /* =========================================================
-     ROUTE FOOTER
-     ========================================================= */
-
-  .route-footer {
-    display: flex;
-    align-items: center;
-
-    gap: 0.5rem;
-
-    margin-top: 1.2rem;
-    padding-top: 1rem;
-
-    border-top: 1px solid var(--border-default);
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.7rem;
-
-    color: var(--text-muted);
-  }
-
-  .footer-indicator {
-    width: 6px;
-    height: 6px;
-
-    border-radius: 50%;
-
-    background: var(--accent-default);
-
-    box-shadow:
-      0 0 10px var(--accent-default);
-  }
-
-
-  /* =========================================================
      SCROLL
      ========================================================= */
 
   .hero-scroll {
     position: absolute;
 
-    right: var(--gutter);
-    bottom: 2rem;
+    left: 50%;
+    bottom: 1.6rem;
+
+    transform: translateX(-50%);
 
     display: flex;
     align-items: center;
+    flex-direction: column;
 
-    gap: 0.7rem;
+    gap: 0.55rem;
 
     font-family: 'Inter', sans-serif;
 
@@ -879,13 +536,13 @@ const trust = [
     text-transform: uppercase;
 
     color: var(--text-muted);
-
-    writing-mode: vertical-rl;
   }
 
   .scroll-line {
     width: 1px;
     height: 42px;
+
+    transform-origin: top center;
 
     background:
       linear-gradient(
@@ -893,6 +550,23 @@ const trust = [
         var(--accent-default),
         transparent
       );
+
+    animation: scroll-pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    40% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleY(1) translateY(8px);
+      opacity: 0;
+    }
   }
 
 
@@ -904,6 +578,10 @@ const trust = [
 
     .hero-video {
       display: none;
+    }
+
+    .scroll-line {
+      animation: none;
     }
 
     .hero-primary,
@@ -973,11 +651,6 @@ const trust = [
       justify-content: center;
     }
 
-    .route-card {
-      justify-self: center;
-
-      max-width: 520px;
-    }
 
     .hero-scroll {
       display: none;
@@ -1053,9 +726,6 @@ const trust = [
       gap: 0.65rem;
     }
 
-    .route-card {
-      padding: 1.2rem;
-    }
   }
 
 </style>

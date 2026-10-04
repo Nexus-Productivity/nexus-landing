@@ -18,7 +18,18 @@ const cases = [
       'Contacto directo: formulario, botón de WhatsApp y ficha de Google Maps',
     ],
     result:
-      'Hoy todo el patrimonio del Pozón está organizado en un solo lugar: los documentos, la galería y las visitas se gestionan desde la web.',
+      'Hoy todo el patrimonio del Pozón está organizado en un solo lugar: los documentos, la galería y las visitas se coordinan desde la web.',
+    quote:
+      'Antes todo vivía en carpetas y chats. Ahora lo gestionamos desde un solo sitio.',
+    quoteAuthor: 'Equipo de Casa Museo El Pozón',
+    stat: {
+      value: '40+',
+      label: 'documentos del archivo organizados y descargables',
+    },
+    beforeAfter: {
+      before: 'Documentos en carpetas, fotos sin orden, visitas solo por WhatsApp.',
+      after: 'Un sitio con archivo, galería y visitas coordinadas desde la web.',
+    },
   },
 ];
 ---
@@ -50,7 +61,7 @@ const cases = [
           <div class="case-visual">
             <img
               src={item.image}
-              alt={`Logo de ${item.name}`}
+              alt={`Captura del sitio de ${item.name}`}
               loading="lazy"
             />
 
@@ -81,6 +92,27 @@ const cases = [
             </div>
 
             <p class="case-result">{item.result}</p>
+
+            <blockquote class="case-quote">
+              <p>“{item.quote}”</p>
+              <cite>— {item.quoteAuthor}</cite>
+            </blockquote>
+
+            <div class="case-stat">
+              <strong>{item.stat.value}</strong>
+              <span>{item.stat.label}</span>
+            </div>
+
+            <div class="case-ba">
+              <div>
+                <span class="ba-label">Antes</span>
+                <p>{item.beforeAfter.before}</p>
+              </div>
+              <div>
+                <span class="ba-label">Después</span>
+                <p>{item.beforeAfter.after}</p>
+              </div>
+            </div>
 
             <a
               href={item.url}
@@ -443,6 +475,107 @@ const cases = [
 
   .case-link:hover svg {
     transform: translate(2px, -2px);
+  }
+
+
+  /* ---------- Cita, cifra y antes/después ---------- */
+
+  .case-quote {
+    margin: 1.2rem 0 0;
+    padding: 1rem 1.2rem;
+
+    border-left: 3px solid var(--accent-default);
+
+    background: var(--bg-surface, rgba(255, 255, 255, 0.02));
+  }
+
+  .case-quote p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.6;
+
+    color: var(--text-primary);
+  }
+
+  .case-quote cite {
+    display: block;
+    margin-top: 0.5rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-style: normal;
+
+    color: var(--text-muted);
+  }
+
+  .case-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+
+    margin: 1.2rem 0 0;
+  }
+
+  .case-stat strong {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .case-stat span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+
+    color: var(--text-secondary);
+  }
+
+  .case-ba {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    margin: 1.2rem 0 0;
+  }
+
+  .case-ba > div {
+    padding: 0.9rem 1rem;
+
+    border: 1px solid var(--border-default);
+    border-radius: 10px;
+  }
+
+  .ba-label {
+    display: block;
+    margin-bottom: 0.35rem;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    color: var(--accent-text, var(--accent-default));
+  }
+
+  .case-ba p {
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.55;
+
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    .case-ba {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ---------- Responsive ---------- */
