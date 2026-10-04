@@ -13,9 +13,9 @@ const waHref = `https://wa.me/${WHATSAPP}?text=${waText}`;
 
 
 const trust = [
-  'Sitio en producción: casapozonmuseo.org',
-  'Todo por escrito',
-  'Propuesta sin compromiso',
+  { text: 'Sitio en producción: casapozonmuseo.org', href: 'https://casapozonmuseo.org' },
+  { text: 'Todo por escrito' },
+  { text: 'Propuesta sin compromiso' },
 ];
 ---
 
@@ -71,14 +71,14 @@ const trust = [
 
       <h1 class="hero-title">
         Que te encuentren,
-        <span>que te escriban, que sepas cuánto ganas.</span>
+        <span>que te escriban.</span>
       </h1>
 
 
       <p class="hero-description">
-        Le devolvemos a tu negocio tiempo, orden y claridad:
-        un sitio que trabaja por ti y un método claro para
-        que sepas qué pasa con tu operación.
+        Te devolvemos tiempo, orden y claridad: un sitio que
+        trabaja por ti y un método claro para que sepas qué
+        pasa con tu operación.
       </p>
 
 
@@ -121,7 +121,11 @@ const trust = [
         {trust.map((item) => (
           <li>
             <span class="trust-dot"></span>
-            {item}
+            {item.href ? (
+              <a href={item.href} target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-underline-offset: 3px;">{item.text}</a>
+            ) : (
+              item.text
+            )}
           </li>
         ))}
       </ul>

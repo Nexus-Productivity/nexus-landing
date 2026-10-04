@@ -49,7 +49,7 @@ const cases = [
       </h2>
 
       <p class="trabajo-lead">
-        Esto es lo que hicimos para un negocio como el tuyo.
+        Esto es lo que hicimos para un negocio local.
         Puedes verlo funcionando, no solo en capturas.
       </p>
     </header>
@@ -93,26 +93,6 @@ const cases = [
 
             <p class="case-result">{item.result}</p>
 
-            <blockquote class="case-quote">
-              <p>“{item.quote}”</p>
-              <cite>— {item.quoteAuthor}</cite>
-            </blockquote>
-
-            <div class="case-stat">
-              <strong>{item.stat.value}</strong>
-              <span>{item.stat.label}</span>
-            </div>
-
-            <div class="case-ba">
-              <div>
-                <span class="ba-label">Antes</span>
-                <p>{item.beforeAfter.before}</p>
-              </div>
-              <div>
-                <span class="ba-label">Después</span>
-                <p>{item.beforeAfter.after}</p>
-              </div>
-            </div>
 
             <a
               href={item.url}
